@@ -116,7 +116,7 @@
 		};
 
 		$rootScope.$on('$routeChangeSuccess', function(args, newLocation, oldLocation) {
-			if (newLocation && ((newLocation.loadedTemplateUrl.indexOf('Champions/') != 0) || (newLocation.loadedTemplateUrl == 'Champions/ChampionList.html'))) {
+			if (newLocation && (newLocation.loadedTemplateUrl) && ((newLocation.loadedTemplateUrl.indexOf('Champions/') != 0) || (newLocation.loadedTemplateUrl == 'Champions/ChampionList.html'))) {
 				self.activeChampion = 0;
 				self.activeChampionSkinIndex = -1;
 				self.activeChampionSplashImageUrl = null;
