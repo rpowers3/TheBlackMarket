@@ -76,7 +76,7 @@ namespace TheBlackMarket {
 
 			var fileServerOptions = new FileServerOptions() {
 				FileProvider = fileProviderList,
-				EnableDirectoryBrowsing = true,
+				EnableDirectoryBrowsing = (Configuration.Get("enableDirectoryBrowsing").ToLower().Equals("true")),
 				EnableDefaultFiles = true,
 			};
 

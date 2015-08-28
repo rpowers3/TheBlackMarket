@@ -1,10 +1,12 @@
 ﻿{
+	"enableDirectoryBrowsing":  true,
 	"jsonDataPath": "G:\\Projects\\TheBlackMarket\\Data\\Json",
 	"videoPath": "G:\\Projects\\TheBlackMarket\\Data\\Videos",
 	"soundsPath": "G:\\Projects\\TheBlackMarket\\Data\\Sounds",
 	"musicPath": "G:\\Projects\\TheBlackMarket\\Data\\Music",
 	"imagesPath": "G:\\Projects\\TheBlackMarket\\Data\\Images"
 
+	//"enableDirectoryBrowsing":  false,
 	//"jsonDataPath": "/RiotApiChallenge/Json",
 	//"videoPath": "/RiotApiChallenge/Videos",
 	//"soundsPath": "/RiotApiChallenge2/Sounds",
