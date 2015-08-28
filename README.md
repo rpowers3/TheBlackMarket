@@ -8,7 +8,7 @@ Data is kind of awesome to look at and it becomes infinitely easier to find patt
 
 ## Design ##
 
-Since this project was operating on static data, there was not really need need to use the majority of the Riot endpoints, mainly the Match endpoint to obtain the data and then to process the match data. Because no new matches were being made available the decission was made to preprocess all of the data and then bake the results into permutations of JSON data files to make requesting these files as fast as possible. This was preferrable to hitting a database on the back end for each request and it turns the web server into just a file server.
+Since this project was operating on static data, there was not really a need to use the majority of the Riot endpoints, mainly the Match endpoint was used to obtain the data and then to process the match data. Because no new matches were being made available the decission was made to preprocess all of the data and then bake the results into permutations of JSON data files to make requesting these files as fast as possible. This was preferrable to hitting a database on the back end for each request and it turns the web server into just a file server.
 
 The majority of the application logic is split between the tools that fetched and preprocessed the data into data files and the website that is a single page app to view the data.
 
@@ -24,7 +24,7 @@ The data was processed using the following process:
 8. The HeatMapBatchBuilder was used with the HeatMapVideoBuilder (Poorly named, they're death maps right now but they can do heat maps with minimal changes) to generate death and kill maps from the DeathLocation* KillLocation* data.
 9. All of this data is raw files for use by the site now.
 
-The website is a simple ASP.NET vNext server configured with a few file providers to access its wwwroot and the Json, Sounds, Music, and Video data. These locations are configured in the TheBlackMarket.json file.
+The website is a simple ASP.NET vNext server configured with a few file providers to access its wwwroot and the Json, Sounds, Music, and Video data. These locations are configured in the TheBlackMarket.json file. Again because this was operating on static data that was not changing, the match version was already known ahead of time, 5.15.1, so not even the static data endpoint was needed. The old JSONP static data was sufficient for everything the sight needed to do.
 
 ## Technologies Used ##
 
