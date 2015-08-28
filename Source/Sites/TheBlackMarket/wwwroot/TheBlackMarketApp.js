@@ -23,6 +23,11 @@
 			.setPrefix('TheBlackMarket')
 			.setStorageType('localStorage')
 			.setNotify(true, true);
+
+		$routeProvider
+			.when('/', {
+				templateUrl: 'Home.html',
+			});
 	}]);
 
 	TheBlackMarketAppModule.filter('percentage', ['$filter', function($filter) {

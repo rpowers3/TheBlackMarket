@@ -2,10 +2,12 @@
 	"jsonDataPath": "G:\\Projects\\TheBlackMarket\\Data\\Json",
 	"videoPath": "G:\\Projects\\TheBlackMarket\\Data\\Videos",
 	"soundsPath": "G:\\Projects\\TheBlackMarket\\Data\\Sounds",
-	"musicPath":  "G:\\Projects\\TheBlackMarket\\Data\\Music"
+	"musicPath": "G:\\Projects\\TheBlackMarket\\Data\\Music",
+	"imagesPath": "G:\\Projects\\TheBlackMarket\\Data\\Images"
 
 	//"jsonDataPath": "/RiotApiChallenge/Json",
 	//"videoPath": "/RiotApiChallenge/Videos",
-	//"soundsPath": "/RiotApiChallenge/Sounds",
-	//"musicPath":  "/RiotApiChallenge/Music",
+	//"soundsPath": "/RiotApiChallenge2/Sounds",
+	//"musicPath":  "/RiotApiChallenge2/Music",
+	//"imagesPath":  "/RiotApiChallenge2/Images"
 }

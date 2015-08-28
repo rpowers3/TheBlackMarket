@@ -6,12 +6,14 @@
 			</div>
 
 			<div class="brawlers-section-content brawlers-section-content-brawlers">
-				<a ng-repeat="brawler in brawlers" ng-href="{{getItemUrl(brawler)}}" class="brawler-tile">
-					<img class="brawler-image" ng-src=" {{getItemImageUrl(brawler)}}" />
-					<div class="brawler-info">
-						<div class="brawler-name">{{brawler.name}}</div>
-					</div>
-				</a>
+				<div class="brawlers-section-content-brawlers-list">
+					<a ng-repeat="brawler in brawlers" ng-href="{{getItemUrl(brawler)}}" class="brawler-tile">
+						<img class="brawler-image" ng-src=" {{getItemImageUrl(brawler)}}" />
+						<div class="brawler-info">
+							<div class="brawler-name">{{brawler.name}}</div>
+						</div>
+					</a>
+				</div>
 
 				<div class="brawlers-composition-link">
 					<a ng-href="{{brawlerCompositionsLink}}">

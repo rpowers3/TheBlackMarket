@@ -61,15 +61,22 @@ namespace TheBlackMarket {
 				new RerootedFileProvider(
 					new PhysicalFileProvider(soundsPath),
 					"Sounds"));
+
 			var musicPath = Configuration.Get("musicPath");
 			fileProviderList.Add(
 				new RerootedFileProvider(
 					new PhysicalFileProvider(musicPath),
 					"Music"));
 
+			var imagesPath = Configuration.Get("imagesPath");
+			fileProviderList.Add(
+				new RerootedFileProvider(
+					new PhysicalFileProvider(imagesPath),
+					"Images"));
+
 			var fileServerOptions = new FileServerOptions() {
 				FileProvider = fileProviderList,
-				//EnableDirectoryBrowsing = true,
+				EnableDirectoryBrowsing = true,
 				EnableDefaultFiles = true,
 			};
 
