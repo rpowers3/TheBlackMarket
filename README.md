@@ -30,11 +30,11 @@ The website is a simple ASP.NET vNext server configured with a few file provider
 
 Thanks to the following 3rd party projects that were used for the tools and the site.
 
-[Aforge](https://code.google.com/p/aforge/)
-[Angular](https://angularjs.org/)
-[D3](http://d3js.org/)
-[Howler](https://github.com/goldfire/howler.js/)
-[MongoDB](https://www.mongodb.com/)
-[NVD3](http://nvd3.org/)
-[SASS](http://sass-lang.com/)
-[Visual Studio 2015 Community Edition](https://www.visualstudio.com/en-us/products/vs-2015-product-editions.aspx)
+``` [Aforge](https://code.google.com/p/aforge/)
+``` [Angular](https://angularjs.org/)
+``` [D3](http://d3js.org/)
+``` [Howler](https://github.com/goldfire/howler.js/)
+``` [MongoDB](https://www.mongodb.com/)
+``` [NVD3](http://nvd3.org/)
+``` [SASS](http://sass-lang.com/)
+``` [Visual Studio 2015 Community Edition](https://www.visualstudio.com/en-us/products/vs-2015-product-editions.aspx)
