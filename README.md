@@ -14,15 +14,15 @@ The majority of the application logic is split between the tools that fetched an
 
 The data was processed using the following process:
 
-* The data was downloaded using the MatchDownloader tool using the list of match Ids.
-* A MongoDB was set up and a database named 'TheBlackMarket' was created.
-* All of this data was then imported into a Mongo DB using MongoImport into 'TheBlackMarket'.
-* The PrepareMatchEvents and PrepareParticipants scripts were run on the database to flatten and split the match data.
-* The CalculateChampionStatsScriptGenerator was used to generate the ChampionStats scripts (due to the number of fields to prevent errors.)
-* The RunGenerationScripts powershell script then executed EVERY Generate* script in the Scripts folder.
-* MongoExtract was used to export all of the generated collections to JSON files o disk. (~2 million)
-* The HeatMapBatchBuilder was used with the HeatMapVideoBuilder (Poorly named, they're death maps right now but they can do heat maps with minimal changes) to generate death and kill maps from the DeathLocation* KillLocation* data.
-* All of this data is raw files for use by the site now.
+1. The data was downloaded using the MatchDownloader tool using the list of match Ids.
+2. A MongoDB was set up and a database named 'TheBlackMarket' was created.
+3. All of this data was then imported into a Mongo DB using MongoImport into 'TheBlackMarket'.
+4. The PrepareMatchEvents and PrepareParticipants scripts were run on the database to flatten and split the match data.
+5. The CalculateChampionStatsScriptGenerator was used to generate the ChampionStats scripts (due to the number of fields to prevent errors.)
+6. The RunGenerationScripts powershell script then executed EVERY Generate* script in the Scripts folder.
+7. MongoExtract was used to export all of the generated collections to JSON files o disk. (~2 million)
+8. The HeatMapBatchBuilder was used with the HeatMapVideoBuilder (Poorly named, they're death maps right now but they can do heat maps with minimal changes) to generate death and kill maps from the DeathLocation* KillLocation* data.
+9. All of this data is raw files for use by the site now.
 
 The website is a simple ASP.NET vNext server configured with a few file providers to access its wwwroot and the Json, Sounds, Music, and Video data. These locations are configured in the TheBlackMarket.json file.
 
@@ -30,11 +30,11 @@ The website is a simple ASP.NET vNext server configured with a few file provider
 
 Thanks to the following 3rd party projects that were used for the tools and the site.
 
-``` [Aforge](https://code.google.com/p/aforge/)
-``` [Angular](https://angularjs.org/)
-``` [D3](http://d3js.org/)
-``` [Howler](https://github.com/goldfire/howler.js/)
-``` [MongoDB](https://www.mongodb.com/)
-``` [NVD3](http://nvd3.org/)
-``` [SASS](http://sass-lang.com/)
-``` [Visual Studio 2015 Community Edition](https://www.visualstudio.com/en-us/products/vs-2015-product-editions.aspx)
+* [Aforge](https://code.google.com/p/aforge/)
+* [Angular](https://angularjs.org/)
+* [D3](http://d3js.org/)
+* [Howler](https://github.com/goldfire/howler.js/)
+* [MongoDB](https://www.mongodb.com/)
+* [NVD3](http://nvd3.org/)
+* [SASS](http://sass-lang.com/)
+* [Visual Studio 2015 Community Edition](https://www.visualstudio.com/en-us/products/vs-2015-product-editions.aspx)
