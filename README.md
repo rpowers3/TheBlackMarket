@@ -32,7 +32,7 @@ If you are going to attempt to run the site, you will need to update the applica
   <system.webServer>
 			<modules>
 ```
-
+to
 ```xml
   <system.webServer>
 			<modules runAllManagedModulesForAllRequests="true">
