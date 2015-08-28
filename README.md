@@ -26,6 +26,18 @@ The data was processed using the following process:
 
 The website is a simple ASP.NET vNext server configured with a few file providers to access its wwwroot and the Json, Sounds, Music, and Video data. These locations are configured in the TheBlackMarket.json file. Again because this was operating on static data that was not changing, the match version was already known ahead of time, 5.15.1, so not even the static data endpoint was needed. The old JSONP static data was sufficient for everything the sight needed to do.
 
+If you are going to attempt to run the site, you will need to update the applicationhost.config file in the Source\.vs folder that is created. Make the following change:
+
+```xml
+  <system.webServer>
+			<modules>
+```
+
+```xml
+  <system.webServer>
+			<modules runAllManagedModulesForAllRequests="true">
+```
+
 ## Technologies Used ##
 
 Thanks to the following 3rd party projects that were used for the tools and the site.
