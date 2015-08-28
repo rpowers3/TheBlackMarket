@@ -1,0 +1,58 @@
+﻿<div class="item-info-container">
+	<div class="item-info">
+		<div class="item-header">
+			<img class="item-image" ng-src="{{itemImageUrl}}" />
+
+			<div class="item-header-description">
+				<div class="item-name">{{item.name}}</div>
+				<div class="item-cost  item-cost-gold" ng-show="item.gold.total">
+					<img src="/Gold.png" />
+					<span>{{item.gold.total}}</span>
+				</div>
+				<div class="item-cost item-cost-krakens" ng-show="item.krakens">
+					<img src="/Kraken.png" />
+					<span>{{item.krakens}}</span>
+				</div>
+				<div class="item-description riot-styles" ng-bind-html="trustedDescription"></div>
+			</div>
+		</div>
+
+		<div class="item-charts">
+			<div class="item-chart-header">
+				Wins by real world time
+			</div>
+
+			<div class="item-chart">
+				<nvd3-stacked-area-chart data="winRatesOverTimeChart"
+										 color="winRateChartColors"
+										 showXAxis="true"
+										 showYAxis="true"
+										 showControls="true"
+										 tooltips="true"
+										 interactive="true"
+										 useInteractionGuideline="true"
+										 xAxisTickFormat="xAxisTickFormat()">
+					<svg></svg>
+				</nvd3-stacked-area-chart>
+			</div>
+
+			<div class="item-chart-header">
+				Wins by purchased in game time (minutes)
+			</div>
+
+			<div class="item-chart">
+				<nvd3-stacked-area-chart data="winRatesPerMinuteChart"
+										 color="colorF()"
+										 showXAxis="true"
+										 showYAxis="true"
+										 showControls="true"
+										 interactive="true"
+										 useInteractionGuideline="true"
+										 tooltips="true"
+										 xAxisTickFormat="xAxisTickFormat1()">
+					<svg></svg>
+				</nvd3-stacked-area-chart>
+			</div>
+		</div>
+	</div>
+</div>

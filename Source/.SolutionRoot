@@ -1,0 +1,5 @@
+
+  This file is used to locate the solution folder regardless of what
+  solution actually loads the contained projects. This is necessary
+  for the projects to locate their supporting build properties and
+  targets.

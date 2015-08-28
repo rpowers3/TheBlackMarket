@@ -1,0 +1,19 @@
+{
+	"version": "1.0.0",
+	"name": "TheBlackMarket",
+	"author": "rpowers",
+	"description": "Front end site for The Black Market data mined from the Riot API for the Riot API Challenge 2.0 contest.",
+	"private": true,
+
+	"devDependencies": {
+		"grunt": "^0.4.5",
+		"grunt-contrib-copy": "^0.8.1",
+		"grunt-contrib-uglify": "^0.9.1",
+		"grunt-contrib-sass": "^0.9.2",
+		"grunt-contrib-htmlmin": "^0.4.0",
+		"grunt-contrib-clean": "^0.6.0",
+		"grunt-contrib-watch": "^0.6.1",
+		"grunt-contrib-cssmin": "^0.13.0",
+		"bower": "^1.5.1"
+	}
+}

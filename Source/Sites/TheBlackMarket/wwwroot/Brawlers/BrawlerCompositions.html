@@ -1,0 +1,49 @@
+﻿<div class="brawlers-compositions-container">
+	<div class="tbm-filter-bar" ng-class="{'tbm-filter-visible': displayFilters}">
+		<button type="button" class="btn btn-primary btm-toggle-filters btm-expander-bottom" ng-model="displayFilters" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+			<span></span>
+		</button>
+
+		<div class="tbm-sorting">
+			<div class="tbm-sorting">
+				<div class="btn-group">
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'timesPlayed'">Times Played</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'timesWon'">Wins</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'winRate'">Win Rate</label>
+				</div>
+
+				<div class="btn-group">
+					<label class="btn btn-primary tbm-filter" ng-model="sortDirection" btn-radio="false">Asc</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortDirection" btn-radio="true">Des</label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="brawlers-compositions" ng-class="{'tbm-filter-visible': displayFilters}">
+		<div ng-repeat="brawlerGroup in brawlerGroups | orderBy:sortProperty:sortDirection">
+			<div class="brawler-group">
+				<div class="brawler-images">
+					<div class="brawler-image" ng-repeat="brawler in brawlerGroup.brawlers track by $index">
+						<a ng-href="{{getItemUrl(brawler)}}" tooltip="{{getItemName(brawler)}}">
+							<img ng-src="{{getItemImageUrl(brawler)}}" />
+						</a>
+					</div>
+				</div>
+
+				<div class="brawler-group-info">
+					<span class="brawler-group-info-label">Times Played:</span>
+					<span>{{brawlerGroup.timesPlayed}}</span>
+					<span class="brawler-group-info-label">Wins:</span>
+					<span>{{brawlerGroup.timesWon}}</span>
+
+					<progress>
+						<bar ng-repeat="bar in brawlerGroup.bars track by $index" value="bar.value" type="{{bar.type}}">
+							<span tooltip="{{bar.value}}">{{bar.value}}%</span>
+						</bar>
+					</progress>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

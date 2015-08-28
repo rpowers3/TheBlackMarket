@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MongoExtract": {
+      "commandName": "MongoExtract",
+      "commandLineArgs": "-d TheBlackMarket -s G:\\Projects\\TheBlackMarket\\Source\\Scripts\\Champions\\GenerateChampionPerMinuteSkillLevelUpRTC.js -o G:\\Projects\\TheBlackMarket\\Data\\GenerateChampionPerMinuteSkillLevelUpRTC"
+    }
+  }
+}

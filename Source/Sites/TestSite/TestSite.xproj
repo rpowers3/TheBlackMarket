@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<SolutionRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), .SolutionRoot))</SolutionRoot>
+		<SolutionRoot Condition=" '$(SolutionRoot)' == '' ">$(SolutionDir)</SolutionRoot>
+	</PropertyGroup>
+
+	<Import Project="$(SolutionDir)\Build\Build.Server.PreProject.Props" />
+	
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>e250fc92-e1f0-40f6-888a-d2e796899ffb</ProjectGuid>
+		<RootNamespace>TestSite</RootNamespace>
+		<BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+		<OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
+	</PropertyGroup>
+
+	<Import Project="$(SolutionDir)\Build\Build.Server.PostProject.Props" />
+</Project>

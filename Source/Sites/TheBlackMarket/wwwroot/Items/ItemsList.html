@@ -1,0 +1,69 @@
+﻿<div class="item-list">
+	<div class="tbm-filter-bar" ng-class="{'tbm-filter-visible': displayFilters}">
+		<div class="tbm-name-filter">
+			<button type="button" class="btn btn-primary btm-toggle-filters btm-expander-bottom" ng-model="displayFilters" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+				<span></span>
+			</button>
+
+			<input type="text" placeholder="Item search..." ng-model="nameFilter" typeahead="item for item in itemNames | filter:$viewValue | limitTo:8" class="form-control">
+
+			<br />
+
+			<div class="tbm-sorting">
+				<div class="btn-group">
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'name'">Name</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'gold.total'">Price</label>
+				</div>
+
+				<div class="btn-group">
+					<label class="btn btn-primary tbm-filter" ng-model="sortDirection" btn-radio="false">Asc</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortDirection" btn-radio="true">Des</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="tbm-type-filter">
+			<div><checkbox ng-model="filter.health"></checkbox>Health</div>
+			<div><checkbox ng-model="filter.healthRegen"></checkbox>Health Regen</div>
+			<div><checkbox ng-model="filter.armor"></checkbox>Armor</div>
+			<div><checkbox ng-model="filter.magicResist"></checkbox>Magic Resist</div>
+			<div><checkbox ng-model="filter.tenacity"></checkbox>Tenacity</div>
+		</div>
+
+		<div class="tbm-type-filter">
+			<div><checkbox ng-model="filter.damage"></checkbox>Damage</div>
+			<div><checkbox ng-model="filter.criticalStrike"></checkbox>Critical Strike</div>
+			<div><checkbox ng-model="filter.attackSpeed"></checkbox>Attack Speed</div>
+			<div><checkbox ng-model="filter.lifeSteal"></checkbox>Life Steal</div>
+		</div>
+
+		<div class="tbm-type-filter">
+			<div><checkbox ng-model="filter.abilityPower"></checkbox>Ability Power</div>
+			<div><checkbox ng-model="filter.cooldownReduction"></checkbox>Cooldown Reduction</div>
+			<div><checkbox ng-model="filter.spellVamp"></checkbox>Spell Vamp</div>
+			<div><checkbox ng-model="filter.mana"></checkbox>Mana</div>
+			<div><checkbox ng-model="filter.manaRegen"></checkbox>Mana Regen</div>
+		</div>
+
+		<div class="tbm-type-filter">
+			<div><checkbox ng-model="filter.boots"></checkbox>Boots</div>
+			<div><checkbox ng-model="filter.otherMovementItems"></checkbox>Other Movement Items</div>
+		</div>
+	</div>
+
+	<div class="item-list-container" ng-class="{'tbm-filter-visible': displayFilters}">
+		<a class="item-tile"
+		   ng-href="{{getItemUrl(item)}}"
+		   ng-repeat="item in items | filter:itemFilter | orderBy:sortProperty:sortDirection">
+			<img ng-src="{{getItemImage(item)}}" />
+			<div class="highlight"></div>
+			<div class="item-info">
+				<div class="item-name">{{item.name}}</div>
+				<div class="item-cost">
+					<img src="/Gold.png" />
+					<span>{{item.gold.total}}</span>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>

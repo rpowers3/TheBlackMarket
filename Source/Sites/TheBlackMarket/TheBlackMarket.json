@@ -1,0 +1,11 @@
+﻿{
+	"jsonDataPath": "G:\\Projects\\TheBlackMarket\\Data\\Json",
+	"videoPath": "G:\\Projects\\TheBlackMarket\\Data\\Videos",
+	"soundsPath": "G:\\Projects\\TheBlackMarket\\Data\\Sounds",
+	"musicPath":  "G:\\Projects\\TheBlackMarket\\Data\\Music"
+
+	//"jsonDataPath": "/RiotApiChallenge/Json",
+	//"videoPath": "/RiotApiChallenge/Videos",
+	//"soundsPath": "/RiotApiChallenge/Sounds",
+	//"musicPath":  "/RiotApiChallenge/Music",
+}

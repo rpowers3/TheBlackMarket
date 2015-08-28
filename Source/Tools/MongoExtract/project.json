@@ -1,0 +1,24 @@
+{
+	"userSecretsId": "aspnet5-MongoExtract-20150820085919",
+	"version": "1.0.0-*",
+	"description": "Utility program to export a collection from a Mongo Database to files on disk.",
+	"authors": [ "rpowers" ],
+	"tags": [ "" ],
+	"projectUrl": "https://github.com/rpowers3/TheBlackMarket",
+	"licenseUrl": "",
+
+
+	"dependencies": {
+		"CommandLineParser": "2.0.251-beta",
+		"Newtonsoft.Json": "7.0.1",
+		"MongoDB.Driver": "2.0.1"
+	},
+
+	"commands": {
+		"MongoExtract": "MongoExtract"
+	},
+
+	"frameworks": {
+		"dnx451": { }
+	}
+}

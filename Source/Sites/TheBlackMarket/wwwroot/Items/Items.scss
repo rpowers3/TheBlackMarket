@@ -1,0 +1,179 @@
+
+div.item-list {
+	min-height: 100%;
+
+	.tbm-filter-bar {
+		margin-top: -9em;
+
+		&.tbm-filter-visible {
+			margin-top: 0em;
+		}
+	}
+
+	div.item-list-container {
+		background: url(/LeftTile.png);
+		max-width: 960px;
+		padding-top: 2em;
+		margin-left: 3em;
+		padding-left: 4em;
+		background-size: 960px;
+		background-repeat: repeat-y;
+		padding-bottom: 4em;
+		transition: 150ms all;
+		
+		&.tbm-filter-visible {
+			padding-top: 11em;
+		}
+	}
+}
+
+a.item-tile {
+	position: relative;
+	display: inline-block;
+	width: 14em;
+	height: 4em;
+	margin: 0.5em;
+	transition: 150ms all;
+	color: black;
+	text-decoration: none;
+	vertical-align: middle;
+	transition: 150ms all;
+
+	&:active,
+	&:visited,
+	&:hover {
+		background: rgba(255, 255, 255, 0.35);
+		box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 1);
+		color: black;
+		text-decoration: none;
+	}
+
+	&:hover > div.highlight {
+		box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 1) inset;
+	}
+
+	> .highlight {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		height: 100%;
+	}
+
+	> img {
+		border: 1px solid rgb(198, 174, 92);
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 4em;
+		height: 4em;
+	}
+
+	> .item-info {
+		font-size: 0.9em;
+		margin-left: 5em;
+
+		> .item-cost {
+			> * {
+				vertical-align: middle;
+			}
+
+			> img {
+				height: 1em;
+			}
+		}
+	}
+}
+
+
+.item-info-container {
+	min-height: 100%;
+
+	.item-info {
+		background: url(/LeftTile.png);
+		max-width: 960px;
+		padding-top: 2em;
+		margin-left: 3em;
+		padding-left: 4em;
+		padding-right: 4.7em;
+		background-size: 960px;
+		background-repeat: repeat-y;
+		padding-bottom: 4em;
+
+		.item-header {
+			position: relative;
+			margin-bottom: 2em;
+			border-radius: 0.75em;
+			background: rgba(0, 0, 0, 0.75);
+			padding: 1em;
+			box-shadow: 0px 0px 15px black inset;
+
+			> * {
+				display: inline-block;
+				vertical-align: top;
+			}
+
+			.item-image {
+				position: absolute;
+				left: 1.5em;
+				top: 1.5em;
+				border: 2px solid rgb(170, 148, 70);
+				box-shadow: 0px 0px 15px black;
+			}
+
+			.item-header-description {
+				margin-left: 6.5em;
+			}
+
+			.item-name {
+				font-size: 2em;
+				font-weight: bold;
+			}
+
+			.item-cost {
+				font-weight: bold;
+
+				&.item-cost-gold {
+					img {
+						height: 1em;
+					}
+				}
+
+				&.item-cost-krakens {
+					img {
+						margin-right: 0.2em;
+						height: 1.5em;
+						margin-bottom: 0.5em;
+					}
+				}
+			}
+		}
+
+		.item-charts {
+			color: black;
+
+			.item-chart-header {
+				font-size: 2em;
+				font-weight: bold;
+			}
+
+			.item-chart {
+				position: relative;
+				margin-bottom: 1em;
+			}
+
+			svg {
+				width: 100%;
+				height: 35em;
+			}
+		}
+	}
+
+	.nvd3 .nv-axis line {
+		stroke: black;
+	}
+
+	svg text {
+		fill: black !important;
+	}
+}

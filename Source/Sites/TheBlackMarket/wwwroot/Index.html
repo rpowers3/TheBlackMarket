@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html ng-app="TheBlackMarketApp">
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="Libraries/angular/angular.js"></script>
+		<script src="Libraries/angular-animate/angular-animate.js"></script>
+		<script src="Libraries/angular-bootstrap/ui-bootstrap.js"></script>
+		<script src="Libraries/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+		<script src="Libraries/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+		<script src="Libraries/angular-route/angular-route.js"></script>
+		<script src="Libraries/angular-local-storage/dist/angular-local-storage.js"></script>
+
+		<script src="LibrariesModified/d3.js"></script>
+		<script src="LibrariesModified/nv.d3.js"></script>
+		<link href="Libraries/nvd3/src/nv.d3.css" rel="stylesheet" />
+		<script src="Libraries/angular-nvd3-directives-pcu2/dist/angularjs-nvd3-directives.js"></script>
+
+		<link href="Nv3dOverrides.css" rel="stylesheet" />
+
+		<script src="Libraries/howler/howler.js"></script>
+
+		<link href="Libraries/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="Libraries/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
+		<link href="BootstrapMagic.css" rel="stylesheet" />
+		<link href="BootstrapMagicOverrides.css" rel="stylesheet" />
+		<link href="TheBlackMarket.css" rel="stylesheet" />
+		<link href="Brawlers/Brawlers.css" rel="stylesheet" />
+		<link href="Champions/Champions.css" rel="stylesheet" />
+		<link href="Items/Items.css" rel="stylesheet" />
+
+		<script src="TheBlackMarketApp.js"></script>
+		<script src="TheBlackMarketSite.js"></script>
+		<script src="Brawlers/BrawlersModule.js"></script>
+		<script src="Buildings/BuildingsModule.js"></script>
+		<script src="Champions/ChampionsModule.js"></script>
+		<script src="Items/ItemsModule.js"></script>
+		<script src="Masteries/MasteriesModule.js"></script>
+		<script src="Monsters/MonstersModule.js"></script>
+		<script src="Runes/RunesModule.js"></script>
+		<script src="Warding/WardingModule.js"></script>
+	</head>
+	<body>
+		<div class="background-image">
+			<img src="Background1.jpg" />
+			<div class="background-fade"></div>
+		</div>
+
+		<header>
+			<a href="#">
+				<div class="title">
+					<h1>The Black Market</h1>
+					<h2>Runterra's source for insider information.</h2>
+				</div>
+			</a>
+
+			<div class="filters" ng-controller="FilterController">
+				<div class="filter-group">
+					<div class="filter-header">
+						Region
+					</div>
+					<div class="region-filter btn-group">
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'ALL'">ALL</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'BR'">BR</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'EUNE'">EUNE</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'EUW'">EUW</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'KR'">KR</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'LAN'">LAN</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'LAS'">LAS</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'NA'">NA</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'OCE'">OCE</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'RU'">RU</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'TR'">TR</label>
+					</div>
+				</div>
+
+				<div class="filter-group">
+					<div class="filter-header">
+						Team
+					</div>
+					<div class="team-filter btn-group">
+						<label class="btn btn-success bothTeams" ng-model="selectedTeam" btn-radio="'Both'">Both</label>
+						<label class="btn btn-success blueTeam" ng-model="selectedTeam" btn-radio="'Blue'">Blue</label>
+						<label class="btn btn-success redTeam" ng-model="selectedTeam" btn-radio="'Red'">Red</label>
+					</div>
+				</div>
+
+				<!--<div class="filter-group">
+					<div class="filter-header">
+						All Stats
+					</div>
+					<div class="all-stats-filter">
+						<button type="button" class="btn btn-primary all-stats-filter" ng-model="showAllStats" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+							All Stats
+						</button>
+					</div>
+				</div>-->
+			</div>
+		</header>
+
+		<aside>
+			<menu ng-controller="MenuController">
+				<a ng-repeat="section in sections" ng-href="#{{section.path}}">{{section.name}}</a>
+			</menu>
+
+			<div class="settings" ng-controller="SettingsController">
+				<div ng-click="toggleSounds()">
+					<img src="Sound.png"/>
+					<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playSounds}"/>
+				</div>
+				<div ng-click="toggleChampionSounds()">
+					<img src="Sound.png" />
+					<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playChampionSounds}"/>
+				</div>
+				<div ng-click="toggleMusic()">
+					<img src="Music.png" />
+					<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playMusic}"/>
+				</div>
+			</div>
+		</aside>
+
+		<div class="main">
+			<div ng-view autoscroll="true"></div>
+		</div>
+	</body>
+</html>

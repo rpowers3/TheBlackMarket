@@ -1,0 +1,19 @@
+﻿<div class="champion-background-fill"></div>
+
+<div class="champion-splash" ng-style="{'background-image': 'url(' + championBackgroundUrl + ')'}"></div>
+
+<div class="champion-sections-bar">
+	<a ng-href="#/champions/{{champion.key}}">Overview</a>
+	<a ng-href="#/champions/{{champion.key}}/gold">Gold</a>
+	<a ng-href="#/champions/{{champion.key}}/items">Items</a>
+	<a ng-href="#/champions/{{champion.key}}/skills">Skills</a>
+	<a ng-href="#/champions/{{champion.key}}/combat">Combat</a>
+	<a ng-href="#/champions/{{champion.key}}/objectives">Objectives</a>
+</div>
+
+<div class="champion-info">
+	<div class="champion-title">
+		<h1>{{champion.name}}</h1>
+		<h2>{{champion.title}}</h2>
+	</div>
+</div>

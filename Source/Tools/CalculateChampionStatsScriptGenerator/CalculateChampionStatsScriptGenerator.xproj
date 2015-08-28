@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<SolutionRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), .SolutionRoot))</SolutionRoot>
+		<SolutionRoot Condition=" '$(SolutionRoot)' == '' ">$(SolutionDir)</SolutionRoot>
+	</PropertyGroup>
+
+	<Import Project="$(SolutionDir)\Build\Build.Tool.PreProject.Props" />
+
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>8e7fd14f-89f4-4933-a194-46ecd6a1ad22</ProjectGuid>
+		<RootNamespace>CalculateChampionStatsScriptGenerator</RootNamespace>
+	</PropertyGroup>
+
+	<Import Project="$(SolutionDir)\Build\Build.Tool.PostProject.Props" />
+</Project>

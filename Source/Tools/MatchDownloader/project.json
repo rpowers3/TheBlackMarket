@@ -1,0 +1,21 @@
+{
+	"version": "1.0.0-*",
+	"description": "Utility to download match data for League of Legends given a set of match ids.",
+	"authors": [ "rpowers" ],
+	"tags": [ "" ],
+	"projectUrl": "https://github.com/rpowers3/TheBlackMarket",
+	"licenseUrl": "",
+
+	"dependencies": {
+		"CommandLineParser": "2.0.251-beta",
+		"Newtonsoft.Json": "7.0.1",
+	},
+
+	"commands": {
+		"MatchDownloader": "MatchDownloader"
+	},
+
+	"frameworks": {
+		"dnx451": { },
+	}
+}

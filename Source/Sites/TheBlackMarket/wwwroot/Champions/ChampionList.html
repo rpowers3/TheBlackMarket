@@ -1,0 +1,41 @@
+﻿<div class="champion-list">
+	<div class="tbm-filter-bar" ng-class="{'tbm-filter-visible': displayFilters}">
+		<div class="tbm-name-filter">
+			<button type="button" class="btn btn-primary btm-toggle-filters btm-expander-bottom" ng-model="displayFilters" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+				<span></span>
+			</button>
+
+			<input type="text" placeholder="Name search..." ng-model="nameFilter" typeahead="champion for champion in championNames | filter:$viewValue | limitTo:8" class="form-control">
+		</div>
+
+		<div class="tbm-sorting">
+			<div class="tbm-sorting">
+				<div class="btn-group">
+					<label class="btn btn-primary tbm-filter" ng-model="sortDirection" btn-radio="false">Asc</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortDirection" btn-radio="true">Des</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="tbm-type-filter">
+			<div><checkbox ng-model="filter.assassin"></checkbox>Assassin</div>
+			<div><checkbox ng-model="filter.fighter"></checkbox>Fighter</div>
+			<div><checkbox ng-model="filter.mage"></checkbox>Mage</div>
+		</div>
+
+		<div class="tbm-type-filter">
+			<div><checkbox ng-model="filter.marksman"></checkbox>Marksman</div>
+			<div><checkbox ng-model="filter.support"></checkbox>Support</div>
+			<div><checkbox ng-model="filter.tank"></checkbox>Tank</div>
+		</div>
+	</div>
+
+	<div class="champion-list-container" ng-class="{'tbm-filter-visible': displayFilters}">
+		<a class="champion-portrait-large"
+		   ng-href="{{getChampionUrl(champion)}}"
+		   ng-repeat="champion in champions | filter:championFilter | orderBy:sortProperty:sortDirection">
+			<img ng-src="{{getChampionImage(champion)}}" />
+			<div class="highlight"></div>
+		</a>
+	</div>
+</div>

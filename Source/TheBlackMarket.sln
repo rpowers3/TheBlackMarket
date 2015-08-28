@@ -1,0 +1,311 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{4A3CB522-98FF-4E16-A172-9BB2FC489439}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{D902CCBA-AF2F-45A6-9497-DC856D29A386}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Build.Common.PostProject.props = Build\Build.Common.PostProject.props
+		Build\Build.Common.PreProject.props = Build\Build.Common.PreProject.props
+		Build\Build.Library.PostProject.props = Build\Build.Library.PostProject.props
+		Build\Build.Library.PreProject.props = Build\Build.Library.PreProject.props
+		Build\Build.Server.PostProject.props = Build\Build.Server.PostProject.props
+		Build\Build.Server.PreProject.props = Build\Build.Server.PreProject.props
+		Build\Build.Tool.PostProject.props = Build\Build.Tool.PostProject.props
+		Build\Build.Tool.PreProject.props = Build\Build.Tool.PreProject.props
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MatchDownloader", "Tools\MatchDownloader\MatchDownloader.xproj", "{B31B9D68-835E-4597-8CD7-FDA64A63B04B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sites", "Sites", "{091E23A2-A055-46BC-BDBF-C7FFCAA63F74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Configuration", ".Configuration", "{1F0F81FE-A542-47D6-B4A0-23DE1BFAD85B}"
+	ProjectSection(SolutionItems) = preProject
+		.vs\config\applicationhost.config = .vs\config\applicationhost.config
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CalculateChampionStatsScriptGenerator", "Tools\CalculateChampionStatsScriptGenerator\CalculateChampionStatsScriptGenerator.xproj", "{8E7FD14F-89F4-4933-A194-46ECD6A1AD22}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoExtract", "Tools\MongoExtract\MongoExtract.xproj", "{09C9E86D-DF42-40BA-8033-40A3855416E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{5031D0C0-EA75-43CD-9300-4ACFED2DAE82}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\FindEmptyFolders.ps1 = Scripts\FindEmptyFolders.ps1
+		Scripts\GenerateDataCollections.ps1 = Scripts\GenerateDataCollections.ps1
+		Scripts\ImportMatches.ps1 = Scripts\ImportMatches.ps1
+		Scripts\PrepareMatchEvents.js = Scripts\PrepareMatchEvents.js
+		Scripts\PrepareMatchParticipants.js = Scripts\PrepareMatchParticipants.js
+		Scripts\RunGenerationScripts.ps1 = Scripts\RunGenerationScripts.ps1
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeatMapVideoBuilder", "Tools\HeatMapVideoBuilder\HeatMapVideoBuilder.csproj", "{3FC10696-7DA6-4C1A-B4A4-AD07EE8F3ADA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Warding", "Warding", "{DD794A59-48D7-4199-98DC-CD2B35E8650C}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Warding\GenerateWardKillsC.js = Scripts\Warding\GenerateWardKillsC.js
+		Scripts\Warding\GenerateWardKillsG.js = Scripts\Warding\GenerateWardKillsG.js
+		Scripts\Warding\GenerateWardKillsR.js = Scripts\Warding\GenerateWardKillsR.js
+		Scripts\Warding\GenerateWardKillsRC.js = Scripts\Warding\GenerateWardKillsRC.js
+		Scripts\Warding\GenerateWardKillsRT.js = Scripts\Warding\GenerateWardKillsRT.js
+		Scripts\Warding\GenerateWardKillsRTC.js = Scripts\Warding\GenerateWardKillsRTC.js
+		Scripts\Warding\GenerateWardKillsT.js = Scripts\Warding\GenerateWardKillsT.js
+		Scripts\Warding\GenerateWardKillsTC.js = Scripts\Warding\GenerateWardKillsTC.js
+		Scripts\Warding\GenerateWardPlacementC.js = Scripts\Warding\GenerateWardPlacementC.js
+		Scripts\Warding\GenerateWardPlacementG.js = Scripts\Warding\GenerateWardPlacementG.js
+		Scripts\Warding\GenerateWardPlacementR.js = Scripts\Warding\GenerateWardPlacementR.js
+		Scripts\Warding\GenerateWardPlacementRC.js = Scripts\Warding\GenerateWardPlacementRC.js
+		Scripts\Warding\GenerateWardPlacementRT.js = Scripts\Warding\GenerateWardPlacementRT.js
+		Scripts\Warding\GenerateWardPlacementRTC.js = Scripts\Warding\GenerateWardPlacementRTC.js
+		Scripts\Warding\GenerateWardPlacementT.js = Scripts\Warding\GenerateWardPlacementT.js
+		Scripts\Warding\GenerateWardPlacementTC.js = Scripts\Warding\GenerateWardPlacementTC.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{767A87D3-CFBC-4EAD-A0DD-6C6A3EDB71AF}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Items\GenerateItemPerMinuteWinRatesCI.js = Scripts\Items\GenerateItemPerMinuteWinRatesCI.js
+		Scripts\Items\GenerateItemPerMinuteWinRatesI.js = Scripts\Items\GenerateItemPerMinuteWinRatesI.js
+		Scripts\Items\GenerateItemPerMinuteWinRatesRCI.js = Scripts\Items\GenerateItemPerMinuteWinRatesRCI.js
+		Scripts\Items\GenerateItemPerMinuteWinRatesRI.js = Scripts\Items\GenerateItemPerMinuteWinRatesRI.js
+		Scripts\Items\GenerateItemPerMinuteWinRatesRTCI.js = Scripts\Items\GenerateItemPerMinuteWinRatesRTCI.js
+		Scripts\Items\GenerateItemPerMinuteWinRatesRTI.js = Scripts\Items\GenerateItemPerMinuteWinRatesRTI.js
+		Scripts\Items\GenerateItemPerMinuteWinRatesTCI.js = Scripts\Items\GenerateItemPerMinuteWinRatesTCI.js
+		Scripts\Items\GenerateItemPerMinuteWinRatesTI.js = Scripts\Items\GenerateItemPerMinuteWinRatesTI.js
+		Scripts\Items\GenerateItemWinRatesC.js = Scripts\Items\GenerateItemWinRatesC.js
+		Scripts\Items\GenerateItemWinRatesCI.js = Scripts\Items\GenerateItemWinRatesCI.js
+		Scripts\Items\GenerateItemWinRatesG.js = Scripts\Items\GenerateItemWinRatesG.js
+		Scripts\Items\GenerateItemWinRatesI.js = Scripts\Items\GenerateItemWinRatesI.js
+		Scripts\Items\GenerateItemWinRatesOverTimeCI.js = Scripts\Items\GenerateItemWinRatesOverTimeCI.js
+		Scripts\Items\GenerateItemWinRatesOverTimeI.js = Scripts\Items\GenerateItemWinRatesOverTimeI.js
+		Scripts\Items\GenerateItemWinRatesOverTimeRCI.js = Scripts\Items\GenerateItemWinRatesOverTimeRCI.js
+		Scripts\Items\GenerateItemWinRatesOverTimeRI.js = Scripts\Items\GenerateItemWinRatesOverTimeRI.js
+		Scripts\Items\GenerateItemWinRatesOverTimeRTCI.js = Scripts\Items\GenerateItemWinRatesOverTimeRTCI.js
+		Scripts\Items\GenerateItemWinRatesOverTimeRTI.js = Scripts\Items\GenerateItemWinRatesOverTimeRTI.js
+		Scripts\Items\GenerateItemWinRatesOverTimeTCI.js = Scripts\Items\GenerateItemWinRatesOverTimeTCI.js
+		Scripts\Items\GenerateItemWinRatesOverTimeTI.js = Scripts\Items\GenerateItemWinRatesOverTimeTI.js
+		Scripts\Items\GenerateItemWinRatesR.js = Scripts\Items\GenerateItemWinRatesR.js
+		Scripts\Items\GenerateItemWinRatesRC.js = Scripts\Items\GenerateItemWinRatesRC.js
+		Scripts\Items\GenerateItemWinRatesRCI.js = Scripts\Items\GenerateItemWinRatesRCI.js
+		Scripts\Items\GenerateItemWinRatesRI.js = Scripts\Items\GenerateItemWinRatesRI.js
+		Scripts\Items\GenerateItemWinRatesRT.js = Scripts\Items\GenerateItemWinRatesRT.js
+		Scripts\Items\GenerateItemWinRatesRTC.js = Scripts\Items\GenerateItemWinRatesRTC.js
+		Scripts\Items\GenerateItemWinRatesRTCI.js = Scripts\Items\GenerateItemWinRatesRTCI.js
+		Scripts\Items\GenerateItemWinRatesRTI.js = Scripts\Items\GenerateItemWinRatesRTI.js
+		Scripts\Items\GenerateItemWinRatesT.js = Scripts\Items\GenerateItemWinRatesT.js
+		Scripts\Items\GenerateItemWinRatesTC.js = Scripts\Items\GenerateItemWinRatesTC.js
+		Scripts\Items\GenerateItemWinRatesTCI.js = Scripts\Items\GenerateItemWinRatesTCI.js
+		Scripts\Items\GenerateItemWinRatesTI.js = Scripts\Items\GenerateItemWinRatesTI.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kills", "Kills", "{6590012F-E6AE-4028-80EE-11196B72F8AD}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Kills\GenerateDeathLocationsC.js = Scripts\Kills\GenerateDeathLocationsC.js
+		Scripts\Kills\GenerateDeathLocationsG.js = Scripts\Kills\GenerateDeathLocationsG.js
+		Scripts\Kills\GenerateDeathLocationsR.js = Scripts\Kills\GenerateDeathLocationsR.js
+		Scripts\Kills\GenerateDeathLocationsRC.js = Scripts\Kills\GenerateDeathLocationsRC.js
+		Scripts\Kills\GenerateDeathLocationsRT.js = Scripts\Kills\GenerateDeathLocationsRT.js
+		Scripts\Kills\GenerateDeathLocationsRTC.js = Scripts\Kills\GenerateDeathLocationsRTC.js
+		Scripts\Kills\GenerateDeathLocationsT.js = Scripts\Kills\GenerateDeathLocationsT.js
+		Scripts\Kills\GenerateDeathLocationsTC.js = Scripts\Kills\GenerateDeathLocationsTC.js
+		Scripts\Kills\GenerateKillLocationsC.js = Scripts\Kills\GenerateKillLocationsC.js
+		Scripts\Kills\GenerateKillLocationsG.js = Scripts\Kills\GenerateKillLocationsG.js
+		Scripts\Kills\GenerateKillLocationsR.js = Scripts\Kills\GenerateKillLocationsR.js
+		Scripts\Kills\GenerateKillLocationsRC.js = Scripts\Kills\GenerateKillLocationsRC.js
+		Scripts\Kills\GenerateKillLocationsRT.js = Scripts\Kills\GenerateKillLocationsRT.js
+		Scripts\Kills\GenerateKillLocationsRTC.js = Scripts\Kills\GenerateKillLocationsRTC.js
+		Scripts\Kills\GenerateKillLocationsT.js = Scripts\Kills\GenerateKillLocationsT.js
+		Scripts\Kills\GenerateKillLocationsTC.js = Scripts\Kills\GenerateKillLocationsTC.js
+		Scripts\Kills\GenerateNemesisStatsC.js = Scripts\Kills\GenerateNemesisStatsC.js
+		Scripts\Kills\GenerateNemesisStatsR.js = Scripts\Kills\GenerateNemesisStatsR.js
+		Scripts\Kills\GenerateNemesisStatsRC.js = Scripts\Kills\GenerateNemesisStatsRC.js
+		Scripts\Kills\GenerateNemesisStatsRT.js = Scripts\Kills\GenerateNemesisStatsRT.js
+		Scripts\Kills\GenerateNemesisStatsRTC.js = Scripts\Kills\GenerateNemesisStatsRTC.js
+		Scripts\Kills\GenerateNemesisStatsT.js = Scripts\Kills\GenerateNemesisStatsT.js
+		Scripts\Kills\GenerateNemesisStatsTC.js = Scripts\Kills\GenerateNemesisStatsTC.js
+		Scripts\Kills\GenerateVictimStatsC.js = Scripts\Kills\GenerateVictimStatsC.js
+		Scripts\Kills\GenerateVictimStatsR.js = Scripts\Kills\GenerateVictimStatsR.js
+		Scripts\Kills\GenerateVictimStatsRC.js = Scripts\Kills\GenerateVictimStatsRC.js
+		Scripts\Kills\GenerateVictimStatsRT.js = Scripts\Kills\GenerateVictimStatsRT.js
+		Scripts\Kills\GenerateVictimStatsRTC.js = Scripts\Kills\GenerateVictimStatsRTC.js
+		Scripts\Kills\GenerateVictimStatsT.js = Scripts\Kills\GenerateVictimStatsT.js
+		Scripts\Kills\GenerateVictimStatsTC.js = Scripts\Kills\GenerateVictimStatsTC.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Champions", "Champions", "{4D486596-D610-4DD6-AFCE-CFA08AA8206E}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpC.js = Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpC.js
+		Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpG.js = Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpG.js
+		Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpR.js = Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpR.js
+		Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpRC.js = Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpRC.js
+		Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpRT.js = Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpRT.js
+		Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpRTC.js = Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpRTC.js
+		Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpT.js = Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpT.js
+		Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpTC.js = Scripts\Champions\GenerateChampionPerMinuteSkillLevelUpTC.js
+		Scripts\Champions\GenerateChampionStatsC.js = Scripts\Champions\GenerateChampionStatsC.js
+		Scripts\Champions\GenerateChampionStatsG.js = Scripts\Champions\GenerateChampionStatsG.js
+		Scripts\Champions\GenerateChampionStatsOverTimeC.js = Scripts\Champions\GenerateChampionStatsOverTimeC.js
+		Scripts\Champions\GenerateChampionStatsOverTimeG.js = Scripts\Champions\GenerateChampionStatsOverTimeG.js
+		Scripts\Champions\GenerateChampionStatsOverTimeR.js = Scripts\Champions\GenerateChampionStatsOverTimeR.js
+		Scripts\Champions\GenerateChampionStatsOverTimeRC.js = Scripts\Champions\GenerateChampionStatsOverTimeRC.js
+		Scripts\Champions\GenerateChampionStatsOverTimeRT.js = Scripts\Champions\GenerateChampionStatsOverTimeRT.js
+		Scripts\Champions\GenerateChampionStatsOverTimeRTC.js = Scripts\Champions\GenerateChampionStatsOverTimeRTC.js
+		Scripts\Champions\GenerateChampionStatsOverTimeT.js = Scripts\Champions\GenerateChampionStatsOverTimeT.js
+		Scripts\Champions\GenerateChampionStatsOverTimeTC.js = Scripts\Champions\GenerateChampionStatsOverTimeTC.js
+		Scripts\Champions\GenerateChampionStatsR.js = Scripts\Champions\GenerateChampionStatsR.js
+		Scripts\Champions\GenerateChampionStatsRC.js = Scripts\Champions\GenerateChampionStatsRC.js
+		Scripts\Champions\GenerateChampionStatsRT.js = Scripts\Champions\GenerateChampionStatsRT.js
+		Scripts\Champions\GenerateChampionStatsRTC.js = Scripts\Champions\GenerateChampionStatsRTC.js
+		Scripts\Champions\GenerateChampionStatsT.js = Scripts\Champions\GenerateChampionStatsT.js
+		Scripts\Champions\GenerateChampionStatsTC.js = Scripts\Champions\GenerateChampionStatsTC.js
+		Scripts\Champions\GetChampionIds.js = Scripts\Champions\GetChampionIds.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SummonerSpells", "SummonerSpells", "{F3539ADD-7E73-4AAC-8F61-B85F852FA148}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\SummonerSpells\GenerateSummonerSpellUseC.js = Scripts\SummonerSpells\GenerateSummonerSpellUseC.js
+		Scripts\SummonerSpells\GenerateSummonerSpellUseG.js = Scripts\SummonerSpells\GenerateSummonerSpellUseG.js
+		Scripts\SummonerSpells\GenerateSummonerSpellUseR.js = Scripts\SummonerSpells\GenerateSummonerSpellUseR.js
+		Scripts\SummonerSpells\GenerateSummonerSpellUseRC.js = Scripts\SummonerSpells\GenerateSummonerSpellUseRC.js
+		Scripts\SummonerSpells\GenerateSummonerSpellUseRT.js = Scripts\SummonerSpells\GenerateSummonerSpellUseRT.js
+		Scripts\SummonerSpells\GenerateSummonerSpellUseRTC.js = Scripts\SummonerSpells\GenerateSummonerSpellUseRTC.js
+		Scripts\SummonerSpells\GenerateSummonerSpellUseT.js = Scripts\SummonerSpells\GenerateSummonerSpellUseT.js
+		Scripts\SummonerSpells\GenerateSummonerSpellUseTC.js = Scripts\SummonerSpells\GenerateSummonerSpellUseTC.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Masteries", "Masteries", "{95256F95-8D38-4E0A-9DFF-C53B9555BC4B}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Masteries\GenerateSummonerMasteriesUseC.js = Scripts\Masteries\GenerateSummonerMasteriesUseC.js
+		Scripts\Masteries\GenerateSummonerMasteriesUseG.js = Scripts\Masteries\GenerateSummonerMasteriesUseG.js
+		Scripts\Masteries\GenerateSummonerMasteriesUseR.js = Scripts\Masteries\GenerateSummonerMasteriesUseR.js
+		Scripts\Masteries\GenerateSummonerMasteriesUseRC.js = Scripts\Masteries\GenerateSummonerMasteriesUseRC.js
+		Scripts\Masteries\GenerateSummonerMasteriesUseRT.js = Scripts\Masteries\GenerateSummonerMasteriesUseRT.js
+		Scripts\Masteries\GenerateSummonerMasteriesUseRTC.js = Scripts\Masteries\GenerateSummonerMasteriesUseRTC.js
+		Scripts\Masteries\GenerateSummonerMasteriesUseT.js = Scripts\Masteries\GenerateSummonerMasteriesUseT.js
+		Scripts\Masteries\GenerateSummonerMasteriesUseTC.js = Scripts\Masteries\GenerateSummonerMasteriesUseTC.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runes", "Runes", "{C194E73A-E3AE-4D9C-8AE3-28FDE8A38C77}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Runes\GenerateSummonerRuneUseC.js = Scripts\Runes\GenerateSummonerRuneUseC.js
+		Scripts\Runes\GenerateSummonerRuneUseG.js = Scripts\Runes\GenerateSummonerRuneUseG.js
+		Scripts\Runes\GenerateSummonerRuneUseR.js = Scripts\Runes\GenerateSummonerRuneUseR.js
+		Scripts\Runes\GenerateSummonerRuneUseRC.js = Scripts\Runes\GenerateSummonerRuneUseRC.js
+		Scripts\Runes\GenerateSummonerRuneUseRT.js = Scripts\Runes\GenerateSummonerRuneUseRT.js
+		Scripts\Runes\GenerateSummonerRuneUseRTC.js = Scripts\Runes\GenerateSummonerRuneUseRTC.js
+		Scripts\Runes\GenerateSummonerRuneUseT.js = Scripts\Runes\GenerateSummonerRuneUseT.js
+		Scripts\Runes\GenerateSummonerRuneUseTC.js = Scripts\Runes\GenerateSummonerRuneUseTC.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Brawlers", "Brawlers", "{5DA3BB3B-66E6-40E4-A7CA-485060982ED7}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Brawlers\GenerateBrawlerGroupsG.js = Scripts\Brawlers\GenerateBrawlerGroupsG.js
+		Scripts\Brawlers\GenerateBrawlerGroupsR.js = Scripts\Brawlers\GenerateBrawlerGroupsR.js
+		Scripts\Brawlers\GenerateBrawlerGroupsRT.js = Scripts\Brawlers\GenerateBrawlerGroupsRT.js
+		Scripts\Brawlers\GenerateBrawlerGroupsT.js = Scripts\Brawlers\GenerateBrawlerGroupsT.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buildings", "Buildings", "{80982BB6-D6EB-45ED-94C4-1DC7A02D85A1}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Buildings\GenerateBuildingKillC.js = Scripts\Buildings\GenerateBuildingKillC.js
+		Scripts\Buildings\GenerateBuildingKillG.js = Scripts\Buildings\GenerateBuildingKillG.js
+		Scripts\Buildings\GenerateBuildingKillR.js = Scripts\Buildings\GenerateBuildingKillR.js
+		Scripts\Buildings\GenerateBuildingKillRC.js = Scripts\Buildings\GenerateBuildingKillRC.js
+		Scripts\Buildings\GenerateBuildingKillRT.js = Scripts\Buildings\GenerateBuildingKillRT.js
+		Scripts\Buildings\GenerateBuildingKillRTC.js = Scripts\Buildings\GenerateBuildingKillRTC.js
+		Scripts\Buildings\GenerateBuildingKillT.js = Scripts\Buildings\GenerateBuildingKillT.js
+		Scripts\Buildings\GenerateBuildingKillTC.js = Scripts\Buildings\GenerateBuildingKillTC.js
+		Scripts\Buildings\GenerateBuildingPerMinuteKillC.js = Scripts\Buildings\GenerateBuildingPerMinuteKillC.js
+		Scripts\Buildings\GenerateBuildingPerMinuteKillG.js = Scripts\Buildings\GenerateBuildingPerMinuteKillG.js
+		Scripts\Buildings\GenerateBuildingPerMinuteKillR.js = Scripts\Buildings\GenerateBuildingPerMinuteKillR.js
+		Scripts\Buildings\GenerateBuildingPerMinuteKillRC.js = Scripts\Buildings\GenerateBuildingPerMinuteKillRC.js
+		Scripts\Buildings\GenerateBuildingPerMinuteKillRT.js = Scripts\Buildings\GenerateBuildingPerMinuteKillRT.js
+		Scripts\Buildings\GenerateBuildingPerMinuteKillRTC.js = Scripts\Buildings\GenerateBuildingPerMinuteKillRTC.js
+		Scripts\Buildings\GenerateBuildingPerMinuteKillT.js = Scripts\Buildings\GenerateBuildingPerMinuteKillT.js
+		Scripts\Buildings\GenerateBuildingPerMinuteKillTC.js = Scripts\Buildings\GenerateBuildingPerMinuteKillTC.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EliteMonsters", "EliteMonsters", "{8E27524D-8683-4F13-ACE3-FC4E29FEB11F}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\EliteMonsters\GenerateEliteMonsterKillC.js = Scripts\EliteMonsters\GenerateEliteMonsterKillC.js
+		Scripts\EliteMonsters\GenerateEliteMonsterKillG.js = Scripts\EliteMonsters\GenerateEliteMonsterKillG.js
+		Scripts\EliteMonsters\GenerateEliteMonsterKillR.js = Scripts\EliteMonsters\GenerateEliteMonsterKillR.js
+		Scripts\EliteMonsters\GenerateEliteMonsterKillRC.js = Scripts\EliteMonsters\GenerateEliteMonsterKillRC.js
+		Scripts\EliteMonsters\GenerateEliteMonsterKillRT.js = Scripts\EliteMonsters\GenerateEliteMonsterKillRT.js
+		Scripts\EliteMonsters\GenerateEliteMonsterKillRTC.js = Scripts\EliteMonsters\GenerateEliteMonsterKillRTC.js
+		Scripts\EliteMonsters\GenerateEliteMonsterKillT.js = Scripts\EliteMonsters\GenerateEliteMonsterKillT.js
+		Scripts\EliteMonsters\GenerateEliteMonsterKillTC.js = Scripts\EliteMonsters\GenerateEliteMonsterKillTC.js
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GenerateExtractArgs", "Tools\GenerateExtractArgs\GenerateExtractArgs.xproj", "{EA3A7E75-1E60-4300-AD3D-167DF4108EB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeatMapBatchBuilder", "Tools\HeatMapBatchBuilder\HeatMapBatchBuilder.csproj", "{8C08F6E7-9AB4-47CE-8480-2246F1C0A80B}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TheBlackMarket", "Sites\TheBlackMarket\TheBlackMarket.xproj", "{AB602226-34CD-4EAB-9D85-09F94DB6BB6E}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TestSite", "Sites\TestSite\TestSite.xproj", "{E250FC92-E1F0-40F6-888A-D2E796899FFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B31B9D68-835E-4597-8CD7-FDA64A63B04B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31B9D68-835E-4597-8CD7-FDA64A63B04B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B31B9D68-835E-4597-8CD7-FDA64A63B04B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B31B9D68-835E-4597-8CD7-FDA64A63B04B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E7FD14F-89F4-4933-A194-46ECD6A1AD22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E7FD14F-89F4-4933-A194-46ECD6A1AD22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E7FD14F-89F4-4933-A194-46ECD6A1AD22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E7FD14F-89F4-4933-A194-46ECD6A1AD22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09C9E86D-DF42-40BA-8033-40A3855416E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C9E86D-DF42-40BA-8033-40A3855416E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C9E86D-DF42-40BA-8033-40A3855416E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C9E86D-DF42-40BA-8033-40A3855416E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FC10696-7DA6-4C1A-B4A4-AD07EE8F3ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC10696-7DA6-4C1A-B4A4-AD07EE8F3ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC10696-7DA6-4C1A-B4A4-AD07EE8F3ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FC10696-7DA6-4C1A-B4A4-AD07EE8F3ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA3A7E75-1E60-4300-AD3D-167DF4108EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA3A7E75-1E60-4300-AD3D-167DF4108EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA3A7E75-1E60-4300-AD3D-167DF4108EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA3A7E75-1E60-4300-AD3D-167DF4108EB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C08F6E7-9AB4-47CE-8480-2246F1C0A80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C08F6E7-9AB4-47CE-8480-2246F1C0A80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C08F6E7-9AB4-47CE-8480-2246F1C0A80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C08F6E7-9AB4-47CE-8480-2246F1C0A80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB602226-34CD-4EAB-9D85-09F94DB6BB6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB602226-34CD-4EAB-9D85-09F94DB6BB6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB602226-34CD-4EAB-9D85-09F94DB6BB6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB602226-34CD-4EAB-9D85-09F94DB6BB6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E250FC92-E1F0-40F6-888A-D2E796899FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E250FC92-E1F0-40F6-888A-D2E796899FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E250FC92-E1F0-40F6-888A-D2E796899FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E250FC92-E1F0-40F6-888A-D2E796899FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B31B9D68-835E-4597-8CD7-FDA64A63B04B} = {4A3CB522-98FF-4E16-A172-9BB2FC489439}
+		{8E7FD14F-89F4-4933-A194-46ECD6A1AD22} = {4A3CB522-98FF-4E16-A172-9BB2FC489439}
+		{09C9E86D-DF42-40BA-8033-40A3855416E0} = {4A3CB522-98FF-4E16-A172-9BB2FC489439}
+		{3FC10696-7DA6-4C1A-B4A4-AD07EE8F3ADA} = {4A3CB522-98FF-4E16-A172-9BB2FC489439}
+		{DD794A59-48D7-4199-98DC-CD2B35E8650C} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{767A87D3-CFBC-4EAD-A0DD-6C6A3EDB71AF} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{6590012F-E6AE-4028-80EE-11196B72F8AD} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{4D486596-D610-4DD6-AFCE-CFA08AA8206E} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{F3539ADD-7E73-4AAC-8F61-B85F852FA148} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{95256F95-8D38-4E0A-9DFF-C53B9555BC4B} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{C194E73A-E3AE-4D9C-8AE3-28FDE8A38C77} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{5DA3BB3B-66E6-40E4-A7CA-485060982ED7} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{80982BB6-D6EB-45ED-94C4-1DC7A02D85A1} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{8E27524D-8683-4F13-ACE3-FC4E29FEB11F} = {5031D0C0-EA75-43CD-9300-4ACFED2DAE82}
+		{EA3A7E75-1E60-4300-AD3D-167DF4108EB6} = {4A3CB522-98FF-4E16-A172-9BB2FC489439}
+		{8C08F6E7-9AB4-47CE-8480-2246F1C0A80B} = {4A3CB522-98FF-4E16-A172-9BB2FC489439}
+		{AB602226-34CD-4EAB-9D85-09F94DB6BB6E} = {091E23A2-A055-46BC-BDBF-C7FFCAA63F74}
+		{E250FC92-E1F0-40F6-888A-D2E796899FFB} = {091E23A2-A055-46BC-BDBF-C7FFCAA63F74}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,75 @@
+﻿<div class="champion-info-container">
+	<div ng-include="'/champions/ChampionHeader.html'"></div>
+
+	<div class="champion-info">
+		<div class="champion-stats-container champion-info-items">
+			<div class="champion-stats-header">
+				<img src="/Store.png" />
+				<span>Items</span>
+			</div>
+
+			<div class="tbmc-filter-bar">
+				<div class="tbmc-sorting">
+					<div class="tbmc-sorting">
+						<div class="btn-group">
+							<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'timesUsed'">Times Purchased</label>
+							<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'timesWon'">Times Won</label>
+							<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'winRate'">Win Rate</label>
+							<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'pickRate'">Pick Rate</label>
+							<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'winPickRates'">Winning Pick Rate</label>
+						</div>
+
+						<div class="btn-group">
+							<label class="btn btn-primary tbmc-filter" ng-model="itemsSortReverse" btn-radio="false">Asc</label>
+							<label class="btn btn-primary tbmc-filter" ng-model="itemsSortReverse" btn-radio="true">Des</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="champion-stats-section champion-items">
+				<a class="champion-item-tile"
+				   ng-href="{{getItemUrl(item.itemId)}}"
+				   ng-repeat="item in itemInfo | orderBy:itemsSortProperty:itemsSortReverse">
+					<img ng-src="{{getItemImage(item.itemId)}}" />
+					<div class="champion-item-info">
+						<div class="champion-item-name">{{item.name}}</div>
+
+						<div ng-switch="itemsSortProperty">
+							<div ng-switch-when="timesUsed">
+								{{item.timesUsed | number}}
+								<nvd3-sparkline-chart data="item.charts.timesUsed" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</div>
+							<div ng-switch-when="timesWon">
+								{{item.timesWon | number}}
+								<nvd3-sparkline-chart data="item.charts.timesWon" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</div>
+							<div ng-switch-when="winRate">
+								{{item.winRate | percentage:2}}
+								<nvd3-sparkline-chart data="item.charts.winRate" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</div>
+							<div ng-switch-when="pickRate">
+								{{item.pickRate | percentage:2}}
+								<nvd3-sparkline-chart data="item.charts.pickRate" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</div>
+							<div ng-switch-when="winPickRates">
+								{{item.winPickRates | percentage:2}}
+								<nvd3-sparkline-chart data="item.charts.winPickRates" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

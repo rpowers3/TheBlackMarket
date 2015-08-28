@@ -1,0 +1,268 @@
+
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic);
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+	overflow-y: auto;
+	font-family: 'Noto Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Noto Sans', sans-serif;
+}
+
+hr {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	padding-left: 3.5em;
+	padding-top: 6em;
+	color: white;
+	min-width: 900px;
+
+	> div.background-image {
+		z-index: -1;
+		position: absolute;
+		left: 3.6em;
+		top: 6em;
+		right: 0em;
+		bottom: 0em;
+		background-color: black;
+
+		> img {
+			left: 0%;
+			top: 0%;
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		> div.background-fade {
+			position: relative;
+			top: -4em;
+			height: 4em;
+			background: linear-gradient(to top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+		}
+	}
+
+	> aside {
+		z-index: 10000;
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		bottom: 0px;
+		width: 3.5em;
+		padding-top: 8em;
+		background: linear-gradient(to left, rgb(0, 30, 42), rgb(2, 9, 13) 100%);
+		box-shadow: 5px 0px 5px black;
+		transition: 150ms all;
+
+		&:hover {
+			width: 21em;
+		}
+
+		> menu {
+			display: block;
+			margin: 0;
+			padding: 0;
+
+			> a {
+				margin-left: 0.2em;
+				margin-right: 0.2em;
+				margin-bottom: 0.25em;
+				height: 3em;
+				line-height: 3em;
+				border: 1px solid black;
+				background: rgb(169, 169, 169);
+				display: block;
+				overflow: hidden;
+				vertical-align: middle;
+				//width: 3em;
+				transition: 150ms all;
+				color: black;
+				/*&:hover {
+					background: rgba(99, 99, 99, 1);
+					width: 20em;
+				}*/
+			}
+		}
+
+		> div.settings {
+			position: absolute;
+			bottom: 0px;
+			width: 100%;
+
+			> div {
+				position: relative;
+				margin-left: 0.2em;
+				margin-right: 0.2em;
+				margin-top: 0.25em;
+				width: 3em;
+				height: 3em;
+				line-height: 3em;
+				display: block;
+				overflow: hidden;
+				vertical-align: middle;
+
+				> img {
+					position: absolute;
+					left: 30%;
+					top: 30%;
+					width: 70%;
+					height: 70%;
+
+					&.disabled-overlay {
+						visibility: hidden;
+						z-index: 100;
+						left: 10%;
+						top: 10%;
+						width: 90%;
+						height: 90%;
+					}
+
+					&.visible {
+						visibility: visible !important;
+					}
+				}
+			}
+		}
+	}
+
+	> header {
+		z-index: 20000;
+		background: rgb(0, 0, 0);
+		position: fixed;
+		left: 0;
+		top: 0;
+		height: 6em;
+		width: 100%;
+		min-width: 1200px;
+		background: linear-gradient(to bottom, rgb(2, 52, 72) 0%, rgba(0,30,42,1) 1%,rgba(2,9,13,1) 97%,rgb(2, 52, 72) 98%,rgb(2, 52, 72) 100%);
+		box-shadow: 0px 5px 25px black;
+
+		> a {
+			color: white;
+			text-decoration: none;
+
+			&:active, &:hover, &:focus {
+				color: white !important;
+				text-decoration: none;
+				outline: none;
+			}
+
+			> div.title {
+				display: inline-block;
+				vertical-align: middle;
+				margin-left: 1em;
+				padding-top: 0.9em;
+
+				h1 {
+					font-size: 24pt;
+					margin-bottom: 0;
+					font-weight: bold;
+					margin-top: 0em;
+					color: rgb(128, 128, 128);
+				}
+
+				h2 {
+					margin: 0;
+					font-size: 0.9em;
+				}
+			}
+		}
+
+		> div.filters {
+			display: inline-block;
+			vertical-align: middle;
+			padding-left: 2em;
+			padding-top: 0.9em;
+
+			> div.filter-group {
+				display: inline-block;
+
+				> div.filter-header {
+					display: block;
+					font-weight: bold;
+					font-size: 0.8em;
+					text-align: center;
+					margin-bottom: 0.3em;
+				}
+
+				> div.btn-group {
+					margin: 0em 0.5em;
+				}
+			}
+		}
+	}
+
+	> div.main {
+		> div {
+		}
+	}
+}
+
+.tbm-filter-bar {
+	position: fixed;
+	z-index: 500;
+	width: 100%;
+	padding: 1em;
+	padding-bottom: 0.5em;
+	color: black;
+	background: rgb(225, 210, 168);
+	border-bottom: 2px solid rgb(153, 123, 46);
+	vertical-align: top;
+	transition: 150ms all;
+	margin-top: 0em;
+
+	.btm-toggle-filters {
+		position: absolute;
+		bottom: 0em;
+		left: 2em;
+		width: 3em;
+		height: 1em;
+	}
+
+	.tbm-name-filter {
+		margin-right: 1em;
+	}
+
+	> div {
+		display: inline-block;
+	}
+
+	> .tbm-type-filter {
+		vertical-align: top;
+		width: 14em;
+
+		div {
+			margin-bottom: 0.2em;
+		}
+
+		.btn-default {
+			margin-right: 0.5em;
+		}
+
+		> label {
+			display: block;
+		}
+	}
+}
+
+.riot-styles {
+	color: white;
+
+	stats {
+		color: rgb(145, 240, 144);
+	}
+
+	passive, unique, active, aura {
+		color: rgb(200, 174, 36);
+	}
+}

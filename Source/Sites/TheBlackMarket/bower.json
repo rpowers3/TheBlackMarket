@@ -1,0 +1,18 @@
+{
+  "name": "TheBlackMarket",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.4.4",
+    "angular-animate": "^1.4.4",
+    "angular-bootstrap": "^0.13.3",
+    "angular-route": "^1.4.4",
+    "angular-local-storage": "^0.2.2",
+    "angular-nvd3-directives-pcu2": "^0.0.7",
+	"angular-bootstrap-checkbox": "^0.3.1",
+	"howler": "^1.1.26"
+  },
+  "resolutions": {
+    "angular": "1.4.4",
+    "d3": "~3.4.1"
+  }
+}

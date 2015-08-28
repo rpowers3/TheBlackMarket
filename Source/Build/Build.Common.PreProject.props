@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!--
+		This directory is different from the SolutionDir in that it is the SolutionDir
+	from where the project file originated. This is in case the project is referenced
+	in another solution.
+	-->
+	<PropertyGroup>
+		<SolutionRoot Condition=" '$(SolutionRoot)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), .SolutionRoot))</SolutionRoot>
+		<SolutionRoot Condition=" '$(SolutionRoot)' == '' ">$(SolutionDir)</SolutionRoot>
+
+		<SolutionRoot Condition="'$(SolutionRoot)' != '' and !HasTrailingSlash('$(SolutionRoot)')">$(SolutionRoot)\</SolutionRoot>
+	</PropertyGroup>
+
+	<!-- This directory is project root relative to the project file. -->
+	<PropertyGroup>
+		<ProjectRoot Condition=" '$(ProjectRoot)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), .ProjectRoot))</ProjectRoot>
+		<ProjectRoot Condition=" '$(ProjectRoot)' == '' ">$(SolutionDir)</ProjectRoot>
+
+		<ProjectRoot Condition="'$(ProjectRoot)' != '' and !HasTrailingSlash('$(ProjectRoot)')">$(ProjectRoot)\</ProjectRoot>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+		<VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+	</PropertyGroup>
+
+	<Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
+
+	<PropertyGroup Label="Globals">
+		<BaseOutputPath>$(ProjectRoot)Output\$(Configuration)\</BaseOutputPath>
+
+		<BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">$(BaseOutputPath)Objects\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<SchemaVersion>2.0</SchemaVersion>
+		<DevelopmentServerPort>58284</DevelopmentServerPort>
+	</PropertyGroup>
+</Project>

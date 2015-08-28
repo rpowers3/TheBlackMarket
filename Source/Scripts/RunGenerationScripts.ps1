@@ -1,0 +1,1 @@
+Get-ChildItem -Recurse -filter "GenerateBuildingPer*.js" | %{ ..\..\Tools\MongoDB\mongo.exe TheBlackMarket $_.FullName }

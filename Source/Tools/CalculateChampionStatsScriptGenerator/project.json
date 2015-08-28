@@ -1,0 +1,19 @@
+﻿{
+	"version": "1.0.0-*",
+	"description": "Utility to generate scripts for aggregating champion statistics from Riot match events.",
+	"authors": [ "rpowers" ],
+	"tags": [ "" ],
+	"projectUrl": "https://github.com/rpowers3/TheBlackMarket",
+	"licenseUrl": "",
+
+	"dependencies": {
+	},
+
+	"commands": {
+		"CalculateChampionStatsScriptGenerator": "CalculateChampionStatsScriptGenerator"
+	},
+
+	"frameworks": {
+		"dnx451": { }
+	}
+}

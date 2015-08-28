@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GenerateExtractArgs": {
+      "commandName": "GenerateExtractArgs",
+      "commandLineArgs": "-d TheBlackMarket -s G:\\Projects\\TheBlackMarket\\Source\\Scripts -f GenerateNemesisStats*.js -r -o G:\\Projects\\TheBlackMarket\\Data\\Json"
+    }
+  }
+}

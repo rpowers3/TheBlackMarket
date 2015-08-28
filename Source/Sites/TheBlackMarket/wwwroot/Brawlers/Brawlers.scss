@@ -1,0 +1,240 @@
+.brawlers-home-container {
+	min-height: 100%;
+	color: rgb(74, 51, 8);
+
+	.brawlers-home {
+		background: url(/LeftTile.png);
+		max-width: 960px;
+		padding-top: 2em;
+		margin-left: 3em;
+		padding-left: 4em;
+		padding-right: 4.7em;
+		background-size: 960px;
+		background-repeat: repeat-y;
+		padding-bottom: 4em;
+
+		.brawlers-section-title {
+			font-size: 3em;
+			font-weight: bold;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+			text-align: center;
+		}
+	}
+}
+
+.brawler-tile {
+	margin: 1.4em 2.3em;
+	padding: 1em;
+	display: inline-block;
+	text-decoration: none;
+	text-align: center;
+	vertical-align: middle;
+	color: black;
+	transition: 150ms all;
+
+	&:active,
+	&:visited,
+	&:hover {
+		background: rgba(255, 255, 255, 0.35);
+		box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 1);
+		color: black;
+		text-decoration: none;
+	}
+
+	.brawler-image {
+		width: 8em;
+		border: 3px solid rgb(198, 174, 92);
+		box-shadow: 0px 0px 15px rgb(198, 174, 92);
+	}
+
+	.brawler-name {
+		font-size: 1.5em;
+		font-weight: bold;
+		margin-top: 0.2em;
+	}
+}
+
+.brawlers-section-content {
+	background: rgba(92, 44, 5, 0.2);
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5) inset;
+}
+
+.brawlers-section-content-brawlers {
+	padding-bottom: 2em;
+}
+
+.brawlers-composition-link {
+	margin-top: 1em;
+	text-align: center;
+
+	a {
+		padding: 0.5em;
+		font-size: 2em;
+		font-weight: bold;
+		color: black;
+		background: rgb(222, 204, 160);
+		border: 1px solid rgb(169, 151, 97);
+		box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+		transition: 150ms all;
+
+		&:active,
+		&:visited {
+			background: rgb(222, 204, 160);
+			border: 1px solid rgb(169, 151, 97);
+		}
+
+		&:hover {
+			background: rgb(238, 223, 184);
+			border: 1px solid rgb(181, 134, 95);
+			color: black;
+			text-decoration: none;
+		}
+	}
+}
+
+.brawlers-section-content-upgrades {
+	padding-top: 1em;
+	padding-left: 0.4em;
+	padding-bottom: 1em;
+}
+
+.brawlers-section-content-items {
+	padding: 1em 2em;
+	padding-left: 3.3m;
+
+	.item-tile {
+		margin: 0.5em 2em;
+	}
+}
+
+.brawler-upgrade-tile {
+	margin-left: 1.3em;
+	width: 18em;
+	padding: 1em;
+	display: inline-block;
+	text-decoration: none;
+	vertical-align: middle;
+	color: black;
+	transition: 150ms all;
+
+	&:active,
+	&:visited,
+	&:hover {
+		background: rgba(255, 255, 255, 0.35);
+		box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 1);
+		color: black;
+		text-decoration: none;
+	}
+
+	> * {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.brawler-upgrade-image {
+		width: 4em;
+		border: 3px solid rgb(198, 174, 92);
+		box-shadow: 0px 0px 15px rgb(198, 174, 92);
+	}
+
+	.brawler-upgrade-info {
+	}
+
+	.brawler-upgrade-name {
+		font-size: 1em;
+		font-weight: bold;
+		margin-top: 0.2em;
+	}
+
+	.brawler-upgrade-cost {
+		img {
+			width: 1.5em;
+		}
+	}
+}
+
+.brawlers-compositions-container {
+	min-height: 100%;
+	color: rgb(74, 51, 8);
+
+	.tbm-filter-bar {
+		padding-bottom: 1.5em;
+		margin-top: -3.5em;
+
+		&.tbm-filter-visible {
+			margin-top: 0em;
+		}
+	}
+
+	.brawlers-compositions {
+		background: url(/LeftTile.png);
+		max-width: 960px;
+		padding-top: 2.5em;
+		padding-left: 4em;
+		padding-right: 4.7em;
+		padding-bottom: 4em;
+		margin-left: 3em;
+		background-size: 960px;
+		background-repeat: repeat-y;
+		transition: 150ms all;
+
+		&.tbm-filter-visible {
+			padding-top: 6em;
+		}
+
+		.brawlers-section-title {
+			font-size: 3em;
+			font-weight: bold;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+			text-align: center;
+		}
+	}
+
+	.brawler-group {
+		display: block;
+		position: relative;
+		background: rgba(0, 0, 0, 0.2);
+		padding: 0.25em;
+		margin: 0.5em;
+
+		* {
+			display: inline-block;
+		}
+
+		.brawler-images {
+			position: absolute;
+			left: 0em;
+			top: 0em;
+			width: 23em;
+			height: 5em;
+
+			.brawler-image {
+				img {
+					margin: 0.2em;
+					width: 4em;
+					border: 2px solid rgb(198, 174, 92);
+				}
+			}
+		}
+
+		.brawler-group-info {
+			display: block;
+			margin-left: 22em;
+			padding: 0.25em;
+
+			.progress {
+				display: block;
+			}
+
+			span {
+				display: inline-block;
+				width: 7em;
+				margin-bottom: 0.4em;
+
+				&.brawler-group-info-label {
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}
