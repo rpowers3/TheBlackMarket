@@ -835,7 +835,8 @@
 		var self = this;
 
 		var basePaths = {
-			'json': "Json"
+			'json': "Json",
+			'mp4': "Videos"
 		};
 
 		// Expand data based by type.
@@ -892,7 +893,7 @@
 				filename += 'i' + options.itemId;
 			}
 
-			if (options.isMerge) {
+			if ((self.teamFilter == 'Both') && options.useMerge) {
 				suffix += 'M';
 			}
 

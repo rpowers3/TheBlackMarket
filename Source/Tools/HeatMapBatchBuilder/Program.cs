@@ -100,7 +100,7 @@ namespace HeatMapBatchBuilder {
 			}
 
 			var outputFile = Path.Combine(options.OutputDirectory, Path.GetFileName(dataFile));
-			outputFile = Path.ChangeExtension(outputFile, "mp4");
+			outputFile = Path.ChangeExtension(outputFile, (options.GenerateCompositeImage ? "png" : "mp4"));
 
 			if (!options.Force && File.Exists(outputFile)) {
 				return;
@@ -120,6 +120,11 @@ namespace HeatMapBatchBuilder {
 				argsBuilder.AppendFormat("--residual-sprite \"{0}\" ", options.ResidualSprite);
 			}
 
+			if (options.GenerateCompositeImage) {
+				argsBuilder.AppendFormat("--generate-composite-image --composite-image-factor {0} ", options.CompositeImageFactor);
+
+			}
+
 			argsBuilder.AppendFormat("--map-origin {0},{1} ", mapOrigin.X, mapOrigin.Y);
 			argsBuilder.AppendFormat("--map-size {0},{1} ", mapSize.Width, mapSize.Height);
 
@@ -137,7 +142,7 @@ namespace HeatMapBatchBuilder {
 			var outputFileName = teamRegex.Replace(blueDataFile, "");
 
 			var outputFile = Path.Combine(options.OutputDirectory, Path.GetFileName(outputFileName));
-			outputFile = Path.ChangeExtension(outputFile, "mp4");
+			outputFile = Path.ChangeExtension(outputFile, (options.GenerateCompositeImage ? "png" : "mp4"));
 
 			if (!options.Force && File.Exists(outputFile)) {
 				return;
@@ -160,6 +165,10 @@ namespace HeatMapBatchBuilder {
 
 			if (options.HasResidualImage) {
 				argsBuilder.AppendFormat("--residual-sprite \"{0}\" ", options.ResidualSprite);
+			}
+
+			if (options.GenerateCompositeImage) {
+				argsBuilder.AppendFormat("--generate-composite-image --composite-image-factor {0} ", options.CompositeImageFactor);
 			}
 
 			argsBuilder.AppendFormat("--map-origin {0},{1} ", mapOrigin.X, mapOrigin.Y);

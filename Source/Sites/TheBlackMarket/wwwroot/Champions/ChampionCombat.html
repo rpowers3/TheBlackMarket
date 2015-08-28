@@ -1,37 +1,43 @@
 ﻿<div class="champion-info-container">
 	<div ng-include="'/champions/ChampionHeader.html'"></div>
 
-	<div class="champion-info champion-info-combat">
+	<div class="champion-info">
 		<div class="champion-stats-container champion-info-gold">
-			<div class="data-header">Kills, Deaths, and Assists</div>
+			<div class="champion-stats-header">
+				<img src="/Combat.png" />
+				<span>Combat</span>
 
-			<div class="data-section">
-				<span class="data-section-header">Average KDA</span>
-				<nvd3-pie-chart data="kdaChart" color="kdaColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
-					<svg></svg>
-				</nvd3-pie-chart>
-			</div>
-
-			<div class="data-section">
-				<span class="data-section-header">Kill Types</span>
-				<nvd3-pie-chart data="killChart" color="killChartColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
-					<svg></svg>
-				</nvd3-pie-chart>
-			</div>
-
-			<div class="data-section">
-				<span class="data-section-header">Winning KDA</span>
-				<nvd3-pie-chart data="winningKdaChart" color="kdaColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
-					<svg></svg>
-				</nvd3-pie-chart>
-			</div>
-
-			<div class="data-section">
-				<span class="data-section-header">Winning Kill Types</span>
-				<nvd3-pie-chart data="winningKillChart" color="killChartColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
-					<svg></svg>
-				</nvd3-pie-chart>
+				<video ng-src="{{deathVideoUrl}}" controls></video>
+				<video ng-src="{{killVideoUrl}}" controls></video>
 			</div>
 		</div>
+	</div>
+
+	<div class="data-section">
+		<span class="data-section-header">Average KDA</span>
+		<nvd3-pie-chart data="kdaChart" color="kdaColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
+			<svg></svg>
+		</nvd3-pie-chart>
+	</div>
+
+	<div class="data-section">
+		<span class="data-section-header">Kill Types</span>
+		<nvd3-pie-chart data="killChart" color="killChartColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
+			<svg></svg>
+		</nvd3-pie-chart>
+	</div>
+
+	<div class="data-section">
+		<span class="data-section-header">Winning KDA</span>
+		<nvd3-pie-chart data="winningKdaChart" color="kdaColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
+			<svg></svg>
+		</nvd3-pie-chart>
+	</div>
+
+	<div class="data-section">
+		<span class="data-section-header">Winning Kill Types</span>
+		<nvd3-pie-chart data="winningKillChart" color="killChartColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
+			<svg></svg>
+		</nvd3-pie-chart>
 	</div>
 </div>

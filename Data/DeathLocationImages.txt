@@ -1,0 +1,50 @@
+o DeathLocationsC
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsC -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsC -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift256x256.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\BlueS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\RedS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png--generate-composite-image --composite-image-factor 128.0
+
+o DeathLocationsCM
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsTC -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsCM -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift256x256.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\BlueS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\RedS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png -t --generate-composite-image --composite-image-factor 128.0
+
+o DeathLocationsR
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsRT -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsR -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift512x512.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png -t --generate-composite-image --composite-image-factor 256.0
+
+o DeathLocationsRM
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsRT -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsRM -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift512x512.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\BlueS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\RedS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png -t --generate-composite-image --composite-image-factor 256.0
+
+o DeathLocationsRC
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsRC -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsRC -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift256x256.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\BlueS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\RedS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png --generate-composite-image --composite-image-factor 32.0
+
+o DeathLocationsRCM
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsRTC -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsRCM -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift256x256.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\BlueS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\RedS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png -t --generate-composite-image --composite-image-factor 16.0
+
+o DeathLocationsRT
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsRT -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsRT -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift256x256.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\BlueS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\RedS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png --generate-composite-image --composite-image-factor 256.0
+
+o DeathLocationsRTC
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsRTC -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsRTC -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift256x256.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\BlueS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\RedS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png --generate-composite-image --composite-image-factor 16.0
+
+m DeathLocationsT
+
+o DeathLocationsTC
+
+G:\Projects\TheBlackMarket\Source\Tools\HeatMapBatchBuilder\bin\debug\HeatMapBatchBuilder.exe -h G:\Projects\TheBlackMarket\Source\Tools\HeatMapVideoBuilder\bin\debug\HeatMapVideoBuilder.exe -i G:\Projects\TheBlackMarket\Data\Json\DeathLocationsTC -o G:\Projects\TheBlackMarket\Data\Images\DeathLocationsTC -m G:\Projects\TheBlackMarket\Data\HeatMapResources\SummonersRift256x256.png -b G:\Projects\TheBlackMarket\Data\HeatMapResources\BlueS2.png -r G:\Projects\TheBlackMarket\Data\HeatMapResources\RedS2.png -n G:\Projects\TheBlackMarket\Data\HeatMapResources\NuetralS2.png --generate-composite-image --composite-image-factor 128.0
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

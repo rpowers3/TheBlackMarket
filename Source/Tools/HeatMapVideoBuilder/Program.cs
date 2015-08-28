@@ -127,9 +127,11 @@ namespace HeatMapVideoBuilder {
 				return;
 			}
 
-			var frameRate = 25;
-			var scaledFrameRate = options.TimeScale / frameRate;
-			var timeDelta = (int) (1000 * scaledFrameRate);
+			var outputDirectory = Path.GetDirectoryName(options.OutputFile);
+			if (!Directory.Exists(outputDirectory)) {
+				Directory.CreateDirectory(outputDirectory);
+			}
+
 			var width = backgroundImage.Width;
 			var height = backgroundImage.Height;
 			var fullRect = new Rectangle(0, 0, width, height);
@@ -146,6 +148,66 @@ namespace HeatMapVideoBuilder {
 			heatMapBufferGraphics.CompositingMode = CompositingMode.SourceOver;
 			heatMapBufferGraphics.CompositingQuality = CompositingQuality.HighSpeed;
 
+			var currentTime = 0;
+			var currentIndices = Enumerable.Repeat(0, heatMapData.Count).ToArray();
+			var heatMapDataDone = Enumerable.Repeat(false, heatMapData.Count).ToArray();
+
+			var drawSpriteColorMatrix = new ColorMatrix();
+			drawSpriteColorMatrix.Matrix33 = 1.0f / ((options.CompositeImageFactor == 0.0f) ? 256.0f : options.CompositeImageFactor);
+			var drawSpriteImageAttributes = new ImageAttributes();
+			drawSpriteImageAttributes.SetColorMatrix(drawSpriteColorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+			var spriteBounds = spriteImages.Select(si => new Rectangle(0, 0, si.Width, si.Height)).ToArray();
+
+			// Fast track that just generates a final composite image.
+			if (options.GenerateCompositeImage) {
+				compositeImageGraphics.DrawImage(backgroundImage, Point.Empty);
+
+				while (heatMapDataDone.Any(isDone => !isDone)) {
+					// Write the new heat map data into the heat map buffer.
+					++currentTime;
+
+					var heatMapIndex = 0;
+					var spriteIndex = 0;
+
+					foreach (var heatMapDataInstance in heatMapData) {
+						var currentIndex = currentIndices[heatMapIndex];
+
+						while ((currentIndex < heatMapDataInstance.Timestamps.Count) && (heatMapDataInstance.Timestamps[currentIndex] < currentTime)) {
+							var x = (heatMapDataInstance.X[currentIndex] - dataOrigin.X) * xScaling + mapOrigin.X - halfSpriteSize[spriteIndex].Width;
+							var y = (heatMapDataInstance.Y[currentIndex] - dataOrigin.Y) * yScaling + mapOrigin.Y - halfSpriteSize[spriteIndex].Height;
+
+							var spriteWidth = spriteBounds[spriteIndex].Width;
+							var spriteHeight = spriteBounds[spriteIndex].Height;
+							var destPoints = new[] { new PointF(x, y), new PointF(x + spriteWidth, y), new PointF(x, y + spriteHeight) };
+							heatMapBufferGraphics.DrawImage(spriteImages[spriteIndex], destPoints, spriteBounds[spriteIndex], GraphicsUnit.Pixel, drawSpriteImageAttributes);
+
+							++currentIndex;
+						}
+
+						currentIndices[heatMapIndex] = currentIndex;
+
+						if (currentIndex >= heatMapDataInstance.Timestamps.Count) {
+							heatMapDataDone[heatMapIndex] = true;
+						}
+
+						if (spriteIndex < spriteImages.Count - 1) {
+							++spriteIndex;
+						}
+
+						++heatMapIndex;
+					}
+				}
+
+				compositeImageGraphics.DrawImage(heatMapBuffer, Point.Empty);
+				compositeImage.Save(options.OutputFile);
+				return;
+			}
+
+			var frameRate = 25;
+			var scaledFrameRate = options.TimeScale / frameRate;
+			var timeDelta = (int) (1000 * scaledFrameRate);
+
 			var residualBuffer = new Bitmap(width, height, PixelFormat.Format32bppArgb);
 			var residualBufferGraphics = Graphics.FromImage(residualBuffer);
 			residualBufferGraphics.CompositingMode = CompositingMode.SourceOver;
@@ -155,15 +217,6 @@ namespace HeatMapVideoBuilder {
 			var tempBufferGraphics = Graphics.FromImage(tempBuffer);
 			tempBufferGraphics.CompositingMode = CompositingMode.SourceOver;
 			tempBufferGraphics.CompositingQuality = CompositingQuality.HighSpeed;
-
-			var currentTime = 0;
-			var currentIndices = Enumerable.Repeat(0, heatMapData.Count).ToArray();
-			var heatMapDataDone = Enumerable.Repeat(false, heatMapData.Count).ToArray();
-
-			var outputDirectory = Path.GetDirectoryName(options.OutputFile);
-			if (!Directory.Exists(outputDirectory)) {
-				Directory.CreateDirectory(outputDirectory);
-			}
 
 			var videoWriter = new VideoFileWriter();
 

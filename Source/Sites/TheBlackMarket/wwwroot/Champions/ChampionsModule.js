@@ -502,6 +502,20 @@
 		// data for the champion. This is invoked when the controller
 		// loads and when the region or team filters change.
 		$scope.refresh = function() {
+			$scope.deathVideoUrl = dataService.getDataPath({
+				dataSource: 'DeathLocations',
+				type: 'mp4',
+				useMerge: true,
+				championId: $scope.champion.key
+			});
+
+			$scope.killVideoUrl = dataService.getDataPath({
+				dataSource: 'KillLocations',
+				type: 'mp4',
+				useMerge: true,
+				championId: $scope.champion.key
+			});
+
 			// Get the champion statistics.
 			dataService.getDataAsync({
 				dataSource: 'ChampionStats',

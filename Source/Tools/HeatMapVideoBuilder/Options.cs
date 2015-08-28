@@ -74,5 +74,17 @@ namespace HeatMapVideoBuilder {
 			get;
 			set;
 		}
+
+		[Option("generate-composite-image", Default = false, HelpText = "Generates a final heatmap image.")]
+		public bool GenerateCompositeImage {
+			get;
+			set;
+		}
+
+		[Option("composite-image-factor", Default = 256.0f, HelpText = "Used for alpha of the sprite for composite images.")]
+		public float CompositeImageFactor {
+			get;
+			set;
+		}
 	}
 }
