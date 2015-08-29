@@ -276,6 +276,7 @@ div.champion-list {
 		.champion-info-skills,
 		.champion-info-skill-charts,
 		.champion-info-objectives,
+		.champion-info-objective-chart,
 		.champion-info-gold {
 			background: rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 0px 10px black inset;
@@ -380,6 +381,7 @@ div.champion-list {
 
 		.champion-info-objectives {
 			width: 30em;
+			display: inline-block;
 
 			.champion-stats-header {
 				> img {
@@ -407,8 +409,31 @@ div.champion-list {
 
 				.champion-info-objectives-map-objective {
 					position: absolute;
-					width: 0.5em;
-					height: 0.5em;
+					width: 1em;
+					height: 1em;
+					opacity: 0.4;
+					border-radius: 1em;
+					border: 1px solid white;
+					transition: 150ms all;
+					cursor: pointer;
+					
+					&:hover,
+					&.active {
+						animation: objectiveAnimation 0.5s infinite;
+						box-shadow: 0px 0px 5px white;
+					}
+
+					@keyframes objectiveAnimation {
+						0% {
+							opacity: 0.7;
+						}
+						50% {
+							opacity: 1;
+						}
+						100% {
+							opacity: 0.7;
+						}
+					}
 				}
 
 				.map-objective-blue {
@@ -419,99 +444,115 @@ div.champion-list {
 					background: red;
 				}
 
-				.map-objective-bnt1 {
-					left: 5em;
-					top: 14.7em;
+				.map-objective-baron {
+					background: purple;
+					left: 10.1em;
+					top: 4.6em;
+					width: 1.5em;
+					height: 1.5em;
 				}
 
-				.map-objective-bnt2 {
-					left: 5.7em;
-					top: 15.5em;
+				.map-objective-dragon {
+					background: orange;
+					left: 16.7em;
+					top: 11.4em;
+					width: 1.5em;
+					height: 1.5em;
+				}
+
+				.map-objective-bn1 {
+					left: 4.7em;
+					top: 14.4em;
+				}
+
+				.map-objective-bn2 {
+					left: 5.5em;
+					top: 15.4em;
 				}
 
 				.map-objective-btb {
-					left: 4.5em;
-					top: 12em;
+					left: 4.3em;
+					top: 11.8em;
 				}
 
 				.map-objective-bti {
-					left: 5.3em;
-					top: 8.9em;
+					left: 5.2em;
+					top: 8.7em;
 				}
 
 				.map-objective-bto {
 					left: 5.1em;
-					top: 4.8em;
+					top: 4.6em;
 				}
 
 				.map-objective-bmb {
-					left: 8.2em;
-					top: 12.8em;
+					left: 8.0em;
+					top: 12.5em;
 				}
 
 				.map-objective-bmi {
-					left: 10.3em;
-					top: 11.4em;
+					left: 10.1em;
+					top: 11.1em;
 				}
 
 				.map-objective-bmo {
-					left: 11.4em;
-					top: 9.2em;
+					left: 11.2em;
+					top: 9.1em;
 				}
 
 				
 				.map-objective-bbb {
-					left: 9em;
+					left: 8.7em;
 					top: 16.2em;
 				}
 
 				.map-objective-bbi {
-					left: 12.9em;
+					left: 12.8em;
 					top: 16em;
 				}
 
 				.map-objective-bbo {
-					left: 19em;
-					top: 16.8em;
+					left: 18.7em;
+					top: 16.6em;
 				}
 
-				.map-objective-rnt1 {
-					left: 19.3em;
-					top: 2.4em;
+				.map-objective-rn1 {
+					left: 19.2em;
+					top: 2em;
 				}
 
-				.map-objective-rnt2 {
-					left: 20.1em;
-					top: 2.9em;
+				.map-objective-rn2 {
+					left: 19.8em;
+					top: 2.6em;
 				}
 
 				.map-objective-rtb {
-					left: 17em;
-					top: 1.8em;
-				}
-
-				.map-objective-rti {
-					left: 14em;
-					top: 1.9em;
-				}
-
-				.map-objective-rto {
-					left: 9.9em;
+					left: 16.6em;
 					top: 1.7em;
 				}
 
+				.map-objective-rti {
+					left: 13.6em;
+					top: 1.8em;
+				}
+
+				.map-objective-rto {
+					left: 9.5em;
+					top: 1.6em;
+				}
+
 				.map-objective-rmb {
-					left: 18.5em;
+					left: 17.9em;
 					top: 3.8em;
 				}
 
 				.map-objective-rmi {
-					left: 16.3em;
-					top: 5.2em;
+					left: 16.1em;
+					top: 5.1em;
 				}
 
 				.map-objective-rmo {
-					left: 15.4em;
+					left: 15.3em;
 					top: 6.9em;
 				}
 
@@ -522,13 +563,27 @@ div.champion-list {
 
 				.map-objective-rbi {
 					left: 21.2em;
-					top: 7.2em;
+					top: 7.1em;
 				}
 
 				.map-objective-rbo {
-					left: 23em;
-					top: 11.9em;
+					left: 22.8em;
+					top: 11.3em;
 				}
+			}
+		}
+
+		.champion-info-objective-chart {
+			display: inline-block;
+			width: 50em;
+			height: 31em;
+			margin: 0em;
+			margin-top: 8em;
+			padding-bottom: 1em;
+
+			svg {
+				width: 100%;
+				height: 92%;
 			}
 		}
 

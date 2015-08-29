@@ -72,6 +72,17 @@ namespace MongoExtract {
 				//@"-d TheBlackMarket -c EliteMonsterKillRTC -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterKillRTC -i _id.region,_id.teamId,_id.championId -f r{0}t{1}c{2}",
 				//@"-d TheBlackMarket -c EliteMonsterKillT -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterKillT -i _id.teamId -f t{0}",
 				//@"-d TheBlackMarket -c EliteMonsterKillTC -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterKillTC -i _id.teamId,_id.championId -f t{0}c{1}",
+
+				@"-d TheBlackMarket -c EliteMonsterPerMinuteKillC -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterPerMinuteKillC -i _id.championId -f c{0}",
+				@"-d TheBlackMarket -c EliteMonsterPerMinuteKillG -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterPerMinuteKillG -i _id.global -f {0}",
+				@"-d TheBlackMarket -c EliteMonsterPerMinuteKillR -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterPerMinuteKillR -i _id.region -f r{0}",
+				@"-d TheBlackMarket -c EliteMonsterPerMinuteKillRC -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterPerMinuteKillRC -i _id.region,_id.championId -f r{0}c{1}",
+				@"-d TheBlackMarket -c EliteMonsterPerMinuteKillRT -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterPerMinuteKillRT -i _id.region,_id.teamId -f r{0}t{1}",
+				@"-d TheBlackMarket -c EliteMonsterPerMinuteKillRTC -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterPerMinuteKillRTC -i _id.region,_id.teamId,_id.championId -f r{0}t{1}c{2}",
+				@"-d TheBlackMarket -c EliteMonsterPerMinuteKillT -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterPerMinuteKillT -i _id.teamId -f t{0}",
+				@"-d TheBlackMarket -c EliteMonsterPerMinuteKillTC -o G:\Projects\TheBlackMarket\Data\Json\EliteMonsterPerMinuteKillTC -i _id.teamId,_id.championId -f t{0}c{1}",
+
+
 				//@"-d TheBlackMarket -c ItemPerMinuteWinRatesCI -o G:\Projects\TheBlackMarket\Data\Json\ItemPerMinuteWinRatesCI -i _id.championId,_id.itemId -f c{0}i{1}",
 				//@"-d TheBlackMarket -c ItemPerMinuteWinRatesI -o G:\Projects\TheBlackMarket\Data\Json\ItemPerMinuteWinRatesI -i _id.itemId -f i{0}",
 				//@"-d TheBlackMarket -c ItemPerMinuteWinRatesRCI -o G:\Projects\TheBlackMarket\Data\Json\ItemPerMinuteWinRatesRCI -i _id.region,_id.championId,_id.itemId -f r{0}c{1}i{2}",

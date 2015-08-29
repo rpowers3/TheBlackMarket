@@ -1043,7 +1043,7 @@
 
 		// Known array keys for total and win values in the JSON
 		// data.
-		var knownTotalKeys = ["total", "timesUsed", "bought", "leveledUp"];
+		var knownTotalKeys = ["total", "timesUsed", "count", "bought", "leveledUp"];
 		var knownWinKeys = ["wins", "timesWon"];
 
 		// Search for a key in the data and return its name if
