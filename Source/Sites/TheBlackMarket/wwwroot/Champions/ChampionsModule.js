@@ -19,9 +19,283 @@
 	var winRateChartColors = ['red', 'green'];
 
 	var customSkinSounds = {
-		// Diana.
+		// Annie
+		1: {
+			skins: {
+				8: ['/Music/AnniePanda.mp3']
+			}
+		},
+		// Galio
+		3: {
+			skins: {
+				4: ['/Music/GalioUnderworld.mp3']
+			}
+		},
+		// Xin Xhao
+		5: {
+			skins: {
+				5: ['/Music/LunarRevel2013.mp3']
+			}
+		},
+		// Kayle
+		10: {
+			skins: {
+				6: ['/Music/KayleAetherWing.mp3']
+			}
+		},
+		// Teemo
+		17: {
+			skins: {
+				4: ['/Music/AstroTeemo.mp3'],
+				8: ['/Music/TeemoOmegaSquad.mp3']
+			}
+		},
+		// Warwick
+		19: {
+			skins: {
+				2: ['/Music/UrfMode.mp3']
+			}
+		},
+		// Miss Fortune
+		21: {
+			any: ['/Music/MissFortuneLoginMusic.mp3'],
+			skins: {
+				7: ['/Music/BitRush.mp3']
+			}
+		},
+		// Ashe
+		22: {
+			any: ['/Music/Freljord.mp3']
+		},
+		// Tryndamere
+		23: {
+			skins: {
+				6: ['/Music/LunarRevel2014.mp3']
+			}
+		},
+		// Cho'gath
+		31: {
+			skins: {
+				5: ['/Music/ChogathBattleCast.mp3']
+			}
+		},
+		// Dr. Mundo
+		36: {
+			skins: {
+				8: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Sona
+		37: {
+			skins: {
+				4: [
+					'/Music/LunarRevel2012.mp3'
+				],
+				5: [
+					'/Music/BitRush.mp3'
+				],
+				6: [
+					'/Music/DJSonaConcussive.mp3',
+					'/Music/DJSonaEthereal.mp3',
+					'/Music/DJSonaKinetic.mp3'
+				]
+			}
+		},
+		// Corki
+		42: {
+			skins: {
+				6: ['/Music/LunarRevel2013.mp3']
+			}
+		},
+		// Veigar
+		45: {
+			any: ['/Music/VeigarLoginMusic.mp3']
+		},
+		// Katarina
+		55: {
+			skins: {
+				8: ['/Music/JinxFirecracker.mp3']
+			}
+		},
+		// Nocturne
+		56: {
+			any: ['/Music/NocturneLoginMusic.mp3'],
+			skins: {
+				5: ['/Music/NocturneEternum.mp3']
+			}
+		},
+		// Renekton
+		58: {
+			skins: {
+				6: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Jarvin
+		59: {
+			skins: {
+				5: ['/Music/LunarRevel2013.mp3']
+			}
+		},
+		// Wukong
+		62: {
+			skins: {
+				3: ['/Music/LunarRevel2012.mp3']
+			}
+		},
+		// Lee Sin
+		64: {
+			skins: {
+				3: ['/Music/LunarRevel2012.mp3'],
+				5: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Rumble
+		68: {
+			skins: {
+				3: ['/Music/RumbleSuperGalaxyRumble.mp3']
+			}
+		},
+		// Casseopia
+		69: {
+			skins: {
+				4: ['/Music/LunarRevel2013.mp3']
+			}
+		},
+		// Nasus
+		75: {
+			skins: {
+				5: ['/Music/NasusInfernal.mp3']
+			}
+		},
+		// Nidalee
+		76: {
+			skins: {
+				7: ['/Music/JinxFirecracker.mp3']
+			}
+		},
+		// Ezreal
+		81: {
+			skins: {
+				5: ['/Music/EzrealPulsefire.mp3']
+			}
+		},
+		// Leona
+		89: {
+			skins: {
+				4: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Talon
+		91: {
+			skins: {
+				3: ['/Music/LunarRevel2012.mp3']
+			}
+		},
+		// Riven
+		92: {
+			skins: {
+				5: ['/Music/LunarRevel2014.mp3']
+			}
+		},
+		// Graves
+		104: {
+			skins: {
+				5: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Rengar
+		107: {
+			any: ['/Music/RengarLoginMusic.mp3']
+		},
+		// Varus
+		110: {
+			any: ['/Music/VarusLoginMusic.mp3']
+		},
+		// Lissandra
+		113: {
+			any: ['/Music/Freljord.mp3']
+		},
+		// Ziggs
+		115:  {
+			skins: {
+				3: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Lulu
+		117: {
+			any: ['/Music/LuluLoginMusic.mp3'],
+			skins: {
+				5: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Draven
+		119: {
+			any: ['/Music/DravenLoginMusic.mp3'],
+			skins: {
+				4: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Hecarim
+		120: {
+			any: ['/Music/HecarimLoginScreen.mp3']
+		},
+		// Diana
+		121: {
+			any: ['/Music/KhaZixLoginMusic.mp3']
+		},
+		// Darius
+		122: {
+			any: ['/Music/DariusLoginMusic.mp3']
+		},
+		// Jayce
+		126: {
+			any: ['/Music/JayceLoginMusic.mp3']
+		},
+		// Lissandra
+		127: {
+			any: ['/Music/Freljord.mp3']
+		},
+		// Diana
 		131: {
-			any: ['/Music/DianasLoginMusic.mp3']
+			any: ['/Music/DianasLoginMusic.mp3'],
+			skins: {
+				2: ['/Music/LunarRevel2014.mp3']
+			}
+		},
+		// Quinn and Valor
+		133: {
+			any: ['/Music/QuinnLoginMusic.mp3']
+		},
+		// Syndra
+		134: {
+			any: ['/Music/SyndraLoginMusic.mp3']
+		},
+		// Zyra
+		143: {
+			any: ['/Music/ZyraLoginMusic.mp3']
+		},
+		// Gnar
+		150: {
+			any: ['/Music/Gnar.mp3']
+		},
+		// Zac
+		154: {
+			any: ['/Music/ZacLoginMusic.mp3'],
+			skins: {
+				2: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Yasuo
+		157: {
+			any: ['/Music/YasuoLoginMusic.mp3']
+		},
+		// Vel'Koz
+		161: {
+			any: ['/Music/VelKozLoginMusic.mp3']
+		},
+		// Braum
+		201: {
+			any: ['/Music/BraumLoginMusic.mp3'],
 		},
 		// Jinx
 		222: {
@@ -29,6 +303,57 @@
 			skins: {
 				2: ['/Music/JinxFirecracker.mp3']
 			}
+		},
+		// Tahm Kench
+		223: {
+			any: ['/Music/TahmKenchLoginMusic.mp3'],
+		},
+		// Lucian
+		236: {
+			any: ['/Music/LucianLoginMusic.mp3'],
+		},
+		// Zed
+		238: {
+			any: ['/Music/ZedLoginMusic.mp3']
+		},
+		// Ekko
+		245: {
+			any: ['/Music/EkkoLoginMusic.mp3', '/Music/EkkoSeconds.mp3' ],
+		},
+		// Vi
+		254: {
+			any: ['/Music/ViLoginMusic.mp3'],
+		},
+		// Aatrox
+		266: {
+			any: ['/Music/AatroxLoginMusic.mp3'],
+		},
+		// Nami
+		267: {
+			any: ['/Music/NamiLoginMusic.mp3', '/Music/Nami.mp3'],
+		},
+		// Azir
+		268: {
+			any: ['/Music/AzirLoginMusic.mp3'],
+		},
+		// Kalista
+		412: {
+			any: ['/Music/ThreshLoginMusic.mp3']
+		},
+		// Kalista
+		429: {
+			any: ['/Music/KalistaLoginMusic.mp3']
+		},
+		// Rek'Sai
+		421: {
+			any: ['/Music/RekSaiLoginMusic.mp3'],
+			skins: {
+				2: ['/Music/PoolParty.mp3']
+			}
+		},
+		// Bard
+		432: {
+			any: ['/Music/BardLoginMusic.mp3'],
 		}
 	};
 
@@ -115,6 +440,8 @@
 				var skinCount = champion.skins.length;
 				var skinIndex = Math.floor(Math.random() * skinCount);
 				var skinInfo = champion.skins[skinIndex];
+
+				console.info("SKIN>>> " + skinIndex);
 
 				if (audioService.playMusic) {
 					var customTrack = self.getChampionMusic(champion.key, skinIndex);
