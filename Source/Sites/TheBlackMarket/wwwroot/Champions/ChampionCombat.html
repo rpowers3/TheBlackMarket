@@ -2,46 +2,1456 @@
 	<div ng-include="'/Champions/ChampionHeader.html'"></div>
 
 	<div class="champion-info">
-		<div class="champion-stats-container champion-info-gold">
+		<div class="champion-stats-container champion-info-combat">
 			<div class="champion-stats-header">
 				<img src="/Combat.png" />
 				<span>Combat</span>
-
-				<video autoplay controls preload="none">
-					<source src="/Videos/DeathLocationsRM/rNA.mp4" type='video/mp4; codecs="mp4v.20.8, samr"' />
-				</video>
-
-				<video ng-src="{{deathVideoUrl}}" controls></video>
-				<video ng-src="{{killVideoUrl}}" controls></video>
 			</div>
 		</div>
-	</div>
 
-	<div class="data-section">
-		<span class="data-section-header">Average KDA</span>
-		<nvd3-pie-chart data="kdaChart" color="kdaColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
-			<svg></svg>
-		</nvd3-pie-chart>
-	</div>
+		<div class="champion-stats-container champion-info-combat-heat-maps">
+			<div class="champion-info-combat-heat-map">
+				<div class="champion-stats-group-header">
+					Deaths
+				</div>
+				<div class="champion-info-combat-heat-map-content">
+					<img ng-src="{{deathHeatMap}}" />
 
-	<div class="data-section">
-		<span class="data-section-header">Kill Types</span>
-		<nvd3-pie-chart data="killChart" color="killChartColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
-			<svg></svg>
-		</nvd3-pie-chart>
-	</div>
+					<div ng-controller="DummyController">
+						<videogular vg-theme="videoTheme" vg-preload="none">
+							<vg-media vg-src="deathSources" vg-native-controls="true">
+							</vg-media>
+						</videogular>
+					</div>
+				</div>
+			</div>
 
-	<div class="data-section">
-		<span class="data-section-header">Winning KDA</span>
-		<nvd3-pie-chart data="winningKdaChart" color="kdaColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
-			<svg></svg>
-		</nvd3-pie-chart>
-	</div>
+			<div class=" champion-info-combat-heat-map">
+				<div class="champion-stats-group-header">
+					Kills
+				</div>
+				<div class="champion-info-combat-heat-map-content">
+					<img ng-src="{{killshHeatMap}}" />
 
-	<div class="data-section">
-		<span class="data-section-header">Winning Kill Types</span>
-		<nvd3-pie-chart data="winningKillChart" color="killChartColors" showLabels="true" x="labelFunction()" y="valueFunction()" donut="true" donutRatio=".35" margin="{left:0,top:0,bottom:0,right:0}" tooltips="true" tooltipcontent="getPieSliceTooltip()" useInteractiveGuideline="false" showlegend="false" labelThreshold=".05" labelType="percent" donutLabelsOutside="true">
-			<svg></svg>
-		</nvd3-pie-chart>
+					<div ng-controller="DummyController">
+						<videogular vg-theme="videoTheme" vg-preload="none">
+							<vg-media vg-src="killSources" vg-native-controls="true">
+							</vg-media>
+						</videogular>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="champion-stats-container champion-info-combat-extended-stats">
+			<table class="champion-grid champion-grid-with-sparklines champion-grid-highlight-rows">
+				<thead>
+					<tr>
+						<th></th>
+						<th colspan="8">All Games</th>
+						<th></th>
+						<th colspan="8">Won Games</th>
+					</tr>
+				</thead>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section">
+							General
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">KDA</td>
+						<td colspan="8">
+							<progress>
+								<bar ng-repeat="bar in kdaBar track by $index" value="bar.normalizedValue" type="{{bar.type}}" tooltip="{{bar.title}}">
+									<span>{{bar.value | number:2}}</span>
+								</bar>
+							</progress>
+						</td>
+						<td colspan="8">
+							<progress>
+								<bar ng-repeat="bar in kdaWinBar track by $index" value="bar.normalizedValue" type="{{bar.type}}" tooltip="{{bar.title}}">
+									<span>{{bar.value | number:2}}</span>
+								</bar>
+							</progress>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Multikills</td>
+						<td colspan="8">
+							<progress>
+								<bar ng-repeat="bar in killBar track by $index" value="bar.normalizedValue" type="{{bar.type}}" tooltip="{{bar.title}}">
+									<span>{{bar.value | number:2}}</span>
+								</bar>
+							</progress>
+						</td>
+						<td colspan="8">
+							<progress>
+								<bar ng-repeat="bar in killWinBar track by $index" value="bar.normalizedValue" type="{{bar.type}}" tooltip="{{bar.title}}">
+									<span>{{bar.value | number:2}}</span>
+								</bar>
+							</progress>
+						</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th></th>
+						<th colspan="2">Min</th>
+						<th colspan="2">Avg</th>
+						<th colspan="2">Max</th>
+						<th colspan="2">Total</th>
+						<th colspan="2">Min</th>
+						<th colspan="2">Avg</th>
+						<th colspan="2">Max</th>
+						<th colspan="2">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">Kills</td>
+						<td>{{championStats.killsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killsAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killsAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killsMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killsMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killsSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killsSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killsMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killsMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killsAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killsAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killsMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killsMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killsSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killsSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Assists</td>
+						<td>{{championStats.assistsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.assistsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.assistsAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.assistsAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.assistsMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.assistsMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.assistsSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.assistsSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.assistsMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.assistsMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.assistsAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.assistsAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.assistsMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.assistsMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.assistsSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.assistsSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Deaths</td>
+						<td>{{championStats.DeathsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.deathsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.deathsAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.deathsAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.deathsMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.deathsMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.deathsSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.deathsSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.deathsMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.deathsMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.deathsAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.deathsAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.deathsMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.deathsMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.deathsSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.deathsSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Killing Sprees</td>
+						<td>{{championStats.killingSpreesMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killingSpreesMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killingSpreesAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killingSpreesAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killingSpreesMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killingSpreesMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killingSpreesSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killingSpreesSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killingSpreesMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killingSpreesMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killingSpreesAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killingSpreesAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killingSpreesMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killingSpreesMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.killingSpreesSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.killingSpreesSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Largest Killing Spree</td>
+						<td>{{championStats.largestKillingSpreeMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestKillingSpreeMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestKillingSpreeAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestKillingSpreeAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestKillingSpreeMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestKillingSpreeMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestKillingSpreeSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestKillingSpreeSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestKillingSpreeMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestKillingSpreeMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestKillingSpreeAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestKillingSpreeAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestKillingSpreeMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestKillingSpreeMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestKillingSpreeSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestKillingSpreeSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th></th>
+						<th colspan="2">Min</th>
+						<th colspan="2">Avg</th>
+						<th colspan="2">Max</th>
+						<th colspan="2">Total</th>
+						<th colspan="2">Min</th>
+						<th colspan="2">Avg</th>
+						<th colspan="2">Max</th>
+						<th colspan="2">Total</th>
+					</tr>
+				</thead>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
+							Damage Dealt
+						</th>
+					</tr>
+				</thead>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
+							Total Dealt
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">Total</td>
+						<td>{{championStats.totalDamageDealtMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Magic</td>
+						<td>{{championStats.totalDamageDealtMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Physical</td>
+						<td>{{championStats.totalDamageDealtMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">True</td>
+						<td>{{championStats.totalDamageDealtMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
+							Total Dealt to Champions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">Total</td>
+						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtToChampionsAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtToChampionsMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtToChampionsSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtToChampionsMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtToChampionsAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtToChampionsMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageDealtToChampionsSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Magic</td>
+						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtToChampionsAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtToChampionsMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtToChampionsSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtToChampionsMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtToChampionsAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtToChampionsMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageDealtToChampionsSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Physical</td>
+						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtToChampionsAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtToChampionsMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtToChampionsSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtToChampionsMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtToChampionsAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtToChampionsMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageDealtToChampionsSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">True</td>
+						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtToChampionsAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtToChampionsMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtToChampionsSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtToChampionsMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtToChampionsAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtToChampionsMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.trueDamageDealtToChampionsSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
+							Other Stats
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">Largest Critical Strike</td>
+						<td>{{championStats.largestCriticalStrikeMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestCriticalStrikeMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestCriticalStrikeAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestCriticalStrikeAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestCriticalStrikeMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestCriticalStrikeMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestCriticalStrikeSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestCriticalStrikeSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestCriticalStrikeMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestCriticalStrikeMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestCriticalStrikeAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestCriticalStrikeAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestCriticalStrikeMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestCriticalStrikeMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.largestCriticalStrikeSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.largestCriticalStrikeSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Crowd Control Time</td>
+						<td>{{championStats.totalTimeCrowdControlDealtMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalTimeCrowdControlDealtAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalTimeCrowdControlDealtMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalTimeCrowdControlDealtSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalTimeCrowdControlDealtMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalTimeCrowdControlDealtAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalTimeCrowdControlDealtMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalTimeCrowdControlDealtSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th></th>
+						<th colspan="2">Min</th>
+						<th colspan="2">Avg</th>
+						<th colspan="2">Max</th>
+						<th colspan="2">Total</th>
+						<th colspan="2">Min</th>
+						<th colspan="2">Avg</th>
+						<th colspan="2">Max</th>
+						<th colspan="2">Total</th>
+					</tr>
+				</thead>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
+							Damage Taken
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">Total</td>
+						<td>{{championStats.totalDamageTakenMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageTakenMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageTakenAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageTakenAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageTakenMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageTakenMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageTakenSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageTakenSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageTakenMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageTakenMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageTakenAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageTakenAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageTakenMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageTakenMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalDamageTakenSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalDamageTakenSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Magic</td>
+						<td>{{championStats.totalDamageTakenMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageTakenMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageTakenAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageTakenAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageTakenMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageTakenMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageTakenSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageTakenSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageTakenMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageTakenMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageTakenAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageTakenAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageTakenMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageTakenMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.magicDamageTakenSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.magicDamageTakenSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Physical</td>
+						<td>{{championStats.totalDamageTakenMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageTakenMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageTakenAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageTakenAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageTakenMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageTakenMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageTakenSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageTakenSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageTakenMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageTakenMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageTakenAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageTakenAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageTakenMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageTakenMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.physicalDamageTakenSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.physicalDamageTakenSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th></th>
+						<th colspan="2">Min</th>
+						<th colspan="2">Avg</th>
+						<th colspan="2">Max</th>
+						<th colspan="2">Total</th>
+						<th colspan="2">Min</th>
+						<th colspan="2">Avg</th>
+						<th colspan="2">Max</th>
+						<th colspan="2">Total</th>
+					</tr>
+				</thead>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
+							Healing Done
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">Total Healing</td>
+						<td>{{championStats.totalHealMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalHealMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalHealAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalHealAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalHealMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalHealMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalHealSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalHealSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalHealMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalHealMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalHealAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalHealAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalHealMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalHealMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalHealSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalHealSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Total Units Healed</td>
+						<td>{{championStats.totalDamageTakenMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalUnitsHealedMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalUnitsHealedAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalUnitsHealedAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalUnitsHealedMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalUnitsHealedMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalUnitsHealedSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalUnitsHealedSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalUnitsHealedMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalUnitsHealedMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalUnitsHealedAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalUnitsHealedAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalUnitsHealedMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalUnitsHealedMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.totalUnitsHealedSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.totalUnitsHealedSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
+							Minion Stats
+						</th>
+					</tr>
+				</thead>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
+							Lane Minions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">Kills</td>
+						<td>{{championStats.minionsKilledMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.minionsKilledMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.minionsKilledAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.minionsKilledAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.minionsKilledMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.minionsKilledMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.minionsKilledSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.minionsKilledSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.minionsKilledMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.minionsKilledMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.minionsKilledAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.minionsKilledAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.minionsKilledMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.minionsKilledMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.minionsKilledSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.minionsKilledSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
+							Jungle Minions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="champion-stat">Kills</td>
+						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Own Jungle</td>
+						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledTeamJunglesAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledTeamJunglesMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledTeamJunglesSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledTeamJunglesMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledTeamJunglesAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledTeamJunglesMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledTeamJunglesSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+					<tr>
+						<td class="champion-stat">Enemy Jungle</td>
+						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledEnemyJungleAvg | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleAvg" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledEnemyJungleMax | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleMax" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledEnemyJungleSum | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleSum" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledEnemyJungleMinWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleMinWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledEnemyJungleAvgWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleAvgWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledEnemyJungleMaxWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleMaxWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+						<td>{{championStats.neutralMinionsKilledEnemyJungleSumWin | number:2}}</td>
+						<td class="champion-stat-sparkline">
+							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleSumWin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+								<svg></svg>
+							</nvd3-sparkline-chart>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>

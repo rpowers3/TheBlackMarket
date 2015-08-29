@@ -105,11 +105,6 @@ body {
 		padding-top: 8em;
 		background: linear-gradient(to left, rgb(0, 30, 42), rgb(2, 9, 13) 100%);
 		box-shadow: 5px 0px 5px black;
-		transition: 150ms all;
-
-		&:hover {
-			width: 21em;
-		}
 
 		> menu {
 			display: block;
@@ -127,13 +122,17 @@ body {
 				display: block;
 				overflow: hidden;
 				vertical-align: middle;
-				//width: 3em;
+				width: 3em;
 				transition: 150ms all;
 				color: black;
 				/*&:hover {
 					background: rgba(99, 99, 99, 1);
 					width: 20em;
 				}*/
+
+				&:hover {
+					width: 21em;
+				}
 			}
 		}
 

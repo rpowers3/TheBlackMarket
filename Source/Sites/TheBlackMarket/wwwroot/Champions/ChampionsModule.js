@@ -11,7 +11,8 @@
 		'ngAnimate',
 		'ui.bootstrap',
 		'ui.checkbox',
-		'nvd3ChartDirectives']);
+		'nvd3ChartDirectives',
+, "com.2fdevs.videogular"]);
 
 	// Constants
 	var kdaColors = ['blue', 'green', 'red'];
@@ -684,8 +685,10 @@
 
 				$scope.charts = {};
 
-				// Generate ALL the spark line data. BAM!
-				for (var key in data) {
+				var neededChartKeys = ['timesPlayed', 'wins', 'winRate'];
+
+				for (var i in neededChartKeys) {
+					var key = neededChartKeys[i];
 					$scope.charts[key] = championsService.buildChampionStatChartData(data, key);
 				}
 			});
@@ -1001,7 +1004,7 @@
 		});
 	}]);
 
-	ChampionsModule.controller('ChampionCombatController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+	ChampionsModule.controller('ChampionCombatController', ['$scope', '$rootScope', '$routeParams', '$sce', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, $sce, riotResourceService, dataService, championsService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -1015,24 +1018,66 @@
 
 		$scope.kdaColors = kdaColors;
 		$scope.killChartColors = killChartColors;
+		$scope.videoTheme = '/Libraries/videogular-themes-default/videogular.css';
+
 
 		// The main function responsible for pulling the aggregate
 		// data for the champion. This is invoked when the controller
 		// loads and when the region or team filters change.
 		$scope.refresh = function() {
-			$scope.deathVideoUrl = dataService.getDataPath({
+			$scope.deathHeatMap = dataService.getDataPath({
 				dataSource: 'DeathLocations',
-				type: 'mp4',
+				basePath: 'Images',
+				type: 'png',
 				useMerge: true,
 				championId: $scope.champion.key
 			});
 
-			$scope.killVideoUrl = dataService.getDataPath({
-				dataSource: 'KillLocations',
-				type: 'mp4',
+			var deathVideoUrl = dataService.getDataPath({
+				dataSource: 'DeathLocations',
+				basePath: 'Videos',
+				type: '',
 				useMerge: true,
 				championId: $scope.champion.key
 			});
+
+			$scope.deathSources = [
+				{
+					src: $sce.trustAsResourceUrl(deathVideoUrl + '.webm'),
+					type: 'video/webm'
+				},
+				{
+					src: $sce.trustAsResourceUrl(deathVideoUrl + '.mp4'),
+					type: 'video/mp4'
+				}
+			];
+
+			$scope.killshHeatMap = dataService.getDataPath({
+				dataSource: 'KillLocations',
+				basePath: 'Images',
+				type: 'png',
+				useMerge: true,
+				championId: $scope.champion.key
+			});
+
+			var killVideoUrl = dataService.getDataPath({
+				dataSource: 'KillLocations',
+				basePath: 'Videos',
+				type: '',
+				useMerge: true,
+				championId: $scope.champion.key
+			});
+
+			$scope.killSources = [
+				{
+					src: $sce.trustAsResourceUrl(killVideoUrl + '.webm'),
+					type: 'video/webm'
+				},
+				{
+					src: $sce.trustAsResourceUrl(killVideoUrl + '.mp4'),
+					type: 'video/mp4'
+				}
+			];
 
 			// Get the champion statistics.
 			dataService.getDataAsync({
@@ -1041,70 +1086,35 @@
 			}).then(function(data) {
 				$scope.championStats = data;
 
-				$scope.winLoss = [
-					{
-						value: Math.round(100 * ((data.timesPlayed - data.wins) / data.timesPlayed)),
-						type: 'danger'
-					},
-					{
-						value: Math.round(100 * (data.wins / data.timesPlayed)),
-						type: 'success'
-					}
-				];
+				$scope.kdaBar = dataService.addNormalizedBarValues([
+					{ value: data.killsAvg, type: 'info', title: data.killsAvg + ' Kills' },
+					{ value: data.assistsAvg, type: 'success', title: data.assistsAvg + ' Assists' },
+					{ value: data.deathsAvg, type: 'danger', title: data.deathsAvg + ' Deaths' }
+				]);
 
-				$scope.kdaChart = [
-					{ label: "Kills", value: data.killsAvg },
-					{ label: "Assits", value: data.deathsAvg },
-					{ label: "Deaths", value: data.assistsAvg }
-				];
+				$scope.killBar = dataService.addNormalizedBarValues([
+					//{ value: data.killsAvg, type: 'kill', title: data.killsAvg + ' Kills' },
+					{ value: data.doubleKillsAvg, type: 'doubleKill', title: data.doubleKillsAvg + ' Double Kills' },
+					{ value: data.tripleKillsAvg, type: 'tripleKill', title: data.tripleKillsAvg + ' Triple Kills' },
+					{ value: data.quadraKillsAvg, type: 'quadraKill', title: data.quadraKillsAvg + ' Quadra Kills' },
+					{ value: data.pentaKillsAvg, type: 'pentaKill', title: data.pentaKillsAvg + ' Penta Kills' },
+					{ value: data.unrealKillsAvg, type: 'ultraKill', title: data.unrealKillsAvg + ' Ultra Kills' }
+				]);
 
-				$scope.killChart = [
-					{ label: "Kills", value: data.killsAvg },
-					{ label: "Double Kills", value: data.doubleKillsAvg },
-					{ label: "Triple Kills", value: data.tripleKillsAvg },
-					{ label: "Quadra Kills", value: data.quadraKillsAvg },
-					{ label: "Penta Kills", value: data.pentaKillsAvg },
-					{ label: "Ultra Kills", value: data.unrealKillsAvg },
-				];
+				$scope.kdaWinBar = dataService.addNormalizedBarValues([
+					{ value: data.killsAvgWin, type: 'info', title: data.killsAvgWin + ' Kills' },
+					{ value: data.assistsAvgWin, type: 'success', title: data.assistsAvgWin + ' Assists' },
+					{ value: data.deathsAvgWin, type: 'danger', title: data.deathsAvgWin + ' Deaths' }
+				]);
 
-				$scope.winningKdaChart = [
-					{ label: "Kills", value: data.killsAvgWin },
-					{ label: "Assits", value: data.deathsAvgWin },
-					{ label: "Deaths", value: data.assistsAvgWin }
-				];
-
-				$scope.winningKillChart = [
-					{ label: "Kills", value: data.killsAvgWin },
-					{ label: "Double Kills", value: data.doubleKillsAvgWin },
-					{ label: "Triple Kills", value: data.tripleKillsAvgWin },
-					{ label: "Quadra Kills", value: data.quadraKillsAvgWin },
-					{ label: "Penta Kills", value: data.pentaKillsAvgWin },
-					{ label: "Ultra Kills", value: data.unrealKillsAvgWin },
-				];
-
-				$scope.popupChart = {
-					content: 'Testing',
-					templateUrl: '/Champions/SparkChartPopup.html',
-					title: 'DATA!'
-				};
-
-				$scope.labelFunction = function() {
-					return function(d) {
-						return d.label;
-					}
-				};
-
-				$scope.valueFunction = function() {
-					return function(d) {
-						return d.value;
-					}
-				};
-
-				$scope.getPieSliceTooltip = function() {
-					return function(key, value, e, graph) {
-						return '<span style="color: black"><h3>' + key + '</h3><p>' + value + '</p></span>';
-					}
-				};
+				$scope.killWinBar = dataService.addNormalizedBarValues([
+					//{ value: data.killsAvgWin, type: 'kill', title: data.killsAvgWin + ' Kills' },
+					{ value: data.doubleKillsAvgWin, type: 'doubleKill', title: data.doubleKillsAvgWin + ' Double Kills' },
+					{ value: data.tripleKillsAvgWin, type: 'tripleKill', title: data.tripleKillsAvgWin + ' Triple Kills' },
+					{ value: data.quadraKillsAvgWin, type: 'quadraKill', title: data.quadraKillsAvgWin + ' Quadra Kills' },
+					{ value: data.pentaKillsAvgWin, type: 'pentaKill', title: data.pentaKillsAvgWin + ' Penta Kills' },
+					{ value: data.unrealKillsAvgWin, type: 'ultraKill', title: data.unrealKillsAvgWin + ' Ultra Kills' }
+				]);
 			});
 
 			// Get the over time stats for spark lines.
@@ -1319,6 +1329,8 @@
 		$scope.selectedObjective = 'bn1';
 
 		var updateSelectedInfo = function() {
+			$scope.selectedObjectImageUrl = '/Blank.png';
+
 			if (!$scope.buildingInfos) {
 				return;
 			}
@@ -1332,9 +1344,11 @@
 				if ($scope.selectedObjective == "baron") {
 					monsterType = "BARON_NASHOR";
 					$scope.selectedObjectName = "Baron Nashor";
+					$scope.selectedObjectImageUrl = '/BaronNashor.png';
 				} else {
 					monsterType = "DRAGON";
 					$scope.selectedObjectName = "Dragon";
+					$scope.selectedObjectImageUrl = '/Dragon.png';
 				}
 
 				if ($scope.eliteMonsterInfo) {
@@ -1503,4 +1517,7 @@
 		initializeScope($scope);
 		registerForFilterChanges($scope, $rootScope, dataService);
 	}]);
+
+	// This is needed for videogular. You can't have multiple videos in the same scope...
+	ChampionsModule.controller('DummyController', function() { });
 })();

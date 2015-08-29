@@ -56,6 +56,15 @@ namespace TheBlackMarket {
 					new PhysicalFileProvider(videoPath),
 					"Videos"));
 
+			var videoPath2 = Configuration.Get("videoPath2");
+
+			if (!string.IsNullOrWhiteSpace(videoPath2)) {
+				fileProviderList.Add(
+					new RerootedFileProvider(
+						new PhysicalFileProvider(videoPath2),
+						"Videos"));
+			}
+
 			var soundsPath = Configuration.Get("soundsPath");
 			fileProviderList.Add(
 				new RerootedFileProvider(

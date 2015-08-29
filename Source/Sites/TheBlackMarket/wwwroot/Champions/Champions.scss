@@ -277,6 +277,9 @@ div.champion-list {
 		.champion-info-skill-charts,
 		.champion-info-objectives,
 		.champion-info-objective-chart,
+		.champion-info-combat,
+		.champion-info-combat-heat-maps,
+		.champion-info-combat-extended-stats,
 		.champion-info-gold {
 			background: rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 0px 10px black inset;
@@ -335,9 +338,9 @@ div.champion-list {
 
 				&.active {
 					> img {
-						border: 1px solid rgba(255, 255, 255, 0.5);
-						box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3);
-						animation: activeSkill 2s infinite;
+						border: 1px solid rgba(255, 255, 255, 0.75);
+						box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+						animation: activeSkill 1s infinite;
 
 						@keyframes activeSkill {
 							0% {
@@ -345,7 +348,7 @@ div.champion-list {
 							}
 
 							50% {
-								box-shadow: 0px 0px 10px white;
+								box-shadow: 0px 0px 15px white;
 							}
 
 							0% {
@@ -416,7 +419,7 @@ div.champion-list {
 					border: 1px solid white;
 					transition: 150ms all;
 					cursor: pointer;
-					
+
 					&:hover,
 					&.active {
 						animation: objectiveAnimation 0.5s infinite;
@@ -427,9 +430,11 @@ div.champion-list {
 						0% {
 							opacity: 0.7;
 						}
+
 						50% {
 							opacity: 1;
 						}
+
 						100% {
 							opacity: 0.7;
 						}
@@ -500,7 +505,7 @@ div.champion-list {
 					top: 9.1em;
 				}
 
-				
+
 				.map-objective-bbb {
 					left: 8.7em;
 					top: 16.2em;
@@ -574,6 +579,7 @@ div.champion-list {
 		}
 
 		.champion-info-objective-chart {
+			position: relative;
 			display: inline-block;
 			width: 50em;
 			height: 31em;
@@ -582,8 +588,105 @@ div.champion-list {
 			padding-bottom: 1em;
 
 			svg {
+				position: relative;
+				z-index: 1000;
 				width: 100%;
 				height: 92%;
+			}
+
+			.champion-info-objective-chart-background {
+				position: absolute;
+				top: 0em;
+				left: 0em;
+				height: 100%;
+				width: 100%;
+				background-size: auto 100%;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+		}
+
+		.champion-info-combat {
+			width: 30em;
+
+			.champion-stats-header {
+				> img {
+					width: 2.5em;
+					margin-right: 0.5em;
+				}
+			}
+		}
+
+		.champion-info-combat-heat-maps {
+			margin-top: 8em;
+
+			> * {
+				display: inline-block;
+			}
+
+			.champion-info-combat-heat-map {
+				width: 39em;
+
+				.champion-stats-group-header {
+					margin: 0em 0.5em;
+				}
+			}
+
+			.champion-info-combat-heat-map-content {
+				display: inline-block;
+
+				> * {
+					margin: 0.5em;
+					display: inline-block;
+				}
+			}
+
+			videogular {
+				width: 256px;
+				height: 256px;
+
+				vg-media {
+					width: 256px;
+					height: 256px;
+				}
+			}
+		}
+
+		.champion-info-combat-extended-stats {
+			margin-top: 4em;
+			width: 81.8em;
+			height: auto;
+
+			.progress {
+				margin: 0.5em;
+			}
+
+			svg {
+				width: 4em;
+				height: 1.5em;
+			}
+
+			table {
+				font-size: 0.7em;
+			}
+
+			.champion-stats-combat-table-section {
+				font-size: 2em;
+				font-weight: bold;
+				text-align: left;
+				margin: 0em;
+				padding: 0.5em 0em;
+				border-bottom: 1px solid white;
+			}
+
+			.champion-stats-combat-table-inner-section {
+				padding: 0.5em 0em;
+			}
+
+			.champion-stats-combat-table-sub-section {
+				font-size: 1em;
+				padding: 0.5em 0.5em;
+				border-top: 1px solid white;
 			}
 		}
 
@@ -631,6 +734,7 @@ div.champion-list {
 		td {
 			padding: 0.5em 0em;
 			text-align: right;
+			vertical-align: middle;
 			color: rgb(144, 195, 138);
 
 			&.champion-stat {

@@ -9,6 +9,7 @@
 	//"enableDirectoryBrowsing":  false,
 	//"jsonDataPath": "/RiotApiChallenge/Json",
 	//"videoPath": "/RiotApiChallenge/Videos",
+	//"videoPath2": "/RiotApiChallenge2/Videos",
 	//"soundsPath": "/RiotApiChallenge2/Sounds",
 	//"musicPath":  "/RiotApiChallenge2/Music",
 	//"imagesPath":  "/RiotApiChallenge2/Images"

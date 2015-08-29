@@ -951,10 +951,10 @@
 				filename += 'global';
 			}
 
-			var type = (options.type || 'json').toLowerCase();
-			var basePath = basePaths[type];
+			var type = ((options.type === undefined) ? 'json' : options.type).toLowerCase();
+			var basePath = (options.basePath || basePaths[type]);
 
-			return basePath + '/' + options.dataSource + suffix + '/' + filename + '.' + type;
+			return basePath + '/' + options.dataSource + suffix + '/' + filename + (type ? '.' : '') + type;
 		};
 
 		// Performs a data request for aggregate data.
@@ -1092,6 +1092,22 @@
 			}
 
 			return winLossChartData;
+		};
+
+		this.addNormalizedBarValues = function(barData) {
+			var sum = 0;
+
+			for (var i = 0; i < barData.length; ++i) {
+				sum += barData[i].value;
+			}
+
+			var normalizer = 100 / sum;
+
+			for (var i = 0; i < barData.length; ++i) {
+				barData[i].normalizedValue = barData[i].value * normalizer;
+			}
+
+			return barData;
 		};
 	}]);
 

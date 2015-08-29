@@ -12,7 +12,7 @@
 				<img src="/SummonersRift.png" />
 
 				<div ng-model="selectedObjective" btn-radio="'bn1'" class="champion-info-objectives-map-objective map-objective-blue map-objective-bn1" tooltip="Blue Nexus Turret 1"></div>
-				<div ng-model="selectedObjective" btn-radio="'bn2'" class="champion-info-objectives-map-objective map-objective-blue map-objective-bn2" tooltip="Blue Nexus Turret 2"></div>
+				<div ng-model="selectedObjective" btn-radio="'bn1'" class="champion-info-objectives-map-objective map-objective-blue map-objective-bn2" tooltip="Blue Nexus Turret 2"></div>
 				<div ng-model="selectedObjective" btn-radio="'btb'" class="champion-info-objectives-map-objective map-objective-blue map-objective-btb" tooltip="Blue Top Inhibitor Turret"></div>
 				<div ng-model="selectedObjective" btn-radio="'bti'" class="champion-info-objectives-map-objective map-objective-blue map-objective-bti" tooltip="Blue Top Inner Turret"></div>
 				<div ng-model="selectedObjective" btn-radio="'bto'" class="champion-info-objectives-map-objective map-objective-blue map-objective-bto" tooltip="Blue Top Outer Turret"></div>
@@ -22,17 +22,17 @@
 				<div ng-model="selectedObjective" btn-radio="'bbb'" class="champion-info-objectives-map-objective map-objective-blue map-objective-bbb" tooltip="Blue Bottom Inhibitor Turret"></div>
 				<div ng-model="selectedObjective" btn-radio="'bbi'" class="champion-info-objectives-map-objective map-objective-blue map-objective-bbi" tooltip="Blue Bottom Inner Turret"></div>
 				<div ng-model="selectedObjective" btn-radio="'bbo'" class="champion-info-objectives-map-objective map-objective-blue map-objective-bbo" tooltip="Blue Bottom Outer Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rn1'" class="champion-info-objectives-map-objective map-objective-red map-objective-rn1" tooltip="Red Nexus Turret 1"></div>
-				<div ng-model="selectedObjective" btn-radio="'rn2'" class="champion-info-objectives-map-objective map-objective-red map-objective-rn2" tooltip="Red Nexus Turret 2"></div>
-				<div ng-model="selectedObjective" btn-radio="'rtb'" class="champion-info-objectives-map-objective map-objective-red map-objective-rtb" tooltip="Red Top Inhibitor Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rti'" class="champion-info-objectives-map-objective map-objective-red map-objective-rti" tooltip="Red Top Inner Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rto'" class="champion-info-objectives-map-objective map-objective-red map-objective-rto" tooltip="Red Top Outer Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rmb'" class="champion-info-objectives-map-objective map-objective-red map-objective-rmb" tooltip="Red Mid Inhibitor Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rmi'" class="champion-info-objectives-map-objective map-objective-red map-objective-rmi" tooltip="Red Mid Inner Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rmo'" class="champion-info-objectives-map-objective map-objective-red map-objective-rmo" tooltip="Red Mid Outer Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rbb'" class="champion-info-objectives-map-objective map-objective-red map-objective-rbb" tooltip="Red Bottom Inhibitor Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rbi'" class="champion-info-objectives-map-objective map-objective-red map-objective-rbi" tooltip="Red Bottom Inner Turret"></div>
-				<div ng-model="selectedObjective" btn-radio="'rbo'" class="champion-info-objectives-map-objective map-objective-red map-objective-rbo" tooltip="Red Bottom Outer Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bn1'" class="champion-info-objectives-map-objective map-objective-red map-objective-rn1" tooltip="Red Nexus Turret 1"></div>
+				<div ng-model="selectedObjective" btn-radio="'bn1'" class="champion-info-objectives-map-objective map-objective-red map-objective-rn2" tooltip="Red Nexus Turret 2"></div>
+				<div ng-model="selectedObjective" btn-radio="'btb'" class="champion-info-objectives-map-objective map-objective-red map-objective-rtb" tooltip="Red Top Inhibitor Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bti'" class="champion-info-objectives-map-objective map-objective-red map-objective-rti" tooltip="Red Top Inner Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bto'" class="champion-info-objectives-map-objective map-objective-red map-objective-rto" tooltip="Red Top Outer Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bmb'" class="champion-info-objectives-map-objective map-objective-red map-objective-rmb" tooltip="Red Mid Inhibitor Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bmi'" class="champion-info-objectives-map-objective map-objective-red map-objective-rmi" tooltip="Red Mid Inner Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bmo'" class="champion-info-objectives-map-objective map-objective-red map-objective-rmo" tooltip="Red Mid Outer Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bbb'" class="champion-info-objectives-map-objective map-objective-red map-objective-rbb" tooltip="Red Bottom Inhibitor Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bbi'" class="champion-info-objectives-map-objective map-objective-red map-objective-rbi" tooltip="Red Bottom Inner Turret"></div>
+				<div ng-model="selectedObjective" btn-radio="'bbo'" class="champion-info-objectives-map-objective map-objective-red map-objective-rbo" tooltip="Red Bottom Outer Turret"></div>
 
 				<div ng-model="selectedObjective" btn-radio="'baron'" class="champion-info-objectives-map-objective map-objective-baron" tooltip="Baron Nashor"></div>
 				<div ng-model="selectedObjective" btn-radio="'dragon'" class="champion-info-objectives-map-objective map-objective-dragon" tooltip="Dragon"></div>
@@ -43,6 +43,8 @@
 			<div class="champion-stats-group-header">
 				<div tooltip="Destructions over game time">{{selectedObjectName}}</div>
 				<div>{{activeStats.timesWon}} / {{activeStats.kills}}</div>
+			</div>
+			<div class="champion-info-objective-chart-background" ng-style="{'background-image': 'url(' + selectedObjectImageUrl + ')'}">
 			</div>
 			<nvd3-stacked-area-chart data="activeChart"
 									 color="colorF()"
