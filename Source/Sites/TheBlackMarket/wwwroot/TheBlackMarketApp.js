@@ -94,6 +94,14 @@
 			return deferred.promise;
 		};
 
+		this.getSkillImageUrl = function(skill) {
+			if (!skill) {
+				return;
+			}
+
+			return self.baseImageUrl + "spell/" + skill.image.full;
+		};
+
 		// Ids of items that aren't used on SR black market brawlers.
 		var filteredIds = {
 			1062: true, // Prospector's Blade
@@ -1035,7 +1043,7 @@
 
 		// Known array keys for total and win values in the JSON
 		// data.
-		var knownTotalKeys = ["total", "timesUsed", "bought"];
+		var knownTotalKeys = ["total", "timesUsed", "bought", "leveledUp"];
 		var knownWinKeys = ["wins", "timesWon"];
 
 		// Search for a key in the data and return its name if

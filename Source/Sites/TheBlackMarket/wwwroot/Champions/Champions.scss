@@ -68,7 +68,9 @@ div.champion-list {
 .champion-info-container {
 	position: relative;
 	text-shadow: -1px -1px black, 1px -1px black, -1px 1px black, 1px 1px black;
-	margin-bottom: 5em;
+	margin-left: 2em;
+	margin-top: 2em;
+	padding-bottom: 5em;
 
 	* {
 		vertical-align: top;
@@ -78,31 +80,32 @@ div.champion-list {
 		width: initial;
 		height: initial;
 	}
-
-	.champion-background-fill {
-		position: fixed;
+	/*.champion-background-fill {
+		position: sticky;
 		left: 0;
 		top: 0;
 		width: 100%;
 		height: 100%;
-		background: black; // rgb(35, 53, 81);
-	}
-
+		background: black;
+		box-shadow: 0px 9px 25px black;
+	}*/
 	.champion-splash {
 		position: absolute;
 		left: 0.2em;
-		top: 3.2em;
+		top: 3em;
 		background-repeat: no-repeat;
 		background-size: 100% auto;
 		width: 1215px;
 		height: 717px;
-		box-shadow: 0px 0px 25px black inset;
+		box-shadow: 0px 0px 65px black;
+		border-right: 4px solid rgb(0, 29, 40);
+		border-bottom: 4px solid rgb(0, 29, 40);
 	}
 
 	.champion-sections-bar {
 		position: absolute;
-		top: 0em;
-		left: 0em;
+		top: -2em;
+		left: -2em;
 		height: 3em;
 		color: white;
 		background: linear-gradient(to bottom, rgb(2, 52, 72) 0%, rgba(0,30,42,1) 1%,rgba(2,9,13,1) 97%,rgb(2, 52, 72) 98%,rgb(2, 52, 72) 100%);
@@ -140,7 +143,7 @@ div.champion-list {
 
 	.champion-info {
 		position: relative;
-		top: 4em;
+		top: 5.5em;
 		width: 1215px;
 		position: relative;
 
@@ -178,6 +181,10 @@ div.champion-list {
 
 				* {
 					vertical-align: middle;
+				}
+
+				> img {
+					margin-right: 0.5em;
 				}
 			}
 
@@ -226,6 +233,7 @@ div.champion-list {
 				color: white;
 				padding: 0.5em;
 				width: 12em;
+				height: 4em;
 				text-decoration: none;
 				transition: 150ms all;
 				border-radius: 0.5em;
@@ -253,7 +261,6 @@ div.champion-list {
 		}
 
 		.champion-stats-group {
-			display: inline-block;
 		}
 
 		.champion-stats-group-header {
@@ -266,6 +273,9 @@ div.champion-list {
 		.champion-info-overview,
 		.champion-summoner-spells,
 		.champion-info-items,
+		.champion-info-skills,
+		.champion-info-skill-charts,
+		.champion-info-objectives,
 		.champion-info-gold {
 			background: rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 0px 10px black inset;
@@ -282,7 +292,7 @@ div.champion-list {
 		}
 
 		.champion-summoner-spells {
-			margin-top: 6em;
+			margin-top: 4.9em;
 			width: 82em;
 			height: 13em;
 			overflow: hidden;
@@ -294,21 +304,231 @@ div.champion-list {
 
 		.champion-info-items {
 			width: 40em;
-			min-height: 40em;
+			height: 39em;
+			overflow: hidden;
 		}
 
 		.champion-info-gold {
 			width: 38em;
 		}
 
+		.champion-info-skills {
+			width: 30em;
+
+			.champion-stats-header {
+				> img {
+					width: 2.5em;
+					margin-right: 0.5em;
+				}
+			}
+
+			.champion-stats-skill {
+				margin: 0.5em;
+				display: inline-block;
+
+				> img {
+					border: 3px solid rgb(31, 41, 52);
+					box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3);
+					width: 4em;
+				}
+
+				&.active {
+					> img {
+						border: 1px solid rgba(255, 255, 255, 0.5);
+						box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3);
+						animation: activeSkill 2s infinite;
+
+						@keyframes activeSkill {
+							0% {
+								box-shadow: 0px 0px 5px white;
+							}
+
+							50% {
+								box-shadow: 0px 0px 10px white;
+							}
+
+							0% {
+								box-shadow: 0px 0px 5px white;
+							}
+						}
+					}
+				}
+			}
+		}
+
 		.champion-info-items-allitems {
-			margin-top: 1em;
+			margin-top: 4em;
 			width: 82em;
+			height: auto;
 			background: rgba(14, 31, 59, 0.70);
 			box-shadow: 0px 0px 15px black inset;
 
 			.champion-item-tile {
 				width: 13em;
+			}
+		}
+
+		.champion-info-skill-charts {
+			margin-top: 1.5em;
+			margin-bottom: 1em;
+
+			svg {
+				width: 80em;
+				height: 22em;
+			}
+		}
+
+		.champion-info-objectives {
+			width: 30em;
+
+			.champion-stats-header {
+				> img {
+					width: 2.5em;
+					margin-right: 0.5em;
+				}
+			}
+
+			.champion-info-objectives-map {
+				position: relative;
+				margin-left: 1.5em;
+				left: 0em;
+				top: 0em;
+				width: 25em;
+				height: 20em;
+				padding-left: 1.5em;
+
+				> img {
+					position: absolute;
+					left: 0em;
+					top: 0em;
+					width: 100%;
+					height: 100%;
+				}
+
+				.champion-info-objectives-map-objective {
+					position: absolute;
+					width: 0.5em;
+					height: 0.5em;
+				}
+
+				.map-objective-blue {
+					background: blue;
+				}
+
+				.map-objective-red {
+					background: red;
+				}
+
+				.map-objective-bnt1 {
+					left: 5em;
+					top: 14.7em;
+				}
+
+				.map-objective-bnt2 {
+					left: 5.7em;
+					top: 15.5em;
+				}
+
+				.map-objective-btb {
+					left: 4.5em;
+					top: 12em;
+				}
+
+				.map-objective-bti {
+					left: 5.3em;
+					top: 8.9em;
+				}
+
+				.map-objective-bto {
+					left: 5.1em;
+					top: 4.8em;
+				}
+
+				.map-objective-bmb {
+					left: 8.2em;
+					top: 12.8em;
+				}
+
+				.map-objective-bmi {
+					left: 10.3em;
+					top: 11.4em;
+				}
+
+				.map-objective-bmo {
+					left: 11.4em;
+					top: 9.2em;
+				}
+
+				
+				.map-objective-bbb {
+					left: 9em;
+					top: 16.2em;
+				}
+
+				.map-objective-bbi {
+					left: 12.9em;
+					top: 16em;
+				}
+
+				.map-objective-bbo {
+					left: 19em;
+					top: 16.8em;
+				}
+
+				.map-objective-rnt1 {
+					left: 19.3em;
+					top: 2.4em;
+				}
+
+				.map-objective-rnt2 {
+					left: 20.1em;
+					top: 2.9em;
+				}
+
+				.map-objective-rtb {
+					left: 17em;
+					top: 1.8em;
+				}
+
+				.map-objective-rti {
+					left: 14em;
+					top: 1.9em;
+				}
+
+				.map-objective-rto {
+					left: 9.9em;
+					top: 1.7em;
+				}
+
+				.map-objective-rmb {
+					left: 18.5em;
+					top: 3.8em;
+				}
+
+				.map-objective-rmi {
+					left: 16.3em;
+					top: 5.2em;
+				}
+
+				.map-objective-rmo {
+					left: 15.4em;
+					top: 6.9em;
+				}
+
+				.map-objective-rbb {
+					left: 21.2em;
+					top: 4.5em;
+				}
+
+				.map-objective-rbi {
+					left: 21.2em;
+					top: 7.2em;
+				}
+
+				.map-objective-rbo {
+					left: 23em;
+					top: 11.9em;
+				}
 			}
 		}
 
@@ -526,6 +746,10 @@ div.champion-list {
 
 			.item-cost {
 				font-weight: bold;
+
+				* {
+					vertical-align: middle;
+				}
 
 				&.item-cost-gold {
 					img {

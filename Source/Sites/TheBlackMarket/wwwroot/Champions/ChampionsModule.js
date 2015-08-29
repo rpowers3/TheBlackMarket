@@ -441,7 +441,7 @@
 				var skinIndex = Math.floor(Math.random() * skinCount);
 				var skinInfo = champion.skins[skinIndex];
 
-				console.info("SKIN>>> " + skinIndex);
+				//console.info("SKIN >>> " + skinIndex);
 
 				if (audioService.playMusic) {
 					var customTrack = self.getChampionMusic(champion.key, skinIndex);
@@ -786,7 +786,7 @@
 			$scope.refresh();
 		});
 
-		$scope.itemsSortProperty = 'winRate';
+		$scope.itemsSortProperty = 'weightedWinRate';
 		$scope.itemsSortReverse = true;
 
 		// Helper to construct the item url for browsing to a specific item.
@@ -1121,6 +1121,108 @@
 					$scope.charts[key] = championsService.buildChampionStatChartData(data, key);
 				}
 			});
+		};
+
+		initializeScope($scope);
+		registerForFilterChanges($scope, $rootScope, dataService);
+	}]);
+
+	ChampionsModule.controller('ChampionSkillsController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+		// Request the full champion information before continuing.
+		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
+			if (!championsService.enterChampionSection(fullChampionInfo)) {
+				return;
+			}
+
+			$scope.champion = fullChampionInfo;
+			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
+			$scope.refresh();
+		});
+
+		$scope.xAxisTickFormat = function() {
+			return function(d) {
+				return d;
+			}
+		};
+
+		$scope.colorF = function() {
+			return function(d, i) {
+				return d.color;
+			}
+		};
+
+		$scope.toolTipContentFunction = function() {
+			return function(key, x, y, e, graph) {
+				return '<h1>' + key + '</h1>' + '<p>' + y + '</p>'
+			}
+		};
+
+		$scope.getSkillImageUrl = riotResourceService.getSkillImageUrl;
+
+		$scope.activeSkillInfo = { model: undefined };
+
+		// The main function responsible for pulling the aggregate
+		// data for the champion. This is invoked when the controller
+		// loads and when the region or team filters change.
+		$scope.refresh = function() {
+			// Get the champion statistics.
+			dataService.getDataAsync({
+				dataSource: 'ChampionPerMinuteSkillLevelUp',
+				championId: $scope.champion.key,
+			}).then(function(data) {
+				$scope.championStats = data;
+
+				var skillInfos = [];
+
+				for (var i = 0; i < data.skills.length; ++i) {
+					var skillData = data.skills[i];
+					var skillSlot = skillData.skillSlot;
+
+					skillInfos.push({
+						skill: $scope.champion.spells[skillSlot - 1],
+						chart: dataService.buildWinLossChartData(skillData)
+					});
+				}
+
+				$scope.skillInfos = skillInfos;
+				$scope.activeSkillInfo.model = skillInfos[0];
+			});
+		};
+
+		initializeScope($scope);
+		registerForFilterChanges($scope, $rootScope, dataService);
+	}]);
+
+	ChampionsModule.controller('ChampionObjectivesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+		// Request the full champion information before continuing.
+		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
+			if (!championsService.enterChampionSection(fullChampionInfo)) {
+				return;
+			}
+
+			$scope.champion = fullChampionInfo;
+			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
+			$scope.refresh();
+		});
+
+		// The main function responsible for pulling the aggregate
+		// data for the champion. This is invoked when the controller
+		// loads and when the region or team filters change.
+		$scope.refresh = function() {
+			dataService.getDataAsync({
+				dataSource: 'BuildingPerMinuteKill',
+				championId: $scope.champion.key
+			}).then(function(data) {
+				$scope.buildingStats = data;
+			});
+
+			dataService.getDataAsync({
+				dataSource: 'EliteMonsterKill',
+				championId: $scope.champion.key
+			}).then(function(data) {
+				$scope.eliteMonsterStats = data;
+			});
+
 		};
 
 		initializeScope($scope);

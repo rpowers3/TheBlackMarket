@@ -70,7 +70,7 @@
 			dataService.setShowFilters(value);
 		});
 
-		$scope.sortProperty = 'timesPlayed';
+		$scope.sortProperty = 'weightedWinRate';
 		$scope.sortDirection = true;
 		$scope.getItemImageUrl = riotResourceService.getItemImageUrl;
 
@@ -94,12 +94,14 @@
 
 				for (var i in rawBrawlerGroups) {
 					var brawleyGroup = rawBrawlerGroups[i];
+					var winRate = (brawleyGroup.timesWon / brawleyGroup.count);
 
 					brawlerGroups.push({
 						brawlers: brawleyGroup.brawlers,
 						timesPlayed: brawleyGroup.count,
 						timesWon: brawleyGroup.timesWon,
-						winRate: (brawleyGroup.timesWon / brawleyGroup.count),
+						winRate: winRate,
+						weightedWinRate: winRate * (brawleyGroup.count / maxPlays),
 						bars: [
 							{
 								value: Math.round(100 * ((brawleyGroup.count - brawleyGroup.timesWon) / maxPlays)),

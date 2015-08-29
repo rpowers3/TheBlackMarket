@@ -1,3 +1,36 @@
-﻿<div>
-	Skill
+﻿<div class="champion-info-container">
+	<div ng-include="'/Champions/ChampionHeader.html'"></div>
+
+	<div class="champion-info">
+		<div class="champion-stats-container champion-info-skills">
+			<div class="champion-stats-header">
+				<img src="/Skills.png" />
+				<span>Skills</span>
+			</div>
+
+			<div class="btn-group">
+				<label ng-repeat="skillInfo in skillInfos"
+					   class="btn champion-stats-skill"
+					   ng-model="activeSkillInfo.model"
+					   btn-radio="skillInfo"
+					   tooltip="{{skillInfo.skill.name}}">
+					<img ng-src="{{getSkillImageUrl(skillInfo.skill)}}" />
+				</label>
+			</div>
+		</div>
+
+		<div class="champion-stats-container champion-info-skill-charts">
+			<nvd3-stacked-area-chart data="activeSkillInfo.model.chart"
+									 color="colorF()"
+									 showXAxis="true"
+									 showYAxis="true"
+									 showControls="true"
+									 interactive="true"
+									 useInteractionGuideline="true"
+									 tooltips="true"
+									 xAxisTickFormat="xAxisTickFormat()">
+				<svg></svg>
+			</nvd3-stacked-area-chart>
+		</div>
+	</div>
 </div>
