@@ -16,6 +16,7 @@
 	// Constants
 	var kdaColors = ['blue', 'green', 'red'];
 	var killChartColors = ['blue', 'cyan', 'green', 'orange', 'red'];
+	var winRateChartColors = ['red', 'green'];
 
 	var customSkinSounds = {
 		// Diana.
@@ -54,6 +55,10 @@
 				templateUrl: 'Champions/ChampionItems.html',
 				controller: 'ChampionItemsController'
 			})
+			.when('/champions/:championId/item/:itemId', {
+				templateUrl: 'Champions/ChampionItemInfo.html',
+				controller: 'ChampionItemInfoController'
+			})
 			.when('/champions/:championId/skills', {
 				templateUrl: 'Champions/ChampionSkills.html',
 				controller: 'ChampionSkillsController'
@@ -75,6 +80,18 @@
 		this.activeChampionSplashImageUrl = null;
 
 		var self = this;
+
+		var isSameChampionPage = function(args, newLocation, oldLocation) {
+			if (!(newLocation && self.activeChampion && newLocation.params.championId == self.activeChampion.key)) {
+				return false;
+			}
+
+			if (newLocation && (newLocation.loadedTemplateUrl) && ((newLocation.loadedTemplateUrl.indexOf('Champions/') != 0) || (newLocation.loadedTemplateUrl == 'Champions/ChampionList.html'))) {
+				return false;
+			}
+
+			return true;
+		};
 
 		this.enterChampionSection = function(champion, isPrimaryPage) {
 			if (!champion) {
@@ -103,7 +120,7 @@
 					var customTrack = self.getChampionMusic(champion.key, skinIndex);
 
 					if (customTrack) {
-						audioService.playTrackOverride(customTrack);
+						audioService.playTrackOverride(customTrack, isSameChampionPage);
 					}
 				}
 
@@ -116,7 +133,7 @@
 		};
 
 		$rootScope.$on('$routeChangeSuccess', function(args, newLocation, oldLocation) {
-			if (newLocation && (newLocation.loadedTemplateUrl) && ((newLocation.loadedTemplateUrl.indexOf('Champions/') != 0) || (newLocation.loadedTemplateUrl == 'Champions/ChampionList.html'))) {
+			if (!isSameChampionPage(args, newLocation, oldLocation)) {
 				self.activeChampion = 0;
 				self.activeChampionSkinIndex = -1;
 				self.activeChampionSplashImageUrl = null;
@@ -303,6 +320,10 @@
 		});
 
 		$scope.showAllStats = dataService.showAllStats;
+		$scope.getSummonerSpellImageUrl = riotResourceService.getSummonerSpellImageUrl;
+
+		$scope.summonerSpellSortProperty = 'weightedWinRate';
+		$scope.summonerSpellSortReverse = true;
 
 		// The main function responsible for pulling the aggregate
 		// data for the champion. This is invoked when the controller
@@ -340,6 +361,41 @@
 				for (var key in data) {
 					$scope.charts[key] = championsService.buildChampionStatChartData(data, key);
 				}
+			});
+
+			// Get the over time stats for spark lines.
+			riotResourceService.getSummonerSpellsAsync().then(function() {
+				dataService.getDataAsync({
+					dataSource: 'SummonerSpellUse',
+					championId: $scope.champion.key,
+				}).then(function(summonerSpells) {
+					var summonerSpellInfos = [];
+
+					var maxUse = 0;
+					for (var i = 0; i < summonerSpells.spell.length; ++i) {
+						if (maxUse < summonerSpells.count[i]) {
+							maxUse = summonerSpells.count[i];
+						}
+					}
+
+					for (var i = 0; i < summonerSpells.spell.length; ++i) {
+						var count = summonerSpells.count[i];
+						var timesWon = summonerSpells.timesWon[i];
+						var winRate = timesWon / count;
+						var pickRate = (count / maxUse);
+
+						summonerSpellInfos.push({
+							spell: riotResourceService.getSummonerSpell(summonerSpells.spell[i]),
+							count: count,
+							timesWon: timesWon,
+							winRate: winRate,
+							pickRate: pickRate,
+							weightedWinRate: winRate * pickRate
+						});
+					}
+
+					$scope.summonerSpellInfos = summonerSpellInfos;
+				});
 			});
 		};
 
@@ -407,31 +463,38 @@
 		$scope.itemsSortReverse = true;
 
 		// Helper to construct the item url for browsing to a specific item.
-		$scope.getItemUrl = itemsService.getItemUrl;
+		$scope.getItemUrl = function(itemId, championId) {
+			return '#/champions/' + championId + '/item/' + itemId;
+		};
 
 		// Helper to get the item image for display.
 		$scope.getItemImage = riotResourceService.getItemImageUrl;
+
+		$scope.filterBaseItems = function(itemInfo) {
+			return (itemInfo.item.into) && (itemInfo.item.into.length == 0) &&
+				(itemInfo.item.from) && (itemInfo.item.from.length > 0);
+		};
 
 		// The main function responsible for pulling the aggregate
 		// data for the champion. This is invoked when the controller
 		// loads and when the region or team filters change.
 		$scope.refresh = function() {
 			// Get the item statistics.
-			riotResourceService.getItemsAsync().then(function() {
+			riotResourceService.getItemsAsync().then(function(items) {
 				dataService.getDataAsync({
 					dataSource: 'ItemWinRates',
 					championId: $scope.champion.key,
 				}).then(function(data) {
-					data.maxWins = 0;
-					data.maxPlayed = 0;
+					var maxWins = 0;
+					var maxPlayed = 0;
 
 					for (var i = 0; i < data.items.length; ++i) {
-						if (data.maxWins < data.timesWon[i]) {
-							data.maxWins = data.timesWon[i];
+						if (maxWins < data.timesWon[i]) {
+							maxWins = data.timesWon[i];
 						}
 
-						if (data.maxPlayed < data.timesUsed[i]) {
-							data.maxPlayed = data.timesUsed[i];
+						if (maxPlayed < data.timesUsed[i]) {
+							maxPlayed = data.timesUsed[i];
 						}
 					}
 
@@ -439,13 +502,19 @@
 					var itemInfo = [];
 
 					for (var i = 0; i < data.items.length; ++i) {
+						var winRate = data.timesWon[i] / data.timesUsed[i];
+						var pickRate = data.timesUsed[i] / maxPlayed;
+						var winPickRate = data.timesWon[i] / maxWins;
+
 						var itemRecord = {
 							itemId: data.items[i],
+							item: riotResourceService.getItem(data.items[i]),
 							timesUsed: data.timesUsed[i],
 							timesWon: data.timesWon[i],
-							winRate: data.timesWon[i] / data.timesUsed[i],
-							pickRate: data.timesUsed[i] / data.maxPlayed,
-							winPickRates: data.timesWon[i] / data.maxWins,
+							winRate: winRate,
+							pickRate: pickRate,
+							winPickRate: winPickRate,
+							weightedWinRate: winRate * pickRate,
 							charts: []
 						};
 
@@ -461,8 +530,8 @@
 
 								for (var j = 0; j < itemData.times.length; ++j) {
 									itemData.winRates.push(itemData.timesWon[j] / itemData.timesUsed[j]);
-									itemData.pickRates.push(itemData.timesUsed[j] / data.maxPlayed);
-									itemData.winPickRates.push(itemData.timesWon[j] / data.maxWins);
+									itemData.pickRates.push(itemData.timesUsed[j] / maxPlayed);
+									itemData.winPickRates.push(itemData.timesWon[j] / maxWins);
 								}
 
 								for (var key in itemData) {
@@ -474,6 +543,8 @@
 						itemInfo.push(itemRecord);
 					}
 
+					$scope.maxWins = maxWins;
+					$scope.maxPlayed = maxPlayed;
 					$scope.itemInfo = itemInfo;
 				});
 			});
@@ -481,6 +552,126 @@
 
 		initializeScope($scope);
 		registerForFilterChanges($scope, $rootScope, dataService);
+	}]);
+
+	// The controller used to display item information. This controller listens
+	// for global changes to the region and team filters and will update its
+	// data when they change.
+	ChampionsModule.controller('ChampionItemInfoController', ['$scope', '$rootScope', '$routeParams', '$sce', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, $sce, riotResourceService, dataService, championsService) {
+		// Perform the async request to fetch the item info which is
+		// needed before the refresh can occur.
+		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
+			if (!championsService.enterChampionSection(fullChampionInfo)) {
+				return;
+			}
+
+			$scope.champion = fullChampionInfo;
+			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
+
+			riotResourceService.getItemAsync($routeParams.itemId).then(function(item) {
+				$scope.item = item;
+				$scope.trustedDescription = $sce.trustAsHtml(item.description);
+
+				// Update the image url for the item.
+				$scope.itemImageUrl = (riotResourceService.baseImageUrl + "item/" + $scope.item.image.full);
+
+				$scope.refresh()
+			});
+		});
+
+		$scope.winRateChartColors = winRateChartColors;
+
+		// Utility to reset scope data.
+		var resetData = function() {
+			$scope.winRatesOverTimeChart = [{ key: '', values: [[0, 0]] }];
+			$scope.winRatesPerMinuteChart = [{ key: '', values: [[0, 0]] }];
+		};
+
+		resetData();
+
+		$scope.xAxisTickFormat = function() {
+			return function(d) {
+				return d3.time.format('%m/%e %H:%M')(new Date(d));
+			}
+		};
+
+		$scope.xAxisTickFormat1 = function() {
+			return function(d) {
+				return d;
+			}
+		};
+
+		$scope.colorF = function() {
+			return function(d, i) {
+				return d.color;
+			}
+		};
+
+		$scope.toolTipContentFunction = function() {
+			return function(key, x, y, e, graph) {
+				return '<h1>' + key + '</h1>' + '<p>' + y + '</p>'
+			}
+		};
+
+		$scope.refresh = function() {
+			resetData();
+
+			if (!$scope.item) {
+				return;
+			}
+
+			// Perform the async request to fetch the item stats.
+			dataService.getDataAsync({
+				dataSource: 'ItemWinRates',
+				itemId: $scope.item.id,
+				championId: ($scope.champion || {}).key
+			}).then(function(data) {
+				$scope.itemStats = data;
+			});
+
+			// Perform the async request to fetch the item win
+			// rates over real world time.
+			dataService.getDataAsync({
+				dataSource: 'ItemWinRatesOverTime',
+				itemId: $scope.item.id,
+				championId: ($scope.champion || {}).key
+			}).then(function(data) {
+				$scope.ItemWinRatesOverTime = data;
+
+				$scope.winRatesOverTimeChart = dataService.buildWinLossChartData(data, {
+					timeFunction: dataService.unpackMonthDayHourTime
+				});
+			});
+
+			dataService.getDataAsync({
+				dataSource: 'ItemPerMinuteWinRates',
+				itemId: $scope.item.id,
+				championId: ($scope.champion || {}).key
+			}).then(function(data) {
+				$scope.itemPerMinuteWinRates = data;
+				$scope.winRatesPerMinuteChart = dataService.buildWinLossChartData(data);
+			});
+		};
+
+		// Register for filter changes
+		var unregisterRegionFilterChanged = $rootScope.$on('DataFilterService.RegionFilterChanged', function() {
+			$scope.refresh();
+		});
+
+		var unregisterTeamFilterChanged = $rootScope.$on('DataFilterService.TeamFilterChanged', function() {
+			$scope.refresh();
+		});
+
+		var unregisterShowAllStatsChanged = $rootScope.$on('DataFilterService.ShowAllStatsChanged', function() {
+			$scope.showAllStats = dataService.showAllStats
+		});
+
+		// Clean up so events don't leak.
+		$scope.$on('$destroy', function() {
+			unregisterRegionFilterChanged();
+			unregisterTeamFilterChanged();
+			unregisterShowAllStatsChanged();
+		});
 	}]);
 
 	ChampionsModule.controller('ChampionCombatController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {

@@ -8,160 +8,158 @@
 				<span>Gold</span>
 			</div>
 
-			<div class="champion-stats-section">
-				<div class="champion-stats-group">
-					<span class="champion-stats-group-header">Earned</span>
+			<div class="champion-stats-group">
+				<span class="champion-stats-group-header">Earned</span>
 
-					<table class="champion-grid champion-grid-with-sparklines champion-grid-highlight-rows">
-						<thead>
-							<tr>
-								<th></th>
-								<th colspan="2">All Games</th>
-								<th colspan="2">Won Games</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-show="showAllStats">
-								<td class="champion-stat">Min</td>
-								<td>{{championStats.goldEarnedMin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldEarnedMin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-								<td>{{championStats.goldEarnedMinWin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldEarnedMinWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-							</tr>
-							<tr>
-								<td class="champion-stat">Average</td>
-								<td>{{championStats.goldEarnedAvg | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldEarnedAvg" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-								<td>{{championStats.goldEarnedAvgWin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldEarnedAvgWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-							</tr>
-							<tr ng-show="showAllStats">
-								<td class="champion-stat">Max</td>
-								<td>{{championStats.goldEarnedMax | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldEarnedMax" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-								<td>{{championStats.goldEarnedMaxWin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldEarnedMaxWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-							</tr>
-							<tr ng-show="showAllStats">
-								<td class="champion-stat">Total</td>
-								<td>{{championStats.goldEarnedSum | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldEarnedSum" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-								<td>{{championStats.goldEarnedSumWin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldEarnedSumWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<table class="champion-grid champion-grid-with-sparklines champion-grid-highlight-rows">
+					<thead>
+						<tr>
+							<th></th>
+							<th colspan="2">All Games</th>
+							<th colspan="2">Won Games</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-show="showAllStats">
+							<td class="champion-stat">Min</td>
+							<td>{{championStats.goldEarnedMin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldEarnedMin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+							<td>{{championStats.goldEarnedMinWin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldEarnedMinWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+						</tr>
+						<tr>
+							<td class="champion-stat">Average</td>
+							<td>{{championStats.goldEarnedAvg | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldEarnedAvg" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+							<td>{{championStats.goldEarnedAvgWin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldEarnedAvgWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+						</tr>
+						<tr ng-show="showAllStats">
+							<td class="champion-stat">Max</td>
+							<td>{{championStats.goldEarnedMax | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldEarnedMax" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+							<td>{{championStats.goldEarnedMaxWin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldEarnedMaxWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+						</tr>
+						<tr ng-show="showAllStats">
+							<td class="champion-stat">Total</td>
+							<td>{{championStats.goldEarnedSum | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldEarnedSum" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+							<td>{{championStats.goldEarnedSumWin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldEarnedSumWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-				<br /><br />
+			<br /><br />
 
-				<div class="champion-stats-group">
-					<span class="champion-stats-group-header">Spent</span>
+			<div class="champion-stats-group">
+				<span class="champion-stats-group-header">Spent</span>
 
-					<table class="champion-grid champion-grid-with-sparklines champion-grid-highlight-rows">
-						<thead>
-							<tr>
-								<th></th>
-								<th colspan="2">All Games</th>
-								<th colspan="2">Won Games</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-show="showAllStats">
-								<td class="champion-stat">Min</td>
-								<td>{{championStats.goldSpentMin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldSpentMin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-								<td>{{championStats.goldSpentMinWin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldSpentMinWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-							</tr>
-							<tr>
-								<td class="champion-stat">Average</td>
-								<td>{{championStats.goldSpentAvg | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldSpentAvg" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-								<td>{{championStats.goldSpentAvgWin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldSpentAvgWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-							</tr>
-							<tr ng-show="showAllStats">
-								<td class="champion-stat">Max</td>
-								<td>{{championStats.goldSpentMax | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldSpentMax" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-								<td>{{championStats.goldSpentMaxWin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldSpentMaxWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-							</tr>
-							<tr ng-show="showAllStats">
-								<td class="champion-stat">Total</td>
-								<td>{{championStats.goldSpentSum | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldSpentSum" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-								<td>{{championStats.goldSpentSumWin | number:2}}</td>
-								<td class="champion-stat-sparkline">
-									<nvd3-sparkline-chart data="charts.goldSpentSumWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
-										<svg></svg>
-									</nvd3-sparkline-chart>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<table class="champion-grid champion-grid-with-sparklines champion-grid-highlight-rows">
+					<thead>
+						<tr>
+							<th></th>
+							<th colspan="2">All Games</th>
+							<th colspan="2">Won Games</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-show="showAllStats">
+							<td class="champion-stat">Min</td>
+							<td>{{championStats.goldSpentMin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldSpentMin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+							<td>{{championStats.goldSpentMinWin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldSpentMinWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+						</tr>
+						<tr>
+							<td class="champion-stat">Average</td>
+							<td>{{championStats.goldSpentAvg | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldSpentAvg" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+							<td>{{championStats.goldSpentAvgWin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldSpentAvgWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+						</tr>
+						<tr ng-show="showAllStats">
+							<td class="champion-stat">Max</td>
+							<td>{{championStats.goldSpentMax | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldSpentMax" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+							<td>{{championStats.goldSpentMaxWin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldSpentMaxWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+						</tr>
+						<tr ng-show="showAllStats">
+							<td class="champion-stat">Total</td>
+							<td>{{championStats.goldSpentSum | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldSpentSum" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+							<td>{{championStats.goldSpentSumWin | number:2}}</td>
+							<td class="champion-stat-sparkline">
+								<nvd3-sparkline-chart data="charts.goldSpentSumWin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
+									<svg></svg>
+								</nvd3-sparkline-chart>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

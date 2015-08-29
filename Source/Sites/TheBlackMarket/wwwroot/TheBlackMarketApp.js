@@ -426,6 +426,25 @@
 			return self.baseImageUrl + "item/" + item.image.full;
 		};
 
+		// Gets an item by its unique item id.
+		this.getSummonerSpell = function(summonerSpellId) {
+			if (!self.summonerSpells) {
+				return;
+			}
+
+			var foundItem;
+			for (var index in self.summonerSpells) {
+				var summonerSpell = self.summonerSpells[index];
+
+				if (summonerSpell.key == summonerSpellId) {
+					foundItem = summonerSpell;
+					break;
+				}
+			}
+
+			return foundItem;
+		};
+
 		// Gets the list of summoner spells asynchronously.
 		this.getSummonerSpellsAsync = function() {
 			var deferred = $q.defer();
@@ -444,6 +463,18 @@
 			}
 
 			return deferred.promise;
+		};
+
+		this.getSummonerSpellImageUrl = function(summonerSpell) {
+			if (typeof summonerSpell == "number") {
+				summonerSpell = self.getSummonerSpell(summonerSpell);
+
+				if (!summonerSpell) {
+					return '#';
+				}
+			}
+
+			return self.baseImageUrl + "spell/" + summonerSpell.image.full;
 		};
 
 		// Gets the list of masteries asynchronously.
@@ -560,6 +591,7 @@
 		this.currentTrack = null;
 		this.overridenTrack = null;
 		this.currentTrackIsOverride = false;
+		this.keepOverrideCheck = null;
 
 		var tracks = [
 			'/Music/AatroxLoginMusic.mp3',
@@ -693,13 +725,14 @@
 			self.musicTracks.push(musicTrack);
 		};
 
-		this.playTrackOverride = function(url) {
+		this.playTrackOverride = function(url, keepOverrideCheck) {
 			if (!self.currentTrackIsOverride) {
 				self.overridenTrack = self.currentTrack;
 
 				if (self.overridenTrack) {
 					self.overridenTrack.fade(self.overridenTrack.volume(), 0, fadeDuration);
 					self.currentTrackIsOverride = true;
+					self.keepOverrideCheck = keepOverrideCheck;
 
 					setTimeout(function() {
 						self.overridenTrack.pause();
@@ -721,6 +754,7 @@
 
 			self.currentTrack = self.overridenTrack;
 			self.overridenTrack = null;
+			self.keepOverrideCheck = null;
 		};
 
 		this.removeTrack = function(musicTrack) {
@@ -812,7 +846,9 @@
 		this.setMusicEnabled((localStorageService.get('Audio.PlayMusic') === false) ? false : true);
 
 		$rootScope.$on('$routeChangeSuccess', function() {
-			self.restoreTrack();
+			if (!self.keepOverrideCheck || !self.keepOverrideCheck.apply(this, arguments)) {
+				self.restoreTrack();
+			}
 		});
 	}]);
 

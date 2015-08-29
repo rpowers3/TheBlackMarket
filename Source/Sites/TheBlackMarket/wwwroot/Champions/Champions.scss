@@ -85,7 +85,7 @@ div.champion-list {
 		top: 0;
 		width: 100%;
 		height: 100%;
-		background: black;
+		background: black; // rgb(35, 53, 81);
 	}
 
 	.champion-splash {
@@ -146,7 +146,7 @@ div.champion-list {
 
 		.champion-title {
 			padding-left: 0.6em;
-			margin-left: 2.5em;
+			margin-left: 3em;
 
 			h1 {
 				font-size: 36pt;
@@ -156,7 +156,7 @@ div.champion-list {
 
 			h2 {
 				margin: 0;
-				padding-left: 0.5em;
+				padding-left: 0.25em;
 				font-size: 0.9em;
 				margin-bottom: 3em;
 			}
@@ -174,7 +174,7 @@ div.champion-list {
 			.champion-stats-header {
 				font-size: 2em;
 				font-weight: bold;
-				margin-bottom: 1em;
+				margin-bottom: 0.5em;
 
 				* {
 					vertical-align: middle;
@@ -185,29 +185,87 @@ div.champion-list {
 				margin-bottom: 1em;
 			}
 
-			.champion-items {
-				.champion-item-tile {
-					display: inline-block;
-					color: white;
+			.champion-summoner-spell-tile {
+				display: inline-block;
+				color: white;
+				padding: 0.5em;
+				width: 13em;
+				text-decoration: none;
+				transition: 150ms all;
+				border-radius: 0.5em;
+				cursor: default;
 
-					img {
-						width: 2em;
-					}
+				&:hover {
+					text-decoration: none;
+					background: rgba(255, 255, 255, 0.3);
+				}
+
+				> * {
+					display: inline-block;
+					vertical-align: top;
+				}
+
+				img {
+					width: 2.5em;
+					margin-right: 0.3em;
+					border: 1px solid rgb(198, 174, 92);
+				}
+
+				.champion-item-stat-value {
+					margin-bottom: 0.2em;
+				}
+			}
+
+			.champion-items-top {
+				margin-left: 1em;
+				margin-top: 0.5em;
+			}
+
+			.champion-item-tile {
+				display: inline-block;
+				color: white;
+				padding: 0.5em;
+				width: 12em;
+				text-decoration: none;
+				transition: 150ms all;
+				border-radius: 0.5em;
+
+				&:hover {
+					text-decoration: none;
+					background: rgba(255, 255, 255, 0.3);
+				}
+
+				> * {
+					display: inline-block;
+					vertical-align: top;
+				}
+
+				img {
+					width: 2.5em;
+					margin-right: 0.3em;
+					border: 1px solid rgb(198, 174, 92);
+				}
+
+				.champion-item-stat-value {
+					margin-bottom: 0.2em;
 				}
 			}
 		}
 
 		.champion-stats-group {
 			display: inline-block;
-
-			.champion-stats-group-header {
-				font-size: 1.2em;
-				font-weight: bold;
-				text-decoration: none;
-			}
 		}
 
-		.champion-stats-overview,
+		.champion-stats-group-header {
+			font-size: 1.2em;
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+
+		.champion-info-overview,
+		.champion-summoner-spells,
+		.champion-info-items,
 		.champion-info-gold {
 			background: rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 0px 10px black inset;
@@ -219,12 +277,69 @@ div.champion-list {
 			}
 		}
 
-		.champion-stats-overview {
+		.champion-info-overview {
 			width: 30em;
 		}
 
+		.champion-summoner-spells {
+			margin-top: 6em;
+			width: 82em;
+			height: 13em;
+			overflow: hidden;
+		}
+
+		.champion-summoner-spells-lists {
+			margin-top: 1em;
+		}
+
+		.champion-info-items {
+			width: 40em;
+			min-height: 40em;
+		}
+
 		.champion-info-gold {
-			width: 35em;
+			width: 38em;
+		}
+
+		.champion-info-items-allitems {
+			margin-top: 1em;
+			width: 82em;
+			background: rgba(14, 31, 59, 0.70);
+			box-shadow: 0px 0px 15px black inset;
+
+			.champion-item-tile {
+				width: 13em;
+			}
+		}
+
+		.tooltip {
+			border: 1px solid white;
+			background: black;
+			padding: 0.2em;
+			font-size: 1.2em;
+			font-weight: bold;
+		}
+
+		.tbmc-filter-bar {
+			margin: 1em 0em;
+
+			.btn-primary {
+				background: linear-gradient(to bottom, rgb(83, 84, 174) 0%,rgb(0, 21, 188) 53%,rgb(0, 3, 132) 99%);
+				border-color: #1d20c8;
+				transition: 50ms all;
+			}
+
+			.btn-primary:hover {
+				background: linear-gradient(to bottom, rgb(83, 84, 174) 0%,rgb(0, 27, 237) 53%,rgb(0, 9, 183) 100%);
+				border-color: #5e6fce;
+			}
+
+			.btn-primary:focus,
+			.btn-primary:active,
+			.btn-primary.active {
+				background: linear-gradient(to top, rgb(83, 84, 174) 0%,rgb(0, 27, 237) 53%,rgb(0, 9, 183) 100%);
+				border-color: #5265d5;
+			}
 		}
 	}
 
@@ -369,5 +484,106 @@ div.champion-list {
 	.mouse-interceptor {
 		z-index: 100;
 		pointer-events: none;
+	}
+}
+
+
+.champion-item-info {
+	.champion-stats-container {
+		width: 40em;
+	}
+
+	.champion-info {
+		.item-header {
+			position: relative;
+			margin-bottom: 2em;
+			border-radius: 0.75em;
+			background: rgba(0, 0, 0, 0.75);
+			padding: 1em;
+			box-shadow: 0px 0px 15px black inset;
+
+			> * {
+				display: inline-block;
+				vertical-align: top;
+			}
+
+			.item-image {
+				position: absolute;
+				left: 1.5em;
+				top: 1.5em;
+				border: 2px solid rgb(170, 148, 70);
+				box-shadow: 0px 0px 15px black;
+			}
+
+			.item-header-description {
+				margin-left: 6.5em;
+			}
+
+			.item-name {
+				font-size: 2em;
+				font-weight: bold;
+			}
+
+			.item-cost {
+				font-weight: bold;
+
+				&.item-cost-gold {
+					img {
+						height: 1em;
+					}
+				}
+
+				&.item-cost-krakens {
+					img {
+						margin-right: 0.2em;
+						height: 1.5em;
+						margin-bottom: 0.5em;
+					}
+				}
+			}
+		}
+
+		.item-charts {
+			width: 82em;
+			margin-bottom: 2em;
+			border-radius: 0.75em;
+			background: rgba(0, 0, 0, 0.75);
+			box-shadow: 0px 0px 15px black inset;
+			color: white;
+			padding: 2em;
+
+			.item-chart-header {
+				font-size: 1.2em;
+				font-weight: bold;
+			}
+
+			.item-chart {
+				position: relative;
+				margin-bottom: 1em;
+				width: 36em;
+				margin-right: 1em;
+			}
+
+			svg {
+				width: 100%;
+				height: 20em;
+
+				text {
+					fill: white !important;
+				}
+			}
+		}
+
+		.item-chart-group {
+			display: inline-block;
+		}
+	}
+
+	.nvd3 .nv-axis line {
+		stroke: black;
+	}
+
+	svg text {
+		fill: black !important;
 	}
 }

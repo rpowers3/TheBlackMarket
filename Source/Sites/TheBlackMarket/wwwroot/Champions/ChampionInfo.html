@@ -2,8 +2,8 @@
 	<div ng-include="'/Champions/ChampionHeader.html'"></div>
 
 	<div class="champion-info">
-
-		<div class="champion-stats-container champion-stats-overview">
+		<div class="champion-stats-container champion-info-overview">
+			<span class="champion-stats-group-header">Performance</span>
 			<div class="champion-stats-progress-bar">
 				<progress>
 					<bar ng-repeat="bar in winLoss track by $index" value="bar.value" type="{{bar.type}}">
@@ -39,7 +39,7 @@
 
 			<br />
 
-			<span>Average Champion Level</span>
+			<span class="champion-stats-group-header">Average Champion Level</span>
 			<div>
 				<span class="champion-stat-bar-caption">All Games</span>
 				<progressbar value="championStats.champLevelAvg" max="18">
@@ -52,6 +52,23 @@
 				<progressbar value="championStats.champLevelAvgWin" max="18">
 					<span>{{championStats.champLevelAvgWin}}</span>
 				</progressbar>
+			</div>
+		</div>
+
+		<div class="champion-stats-container champion-summoner-spells">
+			<div class="champion-stats-group-header">
+				<span tooltip="Sorted by weighted win rate. The weighted win rate is the raw win rate times the pick rate.">Summoner Spells</span>
+			</div>
+			<div class="champion-summoner-spells-lists">
+				<div class="champion-summoner-spell-tile"
+				   tooltip="{{summonerSpellInfo.spell.name}}"
+				   ng-repeat="summonerSpellInfo in summonerSpellInfos | orderBy:summonerSpellSortProperty:summonerSpellSortReverse">
+					<img ng-src="{{getSummonerSpellImageUrl(summonerSpellInfo.spell)}}" />
+					<div class="champion-summoner-spell-stats-value">
+						{{summonerSpellInfo.winRate | percentage:2}} ({{summonerSpellInfo.pickRate | percentage:2}})<br />
+						{{summonerSpellInfo.timesWon | number}} / {{summonerSpellInfo.count | number}}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
