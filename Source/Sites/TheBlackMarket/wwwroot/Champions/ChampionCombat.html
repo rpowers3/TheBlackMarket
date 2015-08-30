@@ -17,7 +17,10 @@
 				<div class="champion-info-combat-heat-map-content">
 					<img ng-src="{{deathHeatMap}}" />
 
-					<div ng-controller="DummyController">
+					<div ng-if="isIE">
+						<a href="{{ieDeathVideoUrl}}" target="_blank">Death Map Video</a>
+					</div>
+					<div ng-controller="DummyController" ng-if="!isIE">
 						<videogular vg-theme="videoTheme" vg-preload="none">
 							<vg-media vg-src="deathSources" vg-native-controls="true">
 							</vg-media>
@@ -33,7 +36,10 @@
 				<div class="champion-info-combat-heat-map-content">
 					<img ng-src="{{killshHeatMap}}" />
 
-					<div ng-controller="DummyController">
+					<div ng-if="isIE">
+						<a href="{{ieKillVideoUrl}}" target="_blank">Kill Map Video</a>
+					</div>
+					<div ng-controller="DummyController" ng-if="!isIE">
 						<videogular vg-theme="videoTheme" vg-preload="none">
 							<vg-media vg-src="killSources" vg-native-controls="true">
 							</vg-media>

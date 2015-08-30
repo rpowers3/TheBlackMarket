@@ -1,11 +1,11 @@
 .brawlers-home-container {
 	min-height: 100%;
 	color: rgb(74, 51, 8);
+	font-family: 'Jim Nightshade', cursive;
 
 	.brawlers-home {
 		background: url(/LeftTile.png);
 		max-width: 960px;
-		padding-top: 2em;
 		margin-left: 3em;
 		padding-left: 4em;
 		padding-right: 4.7em;
@@ -18,6 +18,7 @@
 			font-weight: bold;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 			text-align: center;
+			padding: 0.5em 0em;
 		}
 	}
 }
@@ -48,7 +49,7 @@
 	}
 
 	.brawler-name {
-		font-size: 1.5em;
+		font-size: 2em;
 		font-weight: bold;
 		margin-top: 0.2em;
 	}
@@ -145,7 +146,7 @@
 	}
 
 	.brawler-upgrade-name {
-		font-size: 1em;
+		font-size: 1.5em;
 		font-weight: bold;
 		margin-top: 0.2em;
 	}
@@ -160,6 +161,7 @@
 .brawlers-compositions-container {
 	min-height: 100%;
 	color: rgb(74, 51, 8);
+	font-family: 'Jim Nightshade', cursive;
 
 	.tbm-filter-bar {
 		padding-bottom: 1.5em;
@@ -169,6 +171,15 @@
 			margin-top: 0em;
 		}
 	}
+
+	.progress-bar-danger {
+		background: linear-gradient(to bottom, rgb(206, 97, 97) 0%,rgb(188, 0, 0) 53%,rgb(132, 0, 0) 99%);
+	}
+
+	.progress-bar-success {
+		background: linear-gradient(to bottom, rgb(115, 206, 97) 0%,rgb(8, 188, 0) 53%,rgb(0, 132, 3) 99%);
+	}
+
 
 	.brawlers-compositions {
 		background: url(/LeftTile.png);
@@ -231,9 +242,10 @@
 			}
 
 			span {
+				font-size: 1.3em;
 				display: inline-block;
-				width: 7em;
-				margin-bottom: 0.4em;
+				width: 6em;
+				margin-bottom: 0.2em;
 
 				&.brawler-group-info-label {
 					font-weight: bold;

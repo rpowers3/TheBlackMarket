@@ -1,6 +1,7 @@
 ﻿
 div.champion-list {
 	min-height: 100%;
+	font-family: 'Jim Nightshade', cursive;
 
 	.tbm-filter-bar {
 		margin-top: -5.5em;
@@ -13,6 +14,16 @@ div.champion-list {
 			width: 8em;
 		}
 	}
+
+	.tooltip {
+		border: 1px solid white;
+		background: black;
+		padding: 0.2em;
+		font-size: 2em;
+		font-weight: bold;
+		font-family: 'Jim Nightshade', cursive;
+	}
+
 
 	div.champion-list-container {
 		background: url(/LeftTile.png);

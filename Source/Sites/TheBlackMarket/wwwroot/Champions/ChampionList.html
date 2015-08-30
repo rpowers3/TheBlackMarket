@@ -32,6 +32,7 @@
 
 	<div class="champion-list-container" ng-class="{'tbm-filter-visible': displayFilters}">
 		<a class="champion-portrait-large"
+		   tooltip="{{champion.name}}"
 		   ng-href="{{getChampionUrl(champion)}}"
 		   ng-repeat="champion in champions | filter:championFilter | orderBy:sortProperty:sortDirection">
 			<img ng-src="{{getChampionImageUrl(champion)}}" />

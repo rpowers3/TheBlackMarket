@@ -11,11 +11,7 @@
 		'Brawlers',
 		'Buildings',
 		'Champions',
-		'Items',
-		'Masteries',
-		'Monsters',
-		'Runes',
-		'Warding']);
+		'Items']);
 
 	TheBlackMarketAppModule.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
 		// Configure local storage so site settings can be saved.
@@ -26,7 +22,10 @@
 
 		$routeProvider
 			.when('/', {
-				templateUrl: 'Home.html',
+				templateUrl: '/Home.html',
+			})
+			.when('/about', {
+				templateUrl: '/About.html',
 			});
 	}]);
 
@@ -801,6 +800,8 @@
 		this.playTrack = function(url) {
 			this.fadeOutAllTracks();
 
+			console.info("Playing: " + url);
+
 			var musicTrack = new Howl({
 				urls: [url],
 				autoplay: true,
@@ -828,8 +829,13 @@
 					self.currentTrackIsOverride = true;
 					self.keepOverrideCheck = keepOverrideCheck;
 
+					console.info("Overriding track: " + self.overridenTrack._src);
+
 					setTimeout(function() {
-						self.overridenTrack.pause();
+						if (self.overridenTrack) {
+							self.overridenTrack.pause();
+						}
+						console.info("Overriding track paused.");
 					}, fadeDuration + 0.5);
 				}
 			}
@@ -841,6 +847,8 @@
 			if (!self.overridenTrack) {
 				return;
 			}
+
+			console.info("Restoring overriding track: " + self.overridenTrack._src);
 
 			self.fadeOutAllTracks();
 			self.overridenTrack.fade(0, currentVolume, fadeDuration);
@@ -875,12 +883,12 @@
 		this.fadeOutAllTracks = function() {
 			for (var i in self.musicTracks.slice(0)) {
 				var oldMusicTrack = self.musicTracks[i];
+				oldMusicTrack.fade(oldMusicTrack.volume(), 0, fadeDuration);
 
 				if (oldMusicTrack != self.overridenTrack) {
 					(function(musicTrack) {
-						musicTrack.fade(musicTrack.volume(), 0, fadeDuration);
-
 						setTimeout(function() {
+							console.info("Removing track: " + musicTrack._src);
 							// Force stop if it hasn't already.
 							musicTrack.stop();
 							self.removeTrack(musicTrack);
@@ -902,6 +910,7 @@
 			});
 
 			self.sounds.push(sound);
+			return sound;
 		};
 
 		this.stopAllSounds = function() {

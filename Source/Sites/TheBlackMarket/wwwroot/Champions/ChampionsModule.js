@@ -416,6 +416,7 @@
 		this.activeChampion = 0;
 		this.activeChampionSkinIndex = -1;
 		this.activeChampionSplashImageUrl = null;
+		this.activeChampionSound = null;
 
 		var self = this;
 
@@ -447,7 +448,17 @@
 			if (isPrimaryPage || hadActiveChampion) {
 				// If sounds are enabled, set the champion sound so it plays.
 				if (audioService.playSounds && audioService.playChampionSounds) {
-					audioService.playSound(riotResourceService.baseLocalizedSoundUrl + 'champions/' + champion.id + '.mp3');
+					if (this.activeChampionSound) {
+						var sound = this.activeChampionSound;
+						sound.fade(sound.volume(), 0, 500);
+
+						// Gaurantee a stop.
+						setTimeout(function() {
+							sound.stop();
+						}, 550);
+					}
+
+					this.activeChampionSound = audioService.playSound(riotResourceService.baseLocalizedSoundUrl + 'champions/' + champion.id + '.mp3');
 				}
 
 				var skinCount = champion.skins.length;
@@ -1030,6 +1041,7 @@
 		$scope.killChartColors = killChartColors;
 		$scope.videoTheme = '/Libraries/videogular-themes-default/videogular.css';
 
+		$scope.isIE = (navigator.userAgent.indexOf('MSIE') >= 0) || (navigator.userAgent.indexOf('Trident') >= 0);
 
 		// The main function responsible for pulling the aggregate
 		// data for the champion. This is invoked when the controller
@@ -1050,6 +1062,8 @@
 				useMerge: true,
 				championId: $scope.champion.key
 			});
+
+			$scope.ieDeathVideoUrl = deathVideoUrl + '.mp4';
 
 			$scope.deathSources = [
 				{
@@ -1077,6 +1091,8 @@
 				useMerge: true,
 				championId: $scope.champion.key
 			});
+
+			$scope.ieKillVideoUrl = killVideoUrl + '.mp4';
 
 			$scope.killSources = [
 				{
@@ -1227,7 +1243,7 @@
 			type: 'NEXUS_TURRET',
 			name: 'Nexus Turret'
 		},
-		rn1: {
+		rn2: {
 			lane: 'MID_LANE',
 			type: 'NEXUS_TURRET',
 			name: 'Nexus Turret'

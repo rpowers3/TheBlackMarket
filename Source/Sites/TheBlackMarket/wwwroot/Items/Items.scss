@@ -1,6 +1,7 @@
 
 div.item-list {
 	min-height: 100%;
+	font-family: 'Jim Nightshade', cursive;
 
 	.tbm-filter-bar {
 		margin-top: -9em;
@@ -70,7 +71,7 @@ a.item-tile {
 	}
 
 	> .item-info {
-		font-size: 0.9em;
+		font-size: 1.1em;
 		margin-left: 5em;
 
 		> .item-cost {
@@ -88,6 +89,7 @@ a.item-tile {
 
 .item-info-container {
 	min-height: 100%;
+	font-family: 'Jim Nightshade', cursive;
 
 	.item-info {
 		background: url(/LeftTile.png);

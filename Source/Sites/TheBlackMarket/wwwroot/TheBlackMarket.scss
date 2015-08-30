@@ -206,16 +206,20 @@ body {
 				padding-top: 0.9em;
 
 				h1 {
-					font-size: 24pt;
+					font-size: 28pt;
 					margin-bottom: 0;
 					font-weight: bold;
 					margin-top: 0em;
 					color: rgb(128, 128, 128);
+					font-family: 'Jim Nightshade', cursive;
+					color: rgb(156, 138, 79);
+					text-shadow: 0px 0px 5px rgb(78, 63, 35);
 				}
 
 				h2 {
 					margin: 0;
-					font-size: 0.9em;
+					font-size: 1.3em;
+					font-family: 'Jim Nightshade', cursive;
 				}
 			}
 		}
@@ -259,11 +263,20 @@ body {
 		color: white;
 		margin: 3em;
 		padding: 1em;
-		max-width: 1200px;
+		max-width: 900px;
 		border: 1px solid black;
 		background: rgba(0, 0, 0, 0.5);
 		box-shadow: 0px 0px 15px black inset;
 	}
+}
+
+.home-container {
+	max-width: 800px;
+	font-family: 'Jim Nightshade', cursive;
+	margin: 3em;
+	font-size: 2em;
+	color: rgb(224, 216, 172);
+	text-shadow: -1px -1px black, 1px -1px black, -1px 1px black, 1px 1px black, 0px 1px 15px black;
 }
 
 .tbm-filter-bar {
@@ -315,6 +328,7 @@ body {
 
 .riot-styles {
 	color: white;
+	font-size: 1.4em;
 
 	stats {
 		color: rgb(145, 240, 144);
