@@ -277,6 +277,7 @@ div.champion-list {
 		.champion-info-skill-charts,
 		.champion-info-objectives,
 		.champion-info-objective-chart,
+		.champion-info-objective-extended-stats,
 		.champion-info-combat,
 		.champion-info-combat-heat-maps,
 		.champion-info-combat-extended-stats,
@@ -652,7 +653,8 @@ div.champion-list {
 			}
 		}
 
-		.champion-info-combat-extended-stats {
+		.champion-info-combat-extended-stats,
+		.champion-info-objective-extended-stats {
 			margin-top: 4em;
 			width: 81.8em;
 			height: auto;
@@ -670,7 +672,28 @@ div.champion-list {
 				font-size: 0.7em;
 			}
 
-			.champion-stats-combat-table-section {
+			.progress-bar-doubleKill {
+				background: linear-gradient(to bottom, rgb(97, 99, 206) 0%,rgb(0, 21, 188) 53%,rgb(0, 3, 132) 99%);
+			}
+
+			.progress-bar-tripleKill {
+				background: linear-gradient(to bottom, rgb(97, 156, 206) 0%,rgb(0, 125, 188) 53%,rgb(0, 88, 132) 99%);
+			}
+
+			.progress-bar-quadraKill {
+				background: linear-gradient(to bottom, rgb(206, 164, 97) 0%,rgb(188, 115, 0) 53%,rgb(132, 69, 0) 99%);
+			}
+
+			.progress-bar-pentaKill {
+				background: linear-gradient(to bottom, rgb(206, 97, 97) 0%,rgb(188, 0, 0) 53%,rgb(132, 0, 0) 99%);
+			}
+
+			.progress-bar-ultraKill {
+				background: linear-gradient(to bottom, rgb(206, 97, 204) 0%,rgb(152, 0, 188) 53%,rgb(90, 0, 132) 99%);
+			}
+
+			.champion-stats-combat-table-section,
+			.champion-stats-objective-table-section {
 				font-size: 2em;
 				font-weight: bold;
 				text-align: left;
@@ -679,11 +702,13 @@ div.champion-list {
 				border-bottom: 1px solid white;
 			}
 
-			.champion-stats-combat-table-inner-section {
+			.champion-stats-combat-table-inner-section,
+			.champion-stats-objective-table-inner-section {
 				padding: 0.5em 0em;
 			}
 
-			.champion-stats-combat-table-sub-section {
+			.champion-stats-combat-table-sub-section,
+			.champion-stats-objective-table-sub-section {
 				font-size: 1em;
 				padding: 0.5em 0.5em;
 				border-top: 1px solid white;

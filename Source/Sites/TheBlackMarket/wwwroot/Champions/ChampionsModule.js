@@ -12,7 +12,7 @@
 		'ui.bootstrap',
 		'ui.checkbox',
 		'nvd3ChartDirectives',
-, "com.2fdevs.videogular"]);
+		"com.2fdevs.videogular"]);
 
 	// Constants
 	var kdaColors = ['blue', 'green', 'red'];
@@ -1456,6 +1456,53 @@
 		// data for the champion. This is invoked when the controller
 		// loads and when the region or team filters change.
 		$scope.refresh = function() {
+			// Get the champion statistics.
+			dataService.getDataAsync({
+				dataSource: 'ChampionStats',
+				championId: $scope.champion.key,
+			}).then(function(data) {
+				$scope.championStats = data;
+			});
+
+			dataService.getDataAsync({
+				dataSource: 'ChampionStatsOverTime',
+				championId: $scope.champion.key,
+			}).then(function(data) {
+				$scope.championStatsOverTime = data;
+
+				$scope.charts = {};
+
+				var neededChartKeys = [
+					'firstTowerKillSum',
+					'firstTowerKillSumWin',
+					'firstTowerAssistSum',
+					'firstTowerAssistSumWin',
+					'firstInhibitorAssistSum',
+					'firstInhibitorAssistSumWin',
+					'inhibitorKillsMin',
+					'inhibitorKillsAvg',
+					'inhibitorKillsMax',
+					'inhibitorKillsSum',
+					'inhibitorKillsMinWin',
+					'inhibitorKillsAvgWin',
+					'inhibitorKillsMaxWin',
+					'inhibitorKillsSumWin',
+					'towerKillsMin',
+					'towerKillsAvg',
+					'towerKillsMax',
+					'towerKillsSum',
+					'towerKillsMinWin',
+					'towerKillsAvgWin',
+					'towerKillsMaxWin',
+					'towerKillsSumWin',
+				];
+
+				for (var i in neededChartKeys) {
+					var key = neededChartKeys[i];
+					$scope.charts[key] = championsService.buildChampionStatChartData(data, key);
+				}
+			});
+
 			dataService.getDataAsync({
 				dataSource: 'BuildingKill',
 				championId: $scope.champion.key
