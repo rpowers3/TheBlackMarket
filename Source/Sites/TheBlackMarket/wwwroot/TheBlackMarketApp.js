@@ -677,7 +677,7 @@
 	TheBlackMarketAppModule.service('audioService', ['$rootScope', 'localStorageService', function($rootScope, localStorageService) {
 		var initialTrack = '/Music/GangplankLoginMusic.mp3';
 		var fadeDuration = 2000;
-		var currentVolume = 1;
+		var currentVolume = 0.5;
 
 		this.musicTracks = [];
 		this.sounds = [];
