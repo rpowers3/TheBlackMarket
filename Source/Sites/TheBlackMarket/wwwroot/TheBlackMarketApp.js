@@ -905,7 +905,7 @@
 				urls: [options.url],
 				autoplay: true,
 				loop: false,
-				volume: options.volume || 1,
+				volume: options.volume || currentVolume,
 				onend: function() {
 					self.removeSound(sound);
 				}
