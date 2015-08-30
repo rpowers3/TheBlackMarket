@@ -286,6 +286,10 @@ div.champion-list {
 		.champion-info-masteries,
 		.champion-info-masteries-area,
 		.champion-info-masteries-details,
+		.champion-info-runes,
+		.champion-info-runes-list,
+		.champion-info-rune-info,
+		.champion-info-runes-filters,
 		.champion-info-gold {
 			background: rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 0px 10px black inset;
@@ -774,16 +778,21 @@ div.champion-list {
 			}
 		}
 
-		.champion-info-masteries-right-panel {
+		.champion-info-masteries-right-panel,
+		.champion-info-runes-right-panel {
 			display: inline-block;
-			width: 22em;
+			width: 25em;
 			margin-right: 0.5em;
 			margin-bottom: 5em;
 		}
 
-		.champion-info-masteries {
-			display: inline-block;
-			width: 22em;
+		.champion-info-runes-right-panel {
+			width: 30em;
+		}
+
+		.champion-info-masteries,
+		.champion-info-runes {
+			display: block;
 			margin-right: 0em;
 
 			.champion-stats-header {
@@ -791,14 +800,133 @@ div.champion-list {
 			}
 		}
 
-		.champion-info-masteries-details {
-			width: 100%;
+		.champion-info-masteries-details,
+		.champion-info-runes-list {
+			display: block;
+			margin-right: 0em;
 			margin-top: 1em;
 			height: 28em;
 		}
 
+		.champion-info-runes-filters {
+			margin-top: 0.3em;
+			margin-right: 0em;
+			height: 3.8em;
+			padding: 0.75em;
+
+			* {
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+			.champion-info-rune-filter-name {
+				padding: 0.2em;
+				color: black;
+				width: 11em;
+			}
+
+			.btn-primary {
+				color: white;
+				width: 1.9em;
+				padding: 0.25em 0.3em;
+				height: 1.9em;
+			}
+
+			.tbm-tier {
+				background: linear-gradient(to bottom, rgb(211, 136, 0) 0%,rgb(195, 103, 0) 53%,rgb(165, 77, 0) 99%);
+				border-color: rgb(92, 49, 17);
+			}
+
+			.tbm-tier:hover {
+				background: linear-gradient(to bottom, rgba(252,178,121,1) 0%,rgba(237,142,0,1) 53%,rgba(183,79,0,1) 100%);
+				border-color: rgb(92, 49, 17);
+			}
+
+			.tbm-tier:focus,
+			.tbm-tier:active,
+			.tbm-tier.active {
+				background: linear-gradient(to top, rgba(252,178,121,1) 0%,rgba(237,142,0,1) 53%,rgba(183,79,0,1) 100%);
+				border-color: rgb(92, 49, 17);
+			}
+
+			.tbm-mark {
+				background: linear-gradient(to bottom, rgb(206, 97, 97) 0%,rgb(188, 0, 0) 53%,rgb(132, 0, 0) 99%);
+				border-color: #8e1313;
+
+				&:hover {
+					background: linear-gradient(to bottom, rgb(252, 121, 121) 0%,rgb(237, 0, 0) 53%,rgb(183, 0, 0) 100%);
+					border-color: #710f0f;
+				}
+
+				:focus,
+				:active,
+				.active {
+					background: linear-gradient(to top, rgb(252, 121, 121) 0%,rgb(237, 0, 0) 53%,rgb(183, 0, 0) 100%);
+					border-color: #710f0f;
+				}
+			}
+
+			.tbm-seal {
+				background: linear-gradient(to bottom, rgb(205, 206, 97) 0%,rgb(188, 184, 0) 53%,rgb(132, 121, 0) 99%);
+				border-color: #c8b01d;
+
+				&:hover {
+					background: linear-gradient(to bottom, rgb(252, 245, 121) 0%,rgb(237, 225, 0) 53%,rgb(183, 174, 0) 100%);
+					border-color: #928c15;
+				}
+
+				:focus,
+				:active,
+				.active {
+					background: linear-gradient(to top, rgb(205, 206, 97) 0%,rgb(188, 184, 0) 53%,rgb(132, 121, 0) 99%);
+					border-color: #152792;
+				}
+			}
+
+			.tbm-glyph {
+				background: linear-gradient(to bottom, rgb(97, 99, 206) 0%,rgb(0, 21, 188) 53%,rgb(0, 3, 132) 99%);
+				border-color: #1d20c8;
+
+				&:hover {
+					background: linear-gradient(to bottom, rgb(121, 136, 252) 0%,rgb(0, 27, 237) 53%,rgb(0, 9, 183) 100%);
+					border-color: #152792;
+				}
+
+				:focus,
+				:active,
+				.active {
+					background: linear-gradient(to top, rgb(121, 136, 252) 0%,rgb(0, 27, 237) 53%,rgb(0, 9, 183) 100%);
+					border-color: #152792;
+				}
+			}
+
+			.tbm-quint {
+				background: linear-gradient(to bottom, rgb(188, 97, 206) 0%,rgb(152, 0, 188) 53%,rgb(131, 0, 132) 99%);
+				border-color: #710c8a;
+
+				&:hover {
+					background: linear-gradient(to bottom, rgb(219, 121, 252) 0%,rgb(177, 0, 237) 53%,rgb(120, 0, 183) 100%);
+					border-color: #6a1592;
+				}
+
+				&:focus,
+				&:active,
+				&.active {
+					background: linear-gradient(to top, rgb(219, 121, 252) 0%,rgb(177, 0, 237) 53%,rgb(120, 0, 183) 100%);
+					border-color: #6a1592;
+				}
+			}
+		}
+
+		.champion-info-runes-list {
+			overflow-y: scroll;
+			margin-top: 0.3em;
+			padding: 0.2em;
+		}
+
 		.champion-info-masteries-area {
 			margin-right: 0em;
+			margin-left: 0em;
 			display: inline-block;
 			width: 60em;
 			height: 35.7em;
@@ -907,6 +1035,67 @@ div.champion-list {
 				&.champion-stat {
 					width: 15em;
 				}
+			}
+		}
+
+		.champion-summoner-rune {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 3em;
+			transition: 150ms all;
+			cursor: pointer;
+			padding: 0.3em;
+			font-size: 0.8em;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.3) !important;
+			}
+
+			&.active {
+				background: rgba(255, 255, 255, 0.2);
+			}
+
+			> * {
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+			> img {
+				width: 2em;
+				margin-right: 0.3em;
+			}
+
+			.champion-summoner-runes-name {
+				width: 19em;
+				height: 100%;
+			}
+		}
+
+		.champion-info-rune-info {
+			display: inline-block;
+			width: 54em;
+			height: 28em;
+			margin-left: 0em;
+			margin-top: 11em;
+
+			td {
+				padding: 0em;
+			}
+
+			.champion-summoner-runes-ranks {
+				width: 45em;
+				vertical-align: top;
+			}
+
+			.champion-summoner-runes-name {
+				font-size: 1em;
+				font-weight: bold;
+			}
+
+			.champion-info-runes-rank {
+				display: block;
+				font-size: 0.9em;
 			}
 		}
 

@@ -404,6 +404,10 @@
 			.when('/champions/:championId/masteries', {
 				templateUrl: 'Champions/ChampionMasteries.html',
 				controller: 'ChampionMasteriesController'
+			})
+			.when('/champions/:championId/runes', {
+				templateUrl: 'Champions/ChampionRunes.html',
+				controller: 'ChampionRunesController'
 			});
 	}]);
 
@@ -1631,7 +1635,7 @@
 		var refreshRankBars = function() {
 			var rankBars = [];
 
-			if ($scope.activeMasteryInfo) {
+			if ($scope.activeMasteryInfo && $scope.activeMasteryInfo.ranks) {
 				for (var i = 0; i < $scope.activeMasteryInfo.ranks.length; ++i) {
 					var rank = $scope.activeMasteryInfo.ranks[i];
 					var losses = rank.timesUsed - rank.timesWon;
@@ -1700,6 +1704,50 @@
 
 					$scope.masteryTrees = masteryTrees;
 					$scope.activeMasteryInfo = activeMasteryInfo;
+				});
+			});
+		};
+
+		initializeScope($scope);
+		registerForFilterChanges($scope, $rootScope, dataService);
+	}]);
+
+	ChampionsModule.controller('ChampionRunesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+		// Request the full champion information before continuing.
+		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
+			if (!championsService.enterChampionSection(fullChampionInfo)) {
+				return;
+			}
+
+			$scope.champion = fullChampionInfo;
+			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
+			$scope.refresh();
+		});
+
+		$scope.getRuneImageUrl = riotResourceService.getRuneImageUrl;
+		$scope.nameFilter = "";
+		$scope.filterTier = 3;
+		$scope.filterType = "black";
+
+		$scope.runeFilter = function(runeInfo) {
+			return (runeInfo.rune.rune.tier == $scope.filterTier) &&
+				(runeInfo.rune.rune.type == $scope.filterType) &&
+				(($scope.nameFilter == "") || 0 <= runeInfo.rune.name.toLowerCase().indexOf($scope.nameFilter.toLowerCase()));
+		};
+
+		$scope.selectedQuint = { value: undefined };
+
+		// The main function responsible for pulling the aggregate
+		// data for the champion. This is invoked when the controller
+		// loads and when the region or team filters change.
+		$scope.refresh = function() {
+			// Get the champion statistics.
+			riotResourceService.getRunesAsync().then(function(runes) {
+				dataService.getDataAsync({
+					dataSource: 'SummonerRuneUse',
+					championId: $scope.champion.key,
+				}).then(function(data) {
+					$scope.runeInfos = data.runes;
 				});
 			});
 		};

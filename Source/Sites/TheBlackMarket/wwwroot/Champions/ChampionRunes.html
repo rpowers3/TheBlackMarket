@@ -1,0 +1,67 @@
+﻿<div class="champion-info-container">
+	<div ng-include="'/Champions/ChampionHeader.html'"></div>
+
+	<div class="champion-info">
+		<div class="champion-info-runes-right-panel">
+			<div class="champion-stats-container champion-info-runes">
+				<div class="champion-stats-header">
+					<img src="/Runes.png" />
+					<span>Runes</span>
+				</div>
+			</div>
+
+			<div class="champion-stats-container champion-info-runes-filters">
+				<input type="text" class="champion-info-rune-filter-name" placeholder="Rune search..." ng-model="nameFilter">
+
+				<div class="btn-group">
+					<label tooltip="Tier 1" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="1">1</label>
+					<label tooltip="Tier 2" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="2">2</label>
+					<label tooltip="Tier 3" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="3">3</label>
+				</div>
+
+				<div class="btn-group">
+					<label tooltip="Mark" class="btn btn-primary tbm-filter tbm-mark" ng-model="filterType" btn-radio="'red'"></label>
+					<label tooltip="Seal" class="btn btn-primary tbm-filter tbm-seal" ng-model="filterType" btn-radio="'yellow'"></label>
+					<label tooltip="Glyphs" class="btn btn-primary tbm-filter tbm-glyph" ng-model="filterType" btn-radio="'blue'"></label>
+					<label tooltip="Quintessence" class="btn btn-primary tbm-filter tbm-quint" ng-model="filterType" btn-radio="'black'"></label>
+				</div>
+			</div>
+
+			<div class="champion-stats-container champion-info-runes-list">
+				<div class="champion-summoner-rune"
+					 tooltip-placement="right"
+					 ng-model="selectedQuint.value"
+					 btn-radio="runeInfo"
+					 ng-repeat="runeInfo in runeInfos | filter:runeFilter | orderBy:'runeInfo.rune.name'">
+					<img class="champion-summoner-runes-image" ng-src="{{getRuneImageUrl(runeInfo.rune)}}" />
+					<div class="champion-summoner-runes-name">{{runeInfo.rune.name}}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="champion-stats-container champion-info-rune-info">
+			<table class="champion-grid">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Used</th>
+						<th>Wins</th>
+						<th>Win Rate</th>
+						<th>Pick Rate</th>
+						<th>Win Pick Rate</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="rank in selectedQuint.value.ranks track by $index" ng-if="rank">
+						<td class="champion-stat">Rank {{$index + 1}}</td>
+						<td>{{rank.timesUsed | number}}</td>
+						<td>{{rank.timesWon | number}}</td>
+						<td>{{rank.winRate | percentage:2}}</td>
+						<td>{{rank.pickRate | percentage:2}}</td>
+						<td>{{rank.pickWinRate | percentage:2}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

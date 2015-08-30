@@ -582,6 +582,31 @@
 			return deferred.promise;
 		};
 
+		// Gets an rune by its unique item id.
+		this.getRune = function(runeId) {
+			if (!self.runes || !runeId) {
+				return;
+			}
+
+			return self.runes[runeId];
+		};
+
+		this.getRuneImageUrl = function(rune) {
+			if (!rune) {
+				return;
+			}
+
+			if (typeof rune == "number") {
+				rune = self.getRune(rune);
+
+				if (!summonerSpell) {
+					return;
+				}
+			}
+
+			return self.baseImageUrl + "rune/" + rune.image.full;
+		};
+
 		// Gets a champion by their unique champion Id. If the base champion
 		// information has not already been loaded this will return undefined.
 		this.getChampionById = function(championId) {
@@ -1048,6 +1073,53 @@
 					data.masteries[masteryId] = currentMasteryRank;
 
 					currentMasteryRank.ranks[masteryRank[i] - 1] = {
+						timesUsed: counts[i],
+						timesWon: timesWon[i],
+						winRate: timesWon[i] / counts[i],
+						pickRate: counts[i] / totalPoints,
+						pickWinRate: timesWon[i] / totalWins
+					};
+				}
+			},
+
+			SummonerRuneUse: function(data) {
+				var runeIds = data.runeId;
+				var runeRank = data.runeRank;
+				var counts = data.count;
+				var timesWon = data.timesWon;
+
+				delete data.runeId;
+				delete data.runeRank;
+				delete data.count;
+				delete data.timesWon;
+
+				data.runes = [];
+
+				var runeLookup = {}
+
+				var totalPoints = 0;
+				var totalWins = 0;
+
+				for (var i = 0; i < runeIds.length; ++i) {
+					totalPoints += counts[i];
+					totalWins += timesWon[i];
+				}
+
+				for (var i = 0; i < runeIds.length; ++i) {
+					var runeId = runeIds[i]
+					var currentRuneRank = runeLookup[runeId] || {
+						runeId: runeIds[i],
+						rune: riotResourceService.getRune(runeIds[i]),
+						ranks: []
+					};
+
+					runeLookup[runeId] = currentRuneRank;
+
+					if (currentRuneRank.ranks.length == 0) {
+						data.runes.push(currentRuneRank);
+					}
+
+					currentRuneRank.ranks[runeRank[i] - 1] = {
 						timesUsed: counts[i],
 						timesWon: timesWon[i],
 						winRate: timesWon[i] / counts[i],
