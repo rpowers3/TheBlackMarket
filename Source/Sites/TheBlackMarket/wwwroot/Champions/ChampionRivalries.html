@@ -10,12 +10,16 @@
 		</div>
 
 		<div class="champion-stats-container champion-info-rivalries-list">
-			<span class="champion-stats-group-header">Victims</span>
+			<span class="champion-stats-group-header">
+				<img src="/Kills.png" />
+				<span>Victims</span>
+			</span>
 			<div class="champion-info-rivalries-victims">
 				<a class="champion-portrait-large"
 				   tooltip="{{victim.champion.name}}"
 				   ng-href="{{getChampionUrl(victim.champion)}}"
-				   ng-repeat="victim in victims | orderBy:'kills':true | limitTo:14">
+				   ng-repeat="victim in victims | orderBy:'kills':true | limitTo:14"
+				   ng-click="playSectionSound()">
 					<img ng-src="{{getChampionImageUrl(victim.champion)}}" />
 					<div class="champion-info-rivalries-stats">
 						<div>{{victim.killPercent | percentage:2}}</div>
@@ -26,12 +30,16 @@
 		</div>
 
 		<div class="champion-stats-container champion-info-rivalries-list">
-			<span class="champion-stats-group-header">Nemesis</span>
+			<span class="champion-stats-group-header">
+				<img src="/Deaths.png" />
+				<span>Nemesis</span>
+			</span>
 			<div class="champion-info-rivalries-nemesis">
 				<a class="champion-portrait-large"
 				   tooltip="{{nemesis1.champion.name}}"
 				   ng-href="{{getChampionUrl(nemesis1.champion)}}"
-				   ng-repeat="nemesis1 in nemesis | orderBy:'deaths':true | limitTo:14">
+				   ng-repeat="nemesis1 in nemesis | orderBy:'deaths':true | limitTo:14"
+				   ng-click="playSectionSound()">
 					<img ng-src="{{getChampionImageUrl(nemesis1.champion)}}" />
 					<div class="champion-info-rivalries-stats">
 						<div>{{nemesis1.deathPercent | percentage:2}}</div>

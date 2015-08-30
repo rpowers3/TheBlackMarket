@@ -79,7 +79,7 @@ div.champion-list {
 .champion-info-container {
 	position: relative;
 	text-shadow: -1px -1px black, 1px -1px black, -1px 1px black, 1px 1px black;
-	margin-left: 2em;
+	margin-left: 3.5em;
 	margin-top: 2em;
 	padding-bottom: 5em;
 
@@ -117,10 +117,11 @@ div.champion-list {
 		position: absolute;
 		top: -2em;
 		left: -2em;
+		right: 0em;
 		height: 3em;
 		color: white;
-		background: linear-gradient(to bottom, rgb(2, 52, 72) 0%, rgba(0,30,42,1) 1%,rgba(2,9,13,1) 97%,rgb(2, 52, 72) 98%,rgb(2, 52, 72) 100%);
-		width: 100%;
+		background: linear-gradient(to top, rgb(6, 50, 68),rgb(13, 38, 57) 5%, rgb(6, 25, 40) 100%);
+		//background: linear-gradient(to bottom, rgb(2, 52, 72) 0%, rgba(0,30,42,1) 1%,rgba(2,9,13,1) 97%,rgb(2, 52, 72) 98%,rgb(2, 52, 72) 100%);
 		padding-left: 1em;
 
 		a {
@@ -132,8 +133,11 @@ div.champion-list {
 			width: 7em;
 			border: 1px solid rgb(97, 122, 141);
 			background: linear-gradient(to bottom, rgb(64, 81, 95) 0%, rgb(47, 61, 77) 1%,rgba(2,9,13,1) 97%,rgb(33, 49, 65) 98%,rgb(21, 35, 56) 100%);
+			color: rgb(145, 176, 211);
 			transition: 150ms all;
 			text-decoration: none;
+			text-shadow: none;
+			font-weight: bold;
 
 			&:hover {
 				text-decoration: none;
@@ -639,10 +643,16 @@ div.champion-list {
 		}
 
 		.champion-info-combat-heat-maps {
-			margin-top: 8em;
+			margin-top: 5em;
 
 			> * {
 				display: inline-block;
+			}
+
+			> .champion-stats-group-header {
+				display: block;
+				font-size: 1.5em;
+				margin-bottom: 0.4em;
 			}
 
 			.champion-info-combat-heat-map {
@@ -650,6 +660,10 @@ div.champion-list {
 
 				.champion-stats-group-header {
 					margin: 0em 0.5em;
+
+					> * {
+						vertical-align: middle;
+					}
 				}
 			}
 
@@ -735,6 +749,14 @@ div.champion-list {
 			.champion-stats-combat-table-inner-section,
 			.champion-stats-objective-table-inner-section {
 				padding: 0.5em 0em;
+
+				> * {
+					vertical-align: middle;
+				}
+
+				> img {
+					margin: 0em 0.2em;
+				}
 			}
 
 			.champion-stats-combat-table-sub-section,
@@ -762,6 +784,12 @@ div.champion-list {
 			margin-top: 0.8em;
 			height: 15.5em;
 			overflow: hidden;
+
+			.champion-stats-group-header {
+				> * {
+					vertical-align: middle;
+				}
+			}
 
 			.champion-portrait-large {
 				display: inline-block;

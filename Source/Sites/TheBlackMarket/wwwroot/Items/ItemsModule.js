@@ -18,7 +18,9 @@
 	ItemsModule.config(['theBlackMarketSiteProvider', '$routeProvider', function(theBlackMarketSiteProvider, $routeProvider) {
 		theBlackMarketSiteProvider.addSection({
 			path: "/items",
-			name: "Items"
+			name: "Items",
+			flag: '/Items/ItemsFlag.png',
+			image: '/Items/ItemsMenu.png'
 		});
 
 		$routeProvider
@@ -43,7 +45,7 @@
 
 	// The controler used to display a list of items that can be sorted
 	// and filtered.
-	ItemsModule.controller('ItemsController', ['$scope', 'riotResourceService', 'dataService', 'itemsService', function($scope, riotResourceService, dataService, itemsService) {
+	ItemsModule.controller('ItemsController', ['$scope', 'riotResourceService', 'dataService', 'itemsService', 'audioService', function($scope, riotResourceService, dataService, itemsService, audioService) {
 		// Initiate the request to fetch the items list.
 		riotResourceService.getItemsAsync().then(function(items) {
 			$scope.items = items;
@@ -58,6 +60,12 @@
 
 			$scope.itemNames = itemNames;
 		});
+
+		$scope.playItemSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 
 		// Flag to show/hide filters.
 		$scope.displayFilters = dataService.showFilters;

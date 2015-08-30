@@ -7,7 +7,7 @@
 
 			<div class="brawlers-section-content brawlers-section-content-brawlers">
 				<div class="brawlers-section-content-brawlers-list">
-					<a ng-repeat="brawler in brawlers" ng-href="{{getItemUrl(brawler)}}" class="brawler-tile">
+					<a ng-repeat="brawler in brawlers" ng-href="{{getItemUrl(brawler)}}" class="brawler-tile" ng-click="playBrawlerSelectionSound()">
 						<img class="brawler-image" ng-src=" {{getItemImageUrl(brawler)}}" />
 						<div class="brawler-info">
 							<div class="brawler-name">{{brawler.name}}</div>
@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="brawlers-section-content brawlers-section-content-upgrades">
-				<a ng-href="{{getItemUrl(brawlerUpgrade)}}" class="brawler-upgrade-tile" ng-repeat="brawlerUpgrade in brawlerUpgrades">
+				<a ng-href="{{getItemUrl(brawlerUpgrade)}}" class="brawler-upgrade-tile" ng-repeat="brawlerUpgrade in brawlerUpgrades" ng-click="playItemSelectionSound()">
 					<img class="brawler-upgrade-image" ng-src="{{getItemImageUrl(brawlerUpgrade)}}" />
 					<div class="brawler-upgrade-info">
 						<div class="brawler-upgrade-name">{{brawlerUpgrade.name}}</div>
@@ -48,7 +48,7 @@
 			</div>
 
 			<div class="brawlers-section-content brawlers-section-content-items">
-				<a ng-href="{{getItemUrl(blackMarketItem)}}" class="item-tile" ng-repeat="blackMarketItem in blackMarketItems | orderBy:'name'">
+				<a ng-href="{{getItemUrl(blackMarketItem)}}" class="item-tile" ng-repeat="blackMarketItem in blackMarketItems | orderBy:'name'" ng-click="playItemSelectionSound()">
 					<img ng-src="{{getItemImageUrl(blackMarketItem)}}" />
 					<div class="item-info">
 						<div class="item-name">{{blackMarketItem.name}}</div>

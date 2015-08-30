@@ -34,6 +34,7 @@
 		<a class="champion-portrait-large"
 		   tooltip="{{champion.name}}"
 		   ng-href="{{getChampionUrl(champion)}}"
+		   ng-click="playSectionSound()"
 		   ng-repeat="champion in champions | filter:championFilter | orderBy:sortProperty:sortDirection">
 			<img ng-src="{{getChampionImageUrl(champion)}}" />
 			<div class="highlight"></div>

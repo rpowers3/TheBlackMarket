@@ -361,7 +361,9 @@
 	ChampionsModule.config(['theBlackMarketSiteProvider', '$routeProvider', function(theBlackMarketSiteProvider, $routeProvider) {
 		theBlackMarketSiteProvider.addSection({
 			path: "/champions",
-			name: "Champions"
+			name: "Champions",
+			flag: '/Champions/ChampionsFlag.png',
+			image: '/Champions/ChampionsMenu.png'
 		});
 
 		$routeProvider
@@ -589,7 +591,7 @@
 
 	// Controller used to provide a list of champions and allows
 	// for sorting and filtering of the list.
-	ChampionsModule.controller('ChampionListController', ['$scope', 'riotResourceService', 'dataService', function($scope, riotResourceService, dataService) {
+	ChampionsModule.controller('ChampionListController', ['$scope', 'riotResourceService', 'dataService', 'audioService', function($scope, riotResourceService, dataService, audioService) {
 		// Fetch the list of champion.
 		riotResourceService.getChampionsAsync().then(function(championList) {
 			// The champions is in a map that needs to be converted into
@@ -608,6 +610,12 @@
 			$scope.champions = championsArray;
 			$scope.championNames = championsNames;
 		});
+
+		$scope.playSectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/champSelect/lockinchampion.mp3', volume: 0.5 });
+			}
+		};
 
 		// Flag to show/hide filters.
 		$scope.displayFilters = dataService.showFilters;
@@ -649,6 +657,14 @@
 
 		// Helper to get the champion image for display.
 		$scope.getChampionImageUrl = riotResourceService.getChampionImageUrl;
+	}]);
+
+	ChampionsModule.controller('ChampionHeaderController', ['$scope', 'audioService', function($scope, audioService) {
+		$scope.playSectionSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 	}]);
 
 	// Controller used to display specific champion information.
@@ -798,7 +814,7 @@
 		registerForFilterChanges($scope, $rootScope, dataService);
 	}]);
 
-	ChampionsModule.controller('ChampionItemsController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'itemsService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, itemsService, championsService) {
+	ChampionsModule.controller('ChampionItemsController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'itemsService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, itemsService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -809,6 +825,12 @@
 			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
 			$scope.refresh();
 		});
+
+		$scope.playItemSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 
 		$scope.itemsSortProperty = 'weightedWinRate';
 		$scope.itemsSortReverse = true;
@@ -1163,7 +1185,7 @@
 		registerForFilterChanges($scope, $rootScope, dataService);
 	}]);
 
-	ChampionsModule.controller('ChampionSkillsController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+	ChampionsModule.controller('ChampionSkillsController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -1174,6 +1196,12 @@
 			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
 			$scope.refresh();
 		});
+
+		$scope.playSkillSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 
 		$scope.xAxisTickFormat = function() {
 			return function(d) {
@@ -1340,7 +1368,7 @@
 		},
 	};
 
-	ChampionsModule.controller('ChampionObjectivesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+	ChampionsModule.controller('ChampionObjectivesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -1351,6 +1379,12 @@
 			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
 			$scope.refresh();
 		});
+
+		$scope.playSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 
 		$scope.selectedObjective = 'bn1';
 
@@ -1591,7 +1625,7 @@
 		registerForFilterChanges($scope, $rootScope, dataService);
 	}]);
 
-	ChampionsModule.controller('ChampionRivalriesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+	ChampionsModule.controller('ChampionRivalriesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -1602,6 +1636,12 @@
 			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
 			$scope.refresh();
 		});
+
+		$scope.playSectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/champSelect/lockinchampion.mp3', volume: 0.5 });
+			}
+		};
 
 		$scope.getChampionUrl = function(champion) {
 			return "#/champions/" + champion.key;
@@ -1634,7 +1674,7 @@
 		registerForFilterChanges($scope, $rootScope, dataService);
 	}]);
 
-	ChampionsModule.controller('ChampionMasteriesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+	ChampionsModule.controller('ChampionMasteriesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -1645,6 +1685,12 @@
 			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
 			$scope.refresh();
 		});
+
+		$scope.playSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 
 		$scope.getMasteryImageUrl = riotResourceService.getMasteryImageUrl;
 
@@ -1728,7 +1774,7 @@
 		registerForFilterChanges($scope, $rootScope, dataService);
 	}]);
 
-	ChampionsModule.controller('ChampionRunesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+	ChampionsModule.controller('ChampionRunesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -1739,6 +1785,12 @@
 			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
 			$scope.refresh();
 		});
+
+		$scope.playSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 
 		$scope.getRuneImageUrl = riotResourceService.getRuneImageUrl;
 		$scope.nameFilter = "";

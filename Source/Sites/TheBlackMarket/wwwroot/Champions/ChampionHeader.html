@@ -3,16 +3,16 @@
 <div class="champion-splash" ng-style="{'background-image': 'url(' + championBackgroundUrl + ')'}">
 </div>
 
-<div class="champion-sections-bar">
-	<a ng-href="#/champions/{{champion.key}}">Overview</a>
-	<a ng-href="#/champions/{{champion.key}}/gold">Gold</a>
-	<a ng-href="#/champions/{{champion.key}}/items">Items</a>
-	<a ng-href="#/champions/{{champion.key}}/skills">Skills</a>
-	<a ng-href="#/champions/{{champion.key}}/combat">Combat</a>
-	<a ng-href="#/champions/{{champion.key}}/rivalries">Rivalries</a>
-	<a ng-href="#/champions/{{champion.key}}/objectives">Objectives</a>
-	<a ng-href="#/champions/{{champion.key}}/masteries">Masteries</a>
-	<a ng-href="#/champions/{{champion.key}}/runes">Runes</a>
+<div class="champion-sections-bar" ng-controller="ChampionHeaderController">
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}">Overview</a>
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}/gold">Gold</a>
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}/items">Items</a>
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}/skills">Skills</a>
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}/combat">Combat</a>
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}/rivalries">Rivalries</a>
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}/objectives">Objectives</a>
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}/masteries">Masteries</a>
+	<a ng-click="playSectionSelectionSound()" ng-href="#/champions/{{champion.key}}/runes">Runes</a>
 </div>
 
 <div class="champion-info">

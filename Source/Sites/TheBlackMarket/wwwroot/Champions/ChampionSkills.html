@@ -13,6 +13,7 @@
 					   class="btn champion-stats-skill"
 					   ng-model="activeSkillInfo.model"
 					   btn-radio="skillInfo"
+					   ng-click="playSkillSelectionSound()"
 					   tooltip="{{skillInfo.skill.name}}">
 					<img ng-src="{{getSkillImageUrl(skillInfo.skill)}}" />
 				</label>

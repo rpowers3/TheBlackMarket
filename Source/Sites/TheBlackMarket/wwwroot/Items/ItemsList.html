@@ -54,7 +54,8 @@
 	<div class="item-list-container" ng-class="{'tbm-filter-visible': displayFilters}">
 		<a class="item-tile"
 		   ng-href="{{getItemUrl(item)}}"
-		   ng-repeat="item in items | filter:itemFilter | orderBy:sortProperty:sortDirection">
+		   ng-repeat="item in items | filter:itemFilter | orderBy:sortProperty:sortDirection"
+		   ng-click="playItemSelectionSound()">
 			<img ng-src="{{getItemImage(item)}}" />
 			<div class="highlight"></div>
 			<div class="item-info">

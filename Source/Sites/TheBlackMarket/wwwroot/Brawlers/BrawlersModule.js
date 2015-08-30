@@ -13,7 +13,9 @@
 	BrawlersModule.config(['theBlackMarketSiteProvider', '$routeProvider', function(theBlackMarketSiteProvider, $routeProvider) {
 		theBlackMarketSiteProvider.addSection({
 			path: "/brawlers",
-			name: "Brawlers"
+			name: "Brawlers",
+			flag: '/Brawlers/BrawlersFlag.png',
+			image: '/Brawlers/BrawlersMenu.png'
 		});
 
 		$routeProvider
@@ -28,7 +30,7 @@
 	}]);
 
 	// The controler used for the brawlers home.
-	BrawlersModule.controller('BrawlersHomeController', ['$scope', 'riotResourceService', 'dataService', 'itemsService', function($scope, riotResourceService, dataService, itemsService) {
+	BrawlersModule.controller('BrawlersHomeController', ['$scope', 'riotResourceService', 'dataService', 'itemsService', 'audioService', function($scope, riotResourceService, dataService, itemsService, audioService) {
 		riotResourceService.getBrawlersAsync().then(function(brawlers) {
 			$scope.brawlers = brawlers;
 		});
@@ -46,6 +48,18 @@
 
 		// Helper to get the item image for display.
 		$scope.getItemImageUrl = riotResourceService.getItemImageUrl;
+
+		$scope.playBrawlerSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_10.mp3', volume: 0.5 });
+			}
+		};
+
+		$scope.playItemSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 
 		$scope.brawlerCompositionsLink = '#/brawlers/compositions';
 	}]);

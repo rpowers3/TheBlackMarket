@@ -10,28 +10,14 @@
 		</div>
 
 		<div class="champion-stats-container champion-info-combat-heat-maps">
-			<div class="champion-info-combat-heat-map">
-				<div class="champion-stats-group-header">
-					Deaths
-				</div>
-				<div class="champion-info-combat-heat-map-content">
-					<img ng-src="{{deathHeatMap}}" />
-
-					<div ng-if="isIE">
-						<a href="{{ieDeathVideoUrl}}" target="_blank">Death Map Video</a>
-					</div>
-					<div ng-controller="DummyController" ng-if="!isIE">
-						<videogular vg-theme="videoTheme" vg-preload="none">
-							<vg-media vg-src="deathSources" vg-native-controls="true">
-							</vg-media>
-						</videogular>
-					</div>
-				</div>
+			<div class="champion-stats-group-header">
+				Heat Maps
 			</div>
 
 			<div class=" champion-info-combat-heat-map">
 				<div class="champion-stats-group-header">
-					Kills
+					<img src="/Kills.png" />
+					<span>Kills</span>
 				</div>
 				<div class="champion-info-combat-heat-map-content">
 					<img ng-src="{{killshHeatMap}}" />
@@ -42,6 +28,26 @@
 					<div ng-controller="DummyController" ng-if="!isIE">
 						<videogular vg-theme="videoTheme" vg-preload="none">
 							<vg-media vg-src="killSources" vg-native-controls="true">
+							</vg-media>
+						</videogular>
+					</div>
+				</div>
+			</div>
+
+			<div class="champion-info-combat-heat-map">
+				<div class="champion-stats-group-header">
+					<img src="/Deaths.png" />
+					<span></span>Deaths</span>
+				</div>
+				<div class="champion-info-combat-heat-map-content">
+					<img ng-src="{{deathHeatMap}}" />
+
+					<div ng-if="isIE">
+						<a href="{{ieDeathVideoUrl}}" target="_blank">Death Map Video</a>
+					</div>
+					<div ng-controller="DummyController" ng-if="!isIE">
+						<videogular vg-theme="videoTheme" vg-preload="none">
+							<vg-media vg-src="deathSources" vg-native-controls="true">
 							</vg-media>
 						</videogular>
 					</div>
@@ -388,6 +394,7 @@
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
+							<img src="/Kills.png" />
 							Damage Dealt
 						</th>
 					</tr>
@@ -945,6 +952,7 @@
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
+							<img src="/Deaths.png" />
 							Damage Taken
 						</th>
 					</tr>
@@ -1120,6 +1128,7 @@
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
+							<img src="/Healing.png" />
 							Healing Done
 						</th>
 					</tr>
@@ -1231,6 +1240,7 @@
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
+							<img src="/Minions.png" />
 							Minion Stats
 						</th>
 					</tr>

@@ -32,7 +32,8 @@
 					 tooltip-placement="right"
 					 ng-model="selectedQuint.value"
 					 btn-radio="runeInfo"
-					 ng-repeat="runeInfo in runeInfos | filter:runeFilter | orderBy:'runeInfo.rune.name'">
+					 ng-repeat="runeInfo in runeInfos | filter:runeFilter | orderBy:'runeInfo.rune.name'"
+					 ng-click="playSelectionSound()">
 					<img class="champion-summoner-runes-image" ng-src="{{getRuneImageUrl(runeInfo.rune)}}" />
 					<div class="champion-summoner-runes-name">{{runeInfo.rune.name}}</div>
 				</div>

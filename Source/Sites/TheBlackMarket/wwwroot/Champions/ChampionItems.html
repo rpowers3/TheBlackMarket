@@ -14,7 +14,8 @@
 					<a class="champion-item-tile"
 					   tooltip="{{item.item.name}}"
 					   ng-href="{{getItemUrl(item.itemId, champion.key)}}"
-					   ng-repeat="item in itemInfo | filter:filterBaseItems | orderBy:'weightedWinRate':true | limitTo:9">
+					   ng-repeat="item in itemInfo | filter:filterBaseItems | orderBy:'weightedWinRate':true | limitTo:9"
+					   ng-click="playItemSelectionSound()">
 						<img ng-src="{{getItemImage(item.itemId)}}" />
 						<div class="champion-item-info">
 							<div class="champion-item-name">{{item.name}}</div>
@@ -38,7 +39,8 @@
 					<a class="champion-item-tile"
 					   tooltip="{{item.item.name}}"
 					   ng-href="{{getItemUrl(item.itemId, champion.key)}}"
-					   ng-repeat="item in itemInfo | filter:filterBaseItems | orderBy:'timesUsed':true | limitTo:9">
+					   ng-repeat="item in itemInfo | filter:filterBaseItems | orderBy:'timesUsed':true | limitTo:9"
+					   ng-click="playItemSelectionSound()">
 						<img ng-src="{{getItemImage(item.itemId)}}" />
 						<div class="champion-item-info">
 							<div class="champion-item-name">{{item.name}}</div>
@@ -85,7 +87,8 @@
 					<a class="champion-item-tile"
 					   tooltip="{{item.item.name}}"
 					   ng-href="{{getItemUrl(item.itemId, champion.key)}}"
-					   ng-repeat="item in itemInfo | orderBy:itemsSortProperty:itemsSortReverse">
+					   ng-repeat="item in itemInfo | orderBy:itemsSortProperty:itemsSortReverse"
+					   ng-click="playItemSelectionSound()">
 						<img ng-src="{{getItemImage(item.itemId)}}" />
 						<div class="champion-item-info">
 							<div class="champion-item-name">{{item.name}}</div>

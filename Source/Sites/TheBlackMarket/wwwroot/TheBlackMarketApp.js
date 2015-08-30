@@ -9,9 +9,9 @@
 		'LocalStorageModule',
 		'TheBlackMarketSite',
 		'Brawlers',
-		'Buildings',
 		'Champions',
-		'Items']);
+		'Items',
+		'Objectives']);
 
 	TheBlackMarketAppModule.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
 		// Configure local storage so site settings can be saved.
@@ -899,11 +899,13 @@
 		};
 
 		this.playSound = function(url) {
+			var options = (typeof url == "object") ? url : { url: url };
+
 			var sound = new Howl({
-				urls: [url],
+				urls: [options.url],
 				autoplay: true,
 				loop: false,
-				volume: 1,
+				volume: options.volume || 1,
 				onend: function() {
 					self.removeSound(sound);
 				}
@@ -1346,12 +1348,18 @@
 
 	// Simple controller that provides the menu area with the list of
 	// registered site sections.
-	TheBlackMarketAppModule.controller('MenuController', ['$scope', 'theBlackMarketSite', function($scope, theBlackMarketSite) {
+	TheBlackMarketAppModule.controller('MenuController', ['$scope', 'theBlackMarketSite', 'audioService', function($scope, theBlackMarketSite, audioService) {
 		theBlackMarketSite.sections.sort(function(a, b) {
 			return a.name.localeCompare(b.name);
 		});
 
 		$scope.sections = theBlackMarketSite.sections;
+
+		$scope.playSectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_8.mp3', volume: 0.5 });
+			}
+		};
 	}]);
 
 	// Controller used to toggle various site settings.
@@ -1365,16 +1373,28 @@
 		$scope.toggleSounds = function() {
 			audioService.toggleSounds();
 			$scope.playSounds = audioService.playSounds;
+
+			$scope.playSelectionSound();
 		};
 
 		$scope.toggleChampionSounds = function() {
 			audioService.toggleChampionSounds();
 			$scope.playChampionSounds = audioService.playChampionSounds;
+
+			$scope.playSelectionSound();
 		};
 
 		$scope.toggleMusic = function() {
 			audioService.toggleMusic();
 			$scope.playMusic = audioService.playMusic;
+
+			$scope.playSelectionSound();
+		};
+
+		$scope.playSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
 		};
 
 		$scope.$watch('playSounds', function(value) {
@@ -1390,13 +1410,27 @@
 		});
 	}]);
 
+	TheBlackMarketAppModule.controller('HomeLinkController', ['$scope', 'audioService', function($scope, audioService) {
+		$scope.playGoHomeSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/koto4.mp3', volume: 0.5 });
+			}
+		};
+	}]);
+
 	// Controller used to synchronize the filter settings.
-	TheBlackMarketAppModule.controller('FilterController', ['$scope', 'dataService', function($scope, dataService) {
+	TheBlackMarketAppModule.controller('FilterController', ['$scope', 'dataService', 'audioService', function($scope, dataService, audioService) {
 		// Synchronize the filter settings between the controller
 		// and the data service.
 		$scope.selectedRegion = dataService.regionFilter;
 		$scope.selectedTeam = dataService.teamFilter;
 		$scope.showAllStats = dataService.showAllStats;
+
+		$scope.playSelectionSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+			}
+		};
 
 		$scope.$watch('selectedRegion', function(value) {
 			dataService.setRegionFilter(value);

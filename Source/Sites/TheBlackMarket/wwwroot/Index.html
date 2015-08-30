@@ -34,22 +34,18 @@
 		<script src="TheBlackMarketApp.js"></script>
 		<script src="TheBlackMarketSite.js"></script>
 		<script src="Brawlers/BrawlersModule.js"></script>
-		<script src="Buildings/BuildingsModule.js"></script>
 		<script src="Champions/ChampionsModule.js"></script>
 		<script src="Items/ItemsModule.js"></script>
-		<script src="Masteries/MasteriesModule.js"></script>
-		<script src="Monsters/MonstersModule.js"></script>
-		<script src="Runes/RunesModule.js"></script>
-		<script src="Warding/WardingModule.js"></script>
+		<script src="Objectives/ObjectivesModule.js"></script>
 	</head>
 	<body>
 		<div class="background-image">
 		</div>
 
 		<header>
-			<a href="/#/">
+			<a href="/#/" ng-click="playGoHomeSound()" ng-controller="HomeLinkController">
 				<div class="title">
-					<h1>The Black Market</h1>
+					<h1>The Black Market ?</h1>
 					<h2>Runterra's source for insider information.</h2>
 				</div>
 			</a>
@@ -60,17 +56,17 @@
 						Region
 					</div>
 					<div class="region-filter btn-group">
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'ALL'">ALL</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'BR'">BR</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'EUNE'">EUNE</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'EUW'">EUW</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'KR'">KR</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'LAN'">LAN</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'LAS'">LAS</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'NA'">NA</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'OCE'">OCE</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'RU'">RU</label>
-						<label class="btn btn-success regionFilter" ng-model="selectedRegion" btn-radio="'TR'">TR</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'ALL'">ALL</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'BR'">BR</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'EUNE'">EUNE</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'EUW'">EUW</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'KR'">KR</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'LAN'">LAN</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'LAS'">LAS</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'NA'">NA</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'OCE'">OCE</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'RU'">RU</label>
+						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'TR'">TR</label>
 					</div>
 				</div>
 
@@ -79,9 +75,9 @@
 						Team
 					</div>
 					<div class="team-filter btn-group">
-						<label class="btn btn-success bothTeams" ng-model="selectedTeam" btn-radio="'Both'">Both</label>
-						<label class="btn btn-success blueTeam" ng-model="selectedTeam" btn-radio="'Blue'">Blue</label>
-						<label class="btn btn-success redTeam" ng-model="selectedTeam" btn-radio="'Red'">Red</label>
+						<label class="btn btn-success bothTeams" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Both'">Both</label>
+						<label class="btn btn-success blueTeam" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Blue'">Blue</label>
+						<label class="btn btn-success redTeam" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Red'">Red</label>
 					</div>
 				</div>
 
@@ -99,8 +95,23 @@
 		</header>
 
 		<aside>
+			<div class="aside-background"></div>
+
 			<menu ng-controller="MenuController">
-				<a ng-repeat="section in sections" ng-href="#{{section.path}}">{{section.name}}</a>
+				<a
+				   ng-repeat="section in sections"
+				   ng-href="#{{section.path}}"
+				   ng-click="playSectionSound()">
+					<div class="section-box" ng-style="{'background-image': 'url(' + section.image +')'}"></div>
+					<div class="section-rotator">
+						<div class="section-branch"></div>
+						<div class="section-flag" ng-style="{'background-image': 'url(' + section.flag +')'}"></div>
+						<div class="section-title">
+							<span>{{section.name}}</span>
+						</div>
+						<div class="section-bottomedge"></div>
+					</div>
+				</a>
 			</menu>
 
 			<div class="settings" ng-controller="SettingsController">
@@ -116,6 +127,10 @@
 					<img src="Music.png" />
 					<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playMusic}"/>
 				</div>
+
+				<a href="/#/about" ng-click="playSelectionSound()" ng-controller="HomeLinkController">
+					<img src="/About.png"/>
+				</a>
 			</div>
 		</aside>
 
