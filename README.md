@@ -24,7 +24,7 @@ The data was processed using the following process:
 8. The HeatMapBatchBuilder was used with the HeatMapVideoBuilder (Poorly named, they're death maps right now but they can do heat maps with minimal changes) to generate death and kill maps from the DeathLocation* KillLocation* data.
 9. All of this data is raw files for use by the site now.
 
-The website is a simple ASP.NET vNext server configured with a few file providers to access its wwwroot and the Json, Sounds, Music, and Video data. These locations are configured in the TheBlackMarket.json file. Again because this was operating on static data that was not changing, the match version was already known ahead of time, 5.15.1, so not even the static data endpoint was needed. The old JSONP static data was sufficient for everything the sight needed to do.
+The website is an ASP.NET vNext server. To run it you'll need to install DNVM or Visual Studio 2015 Community. It is configured with a few file providers to access its wwwroot and the Json, Sounds, Music, and Video data. These locations are configured in the TheBlackMarket.json file. Because this was operating on static data that was not changing, the match version was already knownn ahead of time (5.15.1), so the static data endpoint was not needed. Instead the JSONP static data was sufficient for everything the site needed to do.
 
 If you are going to attempt to run the site, you will need to update the applicationhost.config file in the Source\.vs folder that is created. Make the following change:
 
@@ -45,6 +45,7 @@ Thanks to the following 3rd party projects that were used for the tools and the 
 * [Aforge](https://code.google.com/p/aforge/)
 * [Angular](https://angularjs.org/)
 * [D3](http://d3js.org/)
+* [DNVM](https://github.com/aspnet/dnvm)
 * [FFmpeg](https://www.ffmpeg.org/)
 * [Howler](https://github.com/goldfire/howler.js/)
 * [MongoDB](https://www.mongodb.com/)

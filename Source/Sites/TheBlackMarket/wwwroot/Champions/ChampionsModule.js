@@ -400,6 +400,10 @@
 			.when('/champions/:championId/objectives', {
 				templateUrl: 'Champions/ChampionObjectives.html',
 				controller: 'ChampionObjectivesController'
+			})
+			.when('/champions/:championId/masteries', {
+				templateUrl: 'Champions/ChampionMasteries.html',
+				controller: 'ChampionMasteriesController'
 			});
 	}]);
 
@@ -1603,6 +1607,100 @@
 				championId: $scope.champion.key,
 			}).then(function(data) {
 				$scope.victims = data.victims;
+			});
+		};
+
+		initializeScope($scope);
+		registerForFilterChanges($scope, $rootScope, dataService);
+	}]);
+
+	ChampionsModule.controller('ChampionMasteriesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+		// Request the full champion information before continuing.
+		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
+			if (!championsService.enterChampionSection(fullChampionInfo)) {
+				return;
+			}
+
+			$scope.champion = fullChampionInfo;
+			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
+			$scope.refresh();
+		});
+
+		$scope.getMasteryImageUrl = riotResourceService.getMasteryImageUrl;
+
+		var refreshRankBars = function() {
+			var rankBars = [];
+
+			if ($scope.activeMasteryInfo) {
+				for (var i = 0; i < $scope.activeMasteryInfo.ranks.length; ++i) {
+					var rank = $scope.activeMasteryInfo.ranks[i];
+					var losses = rank.timesUsed - rank.timesWon;
+
+					rankBars.push([
+						{
+							value: Math.round(100 * (losses / rank.timesUsed)),
+							type: 'danger',
+							rawvalue: losses
+						},
+						{
+							value: Math.round(100 * (rank.timesWon / rank.timesUsed)),
+							type: 'success',
+							rawvalue: rank.timesWon
+						}
+					]);
+				}
+			}
+
+			$scope.activeRankBars = rankBars;
+		};
+
+		$scope.$watch('activeMasteryInfo', refreshRankBars);
+
+		// The main function responsible for pulling the aggregate
+		// data for the champion. This is invoked when the controller
+		// loads and when the region or team filters change.
+		$scope.refresh = function() {
+			// Get the champion statistics.
+			riotResourceService.getMasteryTreesAsync().then(function(rawMasteryTrees) {
+				dataService.getDataAsync({
+					dataSource: 'SummonerMasteriesUse',
+					championId: $scope.champion.key,
+				}).then(function(data) {
+					var activeMasteryInfo = $scope.activeMasteryInfo || {};
+
+					var masteryTrees = {};
+					var masteryTreeNames = ["Offense", "Defense", "Utility"];
+
+					for (var treeName in rawMasteryTrees) {
+						var tree = rawMasteryTrees[treeName];
+						var lowerTreeName = treeName.toLowerCase();
+						var currentTree = masteryTrees[lowerTreeName] = {
+							slots: []
+						};
+
+						for (var j = 0; j < tree.length; ++j) {
+							var row = tree[j];
+
+							for (var k = 0; k < 4; ++k) {
+								var masteryEntry = row[k];
+
+								if (masteryEntry) {
+									var masteryInfo = data.masteries[masteryEntry.masteryId];
+									currentTree.slots.push(masteryInfo);
+
+									if (masteryInfo.mastery == activeMasteryInfo.mastery) {
+										activeMasteryInfo = masteryInfo;
+									}									
+								} else {
+									currentTree.slots.push(null);
+								}
+							}
+						}
+					}
+
+					$scope.masteryTrees = masteryTrees;
+					$scope.activeMasteryInfo = activeMasteryInfo;
+				});
 			});
 		};
 

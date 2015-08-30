@@ -110,15 +110,15 @@ div.champion-list {
 		color: white;
 		background: linear-gradient(to bottom, rgb(2, 52, 72) 0%, rgba(0,30,42,1) 1%,rgba(2,9,13,1) 97%,rgb(2, 52, 72) 98%,rgb(2, 52, 72) 100%);
 		width: 100%;
-		padding-left: 3em;
+		padding-left: 1em;
 
 		a {
 			display: inline-block;
 			margin-top: 0.5em;
-			margin-right: 1em;
+			margin-right: 0.5em;
 			padding: 0.2em;
 			text-align: center;
-			width: 8em;
+			width: 7em;
 			border: 1px solid rgb(97, 122, 141);
 			background: linear-gradient(to bottom, rgb(64, 81, 95) 0%, rgb(47, 61, 77) 1%,rgba(2,9,13,1) 97%,rgb(33, 49, 65) 98%,rgb(21, 35, 56) 100%);
 			transition: 150ms all;
@@ -283,6 +283,9 @@ div.champion-list {
 		.champion-info-combat-extended-stats,
 		.champion-info-rivalries,
 		.champion-info-rivalries-list,
+		.champion-info-masteries,
+		.champion-info-masteries-area,
+		.champion-info-masteries-details,
 		.champion-info-gold {
 			background: rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 0px 10px black inset;
@@ -742,6 +745,8 @@ div.champion-list {
 
 		.champion-info-rivalries-list {
 			margin-top: 0.8em;
+			height: 15.5em;
+			overflow: hidden;
 
 			.champion-portrait-large {
 				display: inline-block;
@@ -765,6 +770,142 @@ div.champion-list {
 
 				img {
 					width: 5em;
+				}
+			}
+		}
+
+		.champion-info-masteries-right-panel {
+			display: inline-block;
+			width: 22em;
+			margin-right: 0.5em;
+			margin-bottom: 5em;
+		}
+
+		.champion-info-masteries {
+			display: inline-block;
+			width: 22em;
+			margin-right: 0em;
+
+			.champion-stats-header {
+				margin-bottom: 0em;
+			}
+		}
+
+		.champion-info-masteries-details {
+			width: 100%;
+			margin-top: 1em;
+			height: 28em;
+		}
+
+		.champion-info-masteries-area {
+			margin-right: 0em;
+			display: inline-block;
+			width: 60em;
+			height: 35.7em;
+
+			.champion-info-masteries-container {
+				position: relative;
+				background: url(http://ddragon.leagueoflegends.com/cdn/img/mastery/masteryback.jpg) no-repeat;
+				width: 100%;
+				height: 100%;
+				background-size: auto 100%;
+
+				.champion-info-masteries-offense {
+					position: absolute;
+					left: 0.8em;
+					top: 1em;
+					width: 18em;
+					height: 30em;
+				}
+
+				.champion-info-masteries-defense {
+					position: absolute;
+					left: 19.9em;
+					top: 1em;
+					width: 18em;
+					height: 30em;
+				}
+
+				.champion-info-masteries-utility {
+					position: absolute;
+					left: 39em;
+					top: 1em;
+					width: 18em;
+					height: 30em;
+				}
+
+				.champion-info-mastery-tile {
+					display: inline-block;
+					width: 3.5em;
+					height: 3.5em;
+					margin: 0.5em;
+					margin-top: 0.2em;
+					margin-bottom: 1.37em;
+					opacity: 0;
+					border: 1px solid rgb(198, 174, 92);
+					cursor: pointer;
+
+					&.visible {
+						opacity: 1;
+					}
+
+					&:hover,
+					&.active {
+						border: 1px solid rgba(255, 255, 255, 1);
+						box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+						animation: activeSkill 1s infinite;
+
+						@keyframes activeSkill {
+							0% {
+								box-shadow: 0px 0px 15px white;
+							}
+
+							50% {
+								box-shadow: 0px 0px 25px white;
+							}
+
+							0% {
+								box-shadow: 0px 0px 15px white;
+							}
+						}
+					}
+
+					img {
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+		}
+
+		.champion-info-masteries-container {
+			.champion-info-masteries-active-header {
+				font-size: 1em;
+				font-weight: bold;
+				margin-bottom: 0.25em;
+
+				* {
+					display: inline-block;
+					vertical-align: middle;
+				}
+
+				img {
+					width: 1.5em;
+					border: 1px solid rgb(198, 174, 92);
+				}
+			}
+
+			.champion-info-mastery-rank {
+				font-weight: bold;
+			}
+
+			td,
+			.champion-stat {
+				font-size: 0.8em;
+				padding: 0em;
+
+				&.champion-stat {
+					width: 15em;
 				}
 			}
 		}

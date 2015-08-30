@@ -68,6 +68,7 @@
 		this.items = null;
 		this.summonerSpells = null;
 		this.masteries = null;
+		this.masteryTrees = null;
 		this.runes = null;
 		this.brawlers = null;
 		this.brawlerUpgrades = null;
@@ -427,14 +428,14 @@
 				item = self.getItem(item);
 
 				if (!item) {
-					return '#';
+					return;
 				}
 			}
 
 			return self.baseImageUrl + "item/" + item.image.full;
 		};
 
-		// Gets an item by its unique item id.
+		// Gets a summoner spell by its unique item id.
 		this.getSummonerSpell = function(summonerSpellId) {
 			if (!self.summonerSpells) {
 				return;
@@ -478,12 +479,32 @@
 				summonerSpell = self.getSummonerSpell(summonerSpell);
 
 				if (!summonerSpell) {
-					return '#';
+					return;
 				}
 			}
 
 			return self.baseImageUrl + "spell/" + summonerSpell.image.full;
 		};
+
+		this.getMasteryTreesAsync = function() {
+			var deferred = $q.defer();
+
+			if (self.masteryTrees) {
+				deferred.resolve(self.masteryTrees);
+			} else {
+				$http.get(self.baseDataUrl + 'mastery.json')
+					.success(function(response) {
+						self.masteries = response.data;
+						self.masteryTrees = response.tree;
+						deferred.resolve(self.masteryTrees);
+					})
+					.error(function(msg, code) {
+						deferred.reject(msg);
+					});
+			}
+
+			return deferred.promise;
+		}
 
 		// Gets the list of masteries asynchronously.
 		this.getMasteriesAsync = function() {
@@ -495,6 +516,7 @@
 				$http.get(self.baseDataUrl + 'mastery.json')
 					.success(function(response) {
 						self.masteries = response.data;
+						self.masteryTrees = response.tree;
 						deferred.resolve(self.masteries);
 					})
 					.error(function(msg, code) {
@@ -503,6 +525,41 @@
 			}
 
 			return deferred.promise;
+		};
+
+		// Gets an mastery  by its unique item id.
+		this.getMastery = function(masteryId) {
+			if (!self.masteries || !masteryId) {
+				return;
+			}
+
+			var foundItem;
+			for (var index in self.masteries) {
+				var mastery = self.masteries[index];
+
+				if (mastery.id == masteryId) {
+					foundItem = mastery;
+					break;
+				}
+			}
+
+			return foundItem;
+		};
+
+		this.getMasteryImageUrl = function(mastery) {
+			if (!mastery) {
+				return;
+			}
+
+			if (typeof mastery == "number") {
+				mastery = self.getMastery(mastery);
+
+				if (!summonerSpell) {
+					return;
+				}
+			}
+
+			return self.baseImageUrl + "mastery/" + mastery.image.full;
 		};
 
 		// Gets the list of runes asynchronously.
@@ -958,6 +1015,47 @@
 					});
 				}
 			},
+
+			SummonerMasteriesUse: function(data) {
+				var masteryIds = data.masteryId;
+				var masteryRank = data.masteryRank;
+				var counts = data.count;
+				var timesWon = data.timesWon;
+
+				delete data.masteryId;
+				delete data.masteryRank;
+				delete data.count;
+				delete data.timesWon;
+
+				data.masteries = {};
+
+				var totalPoints = 0;
+				var totalWins = 0;
+
+				for (var i = 0; i < masteryIds.length; ++i) {
+					totalPoints += counts[i];
+					totalWins += timesWon[i];
+				}
+
+				for (var i = 0; i < masteryIds.length; ++i) {
+					var masteryId = masteryIds[i]
+					var currentMasteryRank = data.masteries[masteryId] || {
+						masteryId: masteryIds[i],
+						mastery: riotResourceService.getMastery(masteryIds[i]),
+						ranks: []
+					};
+
+					data.masteries[masteryId] = currentMasteryRank;
+
+					currentMasteryRank.ranks[masteryRank[i] - 1] = {
+						timesUsed: counts[i],
+						timesWon: timesWon[i],
+						winRate: timesWon[i] / counts[i],
+						pickRate: counts[i] / totalPoints,
+						pickWinRate: timesWon[i] / totalWins
+					};
+				}
+			}
 		};
 
 		// Generates the path used to access the region/team specific

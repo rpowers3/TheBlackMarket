@@ -1,0 +1,84 @@
+﻿<div class="champion-info-container">
+	<div ng-include="'/Champions/ChampionHeader.html'"></div>
+
+	<div class="champion-info">
+		<div class="champion-info-masteries-right-panel">
+			<div class="champion-stats-container champion-info-masteries">
+				<div class="champion-stats-header">
+					<img src="/Masteries.png" />
+					<span>Masteries</span>
+				</div>
+			</div>
+
+			<div class="champion-stats-container champion-info-masteries-details">
+				<div class="champion-info-masteries-container">
+					<div class="champion-info-masteries-active-header">
+						<img ng-src="{{getMasteryImageUrl(activeMasteryInfo.mastery)}}" />
+						<div>{{activeMasteryInfo.mastery.name}}</div>
+					</div>
+
+					<div ng-repeat="rank in activeMasteryInfo.ranks">
+						<div class="champion-info-mastery-rank">
+							Rank {{$index + 1}}
+						</div>
+
+						<progress>
+							<bar ng-repeat="bar in activeRankBars[$index] track by $index" value="bar.value" type="{{bar.type}}">
+								<span>{{bar.rawvalue | number}}</span>
+							</bar>
+						</progress>
+
+
+						<table class="champion-grid champion-grid-with-sparklines">
+							<tr>
+								<td class="champion-stat">Wins / Plays (Win Rate)</td>
+								<td>{{rank.timesWon | number}} / {{rank.timesUsed | number}} ({{rank.winRate | percentage:2}})</td>
+							</tr>
+							<tr>
+								<td class="champion-stat">Winning Pick Rate / Pick Rate</td>
+								<td>{{rank.pickWinRate | percentage:2}} / {{rank.pickRate | percentage:2}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="champion-stats-container champion-info-masteries-area">
+			<div class="champion-info-masteries-container">
+				<div class="champion-info-masteries-offense">
+					<div class="champion-info-mastery-tile"
+						 ng-model="$parent.activeMasteryInfo"
+						 tooltip="masteryInfo.mastery.name"
+						 btn-radio="masteryInfo"
+						 ng-class="{'visible': masteryInfo}"
+						 ng-repeat="masteryInfo in masteryTrees.offense.slots track by $index">
+						<img ng-src="{{getMasteryImageUrl(masteryInfo.mastery)}}" />
+					</div>
+				</div>
+
+				<div class="champion-info-masteries-defense">
+					<div class="champion-info-mastery-tile"
+						 ng-model="$parent.activeMasteryInfo"
+						 tooltip="masteryInfo.mastery.name"
+						 btn-radio="masteryInfo"
+						 ng-class="{'visible': masteryInfo}"
+						 ng-repeat="masteryInfo in masteryTrees.defense.slots track by $index">
+						<img ng-src="{{getMasteryImageUrl(masteryInfo.mastery)}}" />
+					</div>
+				</div>
+
+				<div class="champion-info-masteries-utility">
+					<div class="champion-info-mastery-tile"
+						 ng-model="$parent.activeMasteryInfo"
+						 tooltip="masteryInfo.mastery.name"
+						 btn-radio="masteryInfo"
+						 ng-class="{'visible': masteryInfo}"
+						 ng-repeat="masteryInfo in masteryTrees.utility.slots track by $index">
+						<img ng-src="{{getMasteryImageUrl(masteryInfo.mastery)}}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
