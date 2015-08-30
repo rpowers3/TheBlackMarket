@@ -393,6 +393,10 @@
 				templateUrl: 'Champions/ChampionCombat.html',
 				controller: 'ChampionCombatController'
 			})
+			.when('/champions/:championId/rivalries', {
+				templateUrl: 'Champions/ChampionRivalries.html',
+				controller: 'ChampionRivalriesController'
+			})
 			.when('/champions/:championId/objectives', {
 				templateUrl: 'Champions/ChampionObjectives.html',
 				controller: 'ChampionObjectivesController'
@@ -625,9 +629,7 @@
 		};
 
 		// Helper to get the champion image for display.
-		$scope.getChampionImage = function(champion) {
-			return riotResourceService.baseImageUrl + "champion/" + champion.image.full;
-		};
+		$scope.getChampionImageUrl = riotResourceService.getChampionImageUrl;
 	}]);
 
 	// Controller used to display specific champion information.
@@ -1558,6 +1560,49 @@
 
 				$scope.monsterInfos = monsterInfos;
 				updateSelectedInfo();
+			});
+		};
+
+		initializeScope($scope);
+		registerForFilterChanges($scope, $rootScope, dataService);
+	}]);
+
+	ChampionsModule.controller('ChampionRivalriesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+		// Request the full champion information before continuing.
+		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
+			if (!championsService.enterChampionSection(fullChampionInfo)) {
+				return;
+			}
+
+			$scope.champion = fullChampionInfo;
+			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
+			$scope.refresh();
+		});
+
+		$scope.getChampionUrl = function(champion) {
+			return "#/champions/" + champion.key;
+		};
+
+		$scope.getChampionImageUrl = riotResourceService.getChampionImageUrl;
+
+		// The main function responsible for pulling the aggregate
+		// data for the champion. This is invoked when the controller
+		// loads and when the region or team filters change.
+		$scope.refresh = function() {
+			// Get the champion statistics.
+			dataService.getDataAsync({
+				dataSource: 'NemesisStats',
+				championId: $scope.champion.key,
+			}).then(function(data) {
+				$scope.nemesis = data.nemesis;
+			});
+
+			// Get the champion statistics.
+			dataService.getDataAsync({
+				dataSource: 'VictimStats',
+				championId: $scope.champion.key,
+			}).then(function(data) {
+				$scope.victims = data.victims;
 			});
 		};
 

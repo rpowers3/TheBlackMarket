@@ -34,7 +34,7 @@
 		<a class="champion-portrait-large"
 		   ng-href="{{getChampionUrl(champion)}}"
 		   ng-repeat="champion in champions | filter:championFilter | orderBy:sortProperty:sortDirection">
-			<img ng-src="{{getChampionImage(champion)}}" />
+			<img ng-src="{{getChampionImageUrl(champion)}}" />
 			<div class="highlight"></div>
 		</a>
 	</div>

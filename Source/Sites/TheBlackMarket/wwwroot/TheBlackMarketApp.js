@@ -586,6 +586,10 @@
 
 			return deferred.promise;
 		};
+
+		this.getChampionImageUrl = function(champion) {
+			return self.baseImageUrl + "champion/" + champion.image.full;
+		};
 	}]);
 
 	// The service for playing audio
@@ -864,7 +868,7 @@
 	// match histories provided by Riot. Data request are altered by
 	// the current region and team filters to select only the aggreagate
 	// data requested.
-	TheBlackMarketAppModule.service('dataService', ['$rootScope', '$http', '$q', 'localStorageService', function($rootScope, $http, $q, localStorageService) {
+	TheBlackMarketAppModule.service('dataService', ['$rootScope', '$http', '$q', 'localStorageService', 'riotResourceService', function($rootScope, $http, $q, localStorageService, riotResourceService) {
 		// The list of valid regions.
 		this.validRegionFilters = ['ALL', 'BR', 'EUNE', 'EUW', 'KR', 'LAN', 'LAS', 'NA', 'OCE', 'RU', 'TR'];
 
@@ -903,7 +907,57 @@
 					data.kdaAvg.push((data.killsAvg + data.assistsAvg) / data.deathsAvg);
 					data.kdaMax.push((data.killsMax + data.assistsMax) / data.deathsMax);
 				}
-			}
+			},
+
+			NemesisStats: function(data) {
+				var killers = data.killers;
+				var deaths = data.deaths;
+
+				delete data.killers;
+				delete data.deaths;
+
+				data.nemesis = [];
+
+				var totalDeaths = 0;
+
+				for (var i = 0; i < killers.length; ++i) {
+					totalDeaths += deaths[i];
+				}
+
+				for (var i = 0; i < killers.length; ++i) {
+					data.nemesis.push({
+						championId: killers[i],
+						champion: riotResourceService.getChampionById(killers[i]),
+						deaths: deaths[i],
+						deathPercent: deaths[i] / totalDeaths
+					});
+				}
+			},
+
+			VictimStats: function(data) {
+				var victims = data.victims;
+				var kills = data.kills;
+
+				delete data.victims;
+				delete data.kills;
+
+				data.victims = [];
+
+				var totalKills = 0;
+
+				for (var i = 0; i < victims.length; ++i) {
+					totalKills += kills[i];
+				}
+
+				for (var i = 0; i < victims.length; ++i) {
+					data.victims.push({
+						championId: victims[i],
+						champion: riotResourceService.getChampionById(victims[i]),
+						kills: kills[i],
+						killPercent: kills[i] / totalKills
+					});
+				}
+			},
 		};
 
 		// Generates the path used to access the region/team specific

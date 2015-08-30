@@ -281,6 +281,8 @@ div.champion-list {
 		.champion-info-combat,
 		.champion-info-combat-heat-maps,
 		.champion-info-combat-extended-stats,
+		.champion-info-rivalries,
+		.champion-info-rivalries-list,
 		.champion-info-gold {
 			background: rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 0px 10px black inset;
@@ -668,6 +670,16 @@ div.champion-list {
 				height: 1.5em;
 			}
 
+			td {
+				width: 5em;
+			}
+
+			.champion-stat-sparkline {
+				padding-left: 1em;
+				padding-right: 0.5em;
+				width: 5em;
+			}
+
 			table {
 				font-size: 0.7em;
 			}
@@ -712,6 +724,48 @@ div.champion-list {
 				font-size: 1em;
 				padding: 0.5em 0.5em;
 				border-top: 1px solid white;
+			}
+		}
+
+		.champion-info-rivalries {
+			width: 30em;
+
+			.champion-stats-header {
+				margin-bottom: 0em;
+
+				> img {
+					width: 2.5em;
+					margin-right: 0.5em;
+				}
+			}
+		}
+
+		.champion-info-rivalries-list {
+			margin-top: 0.8em;
+
+			.champion-portrait-large {
+				display: inline-block;
+				color: white;
+				text-decoration: none;
+				width: 10em;
+				margin-right: 1em;
+				padding: 0.5em;
+				transition: 150ms all;
+				border-radius: 0.5em;
+				cursor: pointer;
+
+				&:hover {
+					text-decoration: none;
+					background: rgba(255, 255, 255, 0.3);
+				}
+
+				> * {
+					display: inline-block;
+				}
+
+				img {
+					width: 5em;
+				}
 			}
 		}
 
