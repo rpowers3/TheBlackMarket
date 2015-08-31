@@ -106,13 +106,15 @@
 				   ng-href="#{{section.path}}"
 				   ng-click="playSectionSound()">
 					<div class="section-box" ng-style="{'background-image': 'url(' + section.image +')'}"></div>
-					<div class="section-rotator">
-						<div class="section-branch"></div>
-						<div class="section-flag" ng-style="{'background-image': 'url(' + section.flag +')'}"></div>
-						<div class="section-title">
-							<span>{{section.name}}</span>
+					<div class="section-rotator-container">
+						<div class="section-rotator">
+							<div class="section-branch"></div>
+							<div class="section-flag" ng-style="{'background-image': 'url(' + section.flag +')'}"></div>
+							<div class="section-title">
+								<span>{{section.name}}</span>
+							</div>
+							<div class="section-bottomedge"></div>
 						</div>
-						<div class="section-bottomedge"></div>
 					</div>
 				</a>
 			</menu>

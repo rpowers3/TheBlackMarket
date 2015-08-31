@@ -164,9 +164,51 @@ body {
 						border: 1px solid rgb(213, 171, 105);
 					}
 
-					.section-rotator {
+					.section-rotator-container {
 						transform: translateX(0em) rotateZ(0deg);
 					}
+
+					.section-rotator {
+						animation: FlagSwing 2s infinite cubic-bezier(0.445, 0.050, 0.550, 0.950);
+					}
+
+					@keyframes FlagSwing {
+						0% {
+							transform: rotateX(-10deg);
+						}
+
+						50% {
+							transform: rotateX(10deg);
+						}
+
+						100% {
+							transform: rotateX(-10deg);
+						}
+					}
+					
+					.section-bottomedge {
+						animation: FlagSwing2 2.3s infinite cubic-bezier(0.445, 0.050, 0.550, 0.950);
+					}
+					
+					@keyframes FlagSwing2 {
+						0% {
+							transform: rotateX(-10deg);
+						}
+
+						50% {
+							transform: rotateX(10deg);
+						}
+
+						100% {
+							transform: rotateX(-10deg);
+						}
+					}
+				}
+
+				.section-rotator-container {
+					transform: translateX(-2em) rotateZ(90deg);
+					transition: 350ms all ease-in-out;
+					perspective: 800px;
 				}
 
 				.section-rotator {
@@ -178,8 +220,7 @@ body {
 					top: 0em;
 					height: 3em;
 					width: 7em;
-					transform: translateX(-2em) rotateZ(90deg);
-					transition: 350ms all ease-in-out;
+					perspective: 200px;
 
 					&:hover {
 						.section-title {
