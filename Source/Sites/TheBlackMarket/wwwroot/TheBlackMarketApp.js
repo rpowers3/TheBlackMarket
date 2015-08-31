@@ -684,6 +684,7 @@
 		var initialTrack = '/Music/GangplankLoginMusic.mp3';
 		var fadeDuration = 2000;
 
+		this.siteTrack = initialTrack;
 		this.currentSoundsVolume = 1;
 		this.currentChampionSoundsVolume = 1;
 		this.currentMusicVolume = 0.5;
@@ -696,6 +697,51 @@
 		this.keepOverrideCheck = null;
 
 		var self = this;
+
+		this.setSiteTrack = function(value) {
+			if (self.siteTrack == value) {
+				return;
+			}
+
+			self.siteTrack = value;
+			localStorageService.set('Audio.SiteTrack', self.siteTrack);
+
+			if (self.currentTrackIsOverride) {
+				var currentUrl = self.currentTrack.urls()[0];
+
+				// If the current track that's overriding is the track to
+				// take over, promote it to the real site track and
+				// forget the override.
+				if (value == currentUrl) {
+					self.overridenTrack = null;
+					self.overridenTrack = null;
+					self.keepOverrideCheck = null;
+					self.overrideTrackUrl = null;
+					self.currentTrackIsOverride = false;
+					return;
+				} else {
+					// The current track isn't the new track. Switch
+					// the overriden track to the new site track.
+					self.overridenTrack.stop();
+					self.overridenTrack.urls([
+						value
+					]);
+				}
+
+				return;
+			}
+
+			// Queue up the new track if its different. It'll fade out the old one.
+			if (self.currentTrack) {
+				var currentUrl = self.currentTrack.urls()[0];
+
+				if (currentUrl != self.siteTrack) {
+					self.playTrack(self.siteTrack);
+				}
+			}
+
+			$rootScope.$broadcast('audioService.SiteTrackChanged', { siteTrack: self.siteTrack });
+		};
 
 		// Sets wether sound effects are enabled.
 		this.setSoundsEnabled = function(value) {
@@ -738,7 +784,7 @@
 			if (!value) {
 				self.fadeOutAllTracks();
 			} else {
-				self.playTrack(self.overrideTrackUrl || initialTrack);
+				self.playTrack(self.overrideTrackUrl || this.siteTrack);
 			}
 		};
 
@@ -767,6 +813,14 @@
 		};
 
 		this.playTrack = function(url) {
+			if (self.currentTrack) {
+				var currentUrl = self.currentTrack.urls()[0];
+
+				if (currentUrl == url) {
+					return;
+				}
+			}
+
 			this.fadeOutAllTracks();
 
 			console.info("Playing: " + url + ", volume: " + self.currentMusicVolume);
@@ -784,16 +838,27 @@
 			musicTrack.fade(0, self.currentMusicVolume, fadeDuration);
 
 			self.currentTrack = musicTrack;
-			self.currentTrackIsOverride = false;
 
 			self.musicTracks.push(musicTrack);
 		};
 
 		this.playTrackOverride = function(url, keepOverrideCheck) {
+			if (self.currentTrack) {
+				var currentUrl = self.currentTrack.urls()[0];
+
+				if (currentUrl == url) {
+					return;
+				}
+			}
+
 			if (!self.currentTrackIsOverride) {
 				self.overridenTrack = self.currentTrack;
 
 				if (self.overridenTrack) {
+					// Take the overriden track out of the normal queue. It's
+					// going to be placed aside for now.
+					self.removeTrack(self.currentTrack);
+
 					self.overridenTrack.fade(self.overridenTrack.volume(), 0, fadeDuration);
 					self.currentTrackIsOverride = true;
 					self.keepOverrideCheck = keepOverrideCheck;
@@ -823,12 +888,14 @@
 			self.fadeOutAllTracks();
 
 			self.currentTrack = self.overridenTrack;
-			self.overridenTrack.fade(0, self.currentMusicVolume, fadeDuration);
-			self.overridenTrack.play();
-
 			self.overridenTrack = null;
 			self.keepOverrideCheck = null;
 			self.overrideTrackUrl = null;
+			self.currentTrackIsOverride = false;
+
+			self.musicTracks.push(self.currentTrack);
+			self.currentTrack.fade(0, self.currentMusicVolume, fadeDuration);
+			self.currentTrack.play();
 		};
 
 		this.removeTrack = function(musicTrack) {
@@ -918,6 +985,9 @@
 			self.stopAllTracks();
 			self.stopAllSounds();
 		};
+
+		var siteTrack = localStorageService.get("Audio.SiteTrack");
+		this.setSiteTrack((siteTrack === undefined) ? initialTrack : siteTrack);
 
 		var soundsVolume = localStorageService.get('Audio.SoundsVolume');
 		this.setSoundsVolume((soundsVolume === undefined) ? defaultSoundsVolume : soundsVolume);

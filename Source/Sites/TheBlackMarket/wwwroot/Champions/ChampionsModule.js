@@ -126,6 +126,10 @@
 				]
 			}
 		},
+		// Gankplank
+		41: {
+			any: ['/Music/GangplankLoginMusic.mp3']
+		},
 		// Corki
 		42: {
 			skins: {
@@ -455,6 +459,8 @@
 		this.activeChampionSkinIndex = -1;
 		this.activeChampionSplashImageUrl = null;
 		this.activeChampionSound = null;
+		this.activeChampionTrack = null;
+		this.isNotSiteTrack = false;
 
 		var self = this;
 
@@ -468,6 +474,44 @@
 			}
 
 			return true;
+		};
+
+		this.rerollChampionSkin = function(champion) {
+			if (!champion) {
+				return;
+			}
+
+			var skinCount = champion.skins.length;
+			var skinIndex = -1;
+
+			do {
+				skinIndex = Math.floor(Math.random() * skinCount);
+			} while (skinIndex == this.activeChampionSkinIndex);
+
+			var skinInfo = champion.skins[skinIndex];
+
+			//console.info("SKIN >>> " + skinIndex);
+
+			if (audioService.playMusic) {
+				this.activeChampionTrack = self.getChampionMusic(champion.key, skinIndex);
+
+				if (this.activeChampionTrack) {
+					audioService.playTrackOverride(this.activeChampionTrack, isSameChampionPage);
+				} else {
+					audioService.restoreTrack();
+				}
+
+				self.isNotSiteTrack = (self.activeChampionTrack !== undefined) && (audioService.siteTrack != self.activeChampionTrack);
+			}
+
+			self.activeChampionSkinIndex = skinIndex;
+			self.activeChampionSplashImageUrl = riotResourceService.baseSharedImageUrl + 'champion/splash/' + champion.id + '_' + skinIndex + '.jpg';
+
+			$rootScope.$broadcast('championsService.SkinChanged', {
+				skinIndex: self.activeChampionSkinIndex,
+				skinInfo: skinInfo,
+				activeChampionSplashImageUrl: self.activeChampionSplashImageUrl
+			});
 		};
 
 		this.enterChampionSection = function(champion, isPrimaryPage) {
@@ -502,23 +546,7 @@
 					});
 				}
 
-				var skinCount = champion.skins.length;
-				var skinIndex = Math.floor(Math.random() * skinCount);
-				var skinInfo = champion.skins[skinIndex];
-
-				//console.info("SKIN >>> " + skinIndex);
-
-				if (audioService.playMusic) {
-					var customTrack = self.getChampionMusic(champion.key, skinIndex);
-
-					if (customTrack) {
-						audioService.playTrackOverride(customTrack, isSameChampionPage);
-					}
-				}
-
-				self.activeChampionSkinIndex = skinIndex;
-
-				self.activeChampionSplashImageUrl = riotResourceService.baseSharedImageUrl + 'champion/splash/' + champion.id + '_' + skinIndex + '.jpg';
+				self.rerollChampionSkin(champion);
 			}
 
 			return true;
@@ -529,6 +557,9 @@
 				self.activeChampion = 0;
 				self.activeChampionSkinIndex = -1;
 				self.activeChampionSplashImageUrl = null;
+				self.activeChampionSound = null;
+				self.activeChampionTrack = null;
+				self.isNotSiteTrack = false;
 			}
 		});
 
@@ -573,7 +604,7 @@
 		};
 	}]);
 
-	function initializeScope($scope) {
+	function initializeScope($scope, championsService, audioService) {
 		$scope.getSparkLineColor = function() {
 			return function(d, i) {
 				return '#FFFFFF';
@@ -603,10 +634,21 @@
 				return '<span style="color: black"><h3>' + key + '</h3><p>' + value + '</p></span>';
 			}
 		};
+
+		$scope.rerollSkin = function() {
+			championsService.rerollChampionSkin($scope.champion);
+		}
+
+		$scope.setSiteTrack = function() {
+			if (championsService.activeChampionTrack) {
+				audioService.setSiteTrack(championsService.activeChampionTrack);
+			}
+		}
 	};
 
-	function registerForFilterChanges($scope, $rootScope, dataService) {
+	function registerForGlobalEvents($scope, $rootScope, championsService, dataService) {
 		$scope.showAllStats = dataService.showAllStats
+		$scope.isNotSiteTrack = championsService.isNotSiteTrack;
 
 		var unregisterRegionFilterChanged = $rootScope.$on('DataFilterService.RegionFilterChanged', function() {
 			$scope.refresh();
@@ -620,11 +662,22 @@
 			$scope.showAllStats = dataService.showAllStats
 		});
 
+		var unregisterSkinChanged = $rootScope.$on('championsService.SkinChanged', function(sender, args) {
+			$scope.championBackgroundUrl = args.activeChampionSplashImageUrl;
+			$scope.isNotSiteTrack = championsService.isNotSiteTrack;
+		});
+
+		var unregisterSiteTrackChanged = $rootScope.$on('audioService.SiteTrackChanged', function(sender, args) {
+			$scope.isNotSiteTrack = (args.siteTrack != championService.activeChampionTrack);
+		});
+
 		// Clean up so events don't leak.
 		$scope.$on('$destroy', function() {
 			unregisterRegionFilterChanged();
 			unregisterTeamFilterChanged();
 			unregisterShowAllStatsChanged();
+			unregisterSkinChanged();
+			unregisterSiteTrackChanged();
 		});
 	};
 
@@ -805,11 +858,11 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService,  dataService);
 	}]);
 
-	ChampionsModule.controller('ChampionGoldController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService) {
+	ChampionsModule.controller('ChampionGoldController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -849,8 +902,8 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
 	ChampionsModule.controller('ChampionItemsController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'itemsService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, itemsService, championsService, audioService) {
@@ -962,8 +1015,8 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
 	// The controller used to display item information. This controller listens
@@ -1086,7 +1139,7 @@
 		});
 	}]);
 
-	ChampionsModule.controller('ChampionCombatController', ['$scope', '$rootScope', '$routeParams', '$sce', 'riotResourceService', 'dataService', 'championsService', function($scope, $rootScope, $routeParams, $sce, riotResourceService, dataService, championsService) {
+	ChampionsModule.controller('ChampionCombatController', ['$scope', '$rootScope', '$routeParams', '$sce', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, $sce, riotResourceService, dataService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
@@ -1220,8 +1273,8 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
 	ChampionsModule.controller('ChampionSkillsController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
@@ -1290,8 +1343,8 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
 	var buildingIdMap = {
@@ -1660,8 +1713,8 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
 	ChampionsModule.controller('ChampionRivalriesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
@@ -1719,8 +1772,8 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
 	ChampionsModule.controller('ChampionMasteriesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
@@ -1819,8 +1872,8 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
 	ChampionsModule.controller('ChampionRunesController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
@@ -1870,8 +1923,8 @@
 			});
 		};
 
-		initializeScope($scope);
-		registerForFilterChanges($scope, $rootScope, dataService);
+		initializeScope($scope, championsService, audioService);
+		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
 	// This is needed for videogular. You can't have multiple videos in the same scope...
