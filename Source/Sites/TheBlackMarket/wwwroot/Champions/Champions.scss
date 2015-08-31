@@ -672,6 +672,11 @@ div.champion-list {
 					margin: 0.5em;
 					display: inline-block;
 				}
+
+				> img {
+					width: 256px;
+					height: 256px;
+				}
 			}
 
 			videogular {
@@ -1426,7 +1431,29 @@ div.champion-list {
 		top: 2.5em;
 
 		.champion-info-objective-chart {
-			 margin-top: 15em;
+			margin-top: 15em;
 		}
+	}
+}
+
+.combat-info-container {
+	.champion-splash {
+		top: 0.5em;
+	}
+
+	.champion-info {
+		top: 2.5em;
+
+		.champion-info-objective-chart {
+			margin-top: 15em;
+		}
+
+		.champion-info-combat-heat-maps {
+			margin-top: 13em;
+		}
+	}
+
+	.heat-maps-unavailable {
+		height: 21.1em;
 	}
 }

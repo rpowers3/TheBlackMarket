@@ -1,5 +1,8 @@
-﻿<div class="champion-info-container">
-	<div ng-include="'/Champions/ChampionHeader.html'"></div>
+﻿<div class="champion-info-container combat-info-container">
+	<div class="champion-background-fill"></div>
+
+	<div class="champion-splash" style="background-image: url(/Combat/Combat.jpg)">
+	</div>
 
 	<div class="champion-info">
 		<div class="champion-stats-container champion-info-combat">
@@ -14,7 +17,11 @@
 				Heat Maps
 			</div>
 
-			<div class=" champion-info-combat-heat-map">
+			<div class="heat-maps-unavailable" ng-if="dataUnavailable">
+				Heat map data for all regions is not available due to data size limitations during generation. Please narrow the filter down to view the heat maps.
+			</div>
+
+			<div class=" champion-info-combat-heat-map" ng-if="!dataUnavailable">
 				<div class="champion-stats-group-header">
 					<img src="/Kills.png" />
 					<span>Kills</span>
@@ -34,7 +41,7 @@
 				</div>
 			</div>
 
-			<div class="champion-info-combat-heat-map">
+			<div class="champion-info-combat-heat-map" ng-if="!dataUnavailable">
 				<div class="champion-stats-group-header">
 					<img src="/Deaths.png" />
 					<span>Deaths</span>

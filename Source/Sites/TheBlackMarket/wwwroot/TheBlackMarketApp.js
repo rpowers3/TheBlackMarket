@@ -11,6 +11,7 @@
 		'TheBlackMarketSite',
 		'Brawlers',
 		'Champions',
+		'Combat',
 		'Items',
 		'Objectives']);
 
