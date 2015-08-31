@@ -1683,10 +1683,20 @@
 		};
 
 		$scope.getChampionUrl = function(champion) {
-			return "#/champions/" + champion.key;
+			if (champion) {
+				return "#/champions/" + champion.key;
+			}
+
+			return "#/champions/" + $scope.champion.key + "/rivalries";
 		};
 
-		$scope.getChampionImageUrl = riotResourceService.getChampionImageUrl;
+		$scope.getChampionImageUrl = function(champion) {
+			if (champion) {
+				return riotResourceService.getChampionImageUrl(champion);
+			}
+
+			return '/Champions/Minion.png';
+		}
 
 		// The main function responsible for pulling the aggregate
 		// data for the champion. This is invoked when the controller

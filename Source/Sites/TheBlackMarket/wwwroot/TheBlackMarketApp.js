@@ -1001,6 +1001,9 @@
 				}
 
 				for (var i = 0; i < killers.length; ++i) {
+					if (killers[i] == 0) {
+						console.info("MINIONS! " + deaths[i]);
+					}
 					data.nemesis.push({
 						championId: killers[i],
 						champion: riotResourceService.getChampionById(killers[i]),
