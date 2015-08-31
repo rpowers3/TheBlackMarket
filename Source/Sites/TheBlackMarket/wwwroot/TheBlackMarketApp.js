@@ -987,7 +987,7 @@
 		};
 
 		var siteTrack = localStorageService.get("Audio.SiteTrack");
-		this.setSiteTrack((siteTrack === undefined) ? initialTrack : siteTrack);
+		this.setSiteTrack((siteTrack == undefined) ? initialTrack : siteTrack);
 
 		var soundsVolume = localStorageService.get('Audio.SoundsVolume');
 		this.setSoundsVolume((soundsVolume === undefined) ? defaultSoundsVolume : soundsVolume);
