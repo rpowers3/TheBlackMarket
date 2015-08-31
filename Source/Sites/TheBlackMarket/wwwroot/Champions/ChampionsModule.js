@@ -19,11 +19,28 @@
 	var killChartColors = ['blue', 'cyan', 'green', 'orange', 'red'];
 	var winRateChartColors = ['red', 'green'];
 
+	var pentakillSoundTrack = [
+		'/Music/Pentakills/01-Lightbringer.mp3',
+		'/Music/Pentakills/02-DeathfireGrasp.mp3',
+		'/Music/Pentakills/03-Ohmwrecker.mp3',
+		'/Music/Pentakills/04-LastWhisper.mp3',
+		'/Music/Pentakills/05-TheHexCore.mp3',
+		'/Music/Pentakills/06-TheProphecy.mp3',
+		'/Music/Pentakills/07-Thornmail.mp3',
+		'/Music/Pentakills/08-OrbOfWinter.mp3',
+	];
+
 	var customSkinSounds = {
 		// Annie
 		1: {
 			skins: {
 				8: ['/Music/AnniePanda.mp3']
+			}
+		},
+		// Olaf
+		2: {
+			skins: {
+				4: pentakillSoundTrack
 			}
 		},
 		// Galio
@@ -74,6 +91,12 @@
 				6: ['/Music/LunarRevel2014.mp3']
 			}
 		},
+		// Karthus
+		30: {
+			skins: {
+				4: pentakillSoundTrack
+			}
+		},
 		// Cho'gath
 		31: {
 			skins: {
@@ -89,6 +112,7 @@
 		// Sona
 		37: {
 			skins: {
+				2: pentakillSoundTrack,
 				4: [
 					'/Music/LunarRevel2012.mp3'
 				],
@@ -178,6 +202,18 @@
 		81: {
 			skins: {
 				5: ['/Music/EzrealPulsefire.mp3']
+			}
+		},
+		// Mordekaiser (Hue hue hue!)
+		82: {
+			skins: {
+				3: pentakillSoundTrack
+			}
+		},
+		// Yorick
+		83: {
+			skins: {
+				2: pentakillSoundTrack
 			}
 		},
 		// Leona
@@ -470,7 +506,7 @@
 				var skinIndex = Math.floor(Math.random() * skinCount);
 				var skinInfo = champion.skins[skinIndex];
 
-				//console.info("SKIN >>> " + skinIndex);
+				console.info("SKIN >>> " + skinIndex);
 
 				if (audioService.playMusic) {
 					var customTrack = self.getChampionMusic(champion.key, skinIndex);
