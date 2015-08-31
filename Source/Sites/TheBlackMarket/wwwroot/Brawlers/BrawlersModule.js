@@ -51,13 +51,13 @@
 
 		$scope.playBrawlerSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_10.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_10.mp3');
 			}
 		};
 
 		$scope.playItemSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 

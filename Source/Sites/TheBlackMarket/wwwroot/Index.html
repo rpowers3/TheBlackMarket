@@ -9,6 +9,7 @@
 		<link href='https://fonts.googleapis.com/css?family=Jim+Nightshade' rel='stylesheet' type='text/css'>
 		<link href="Libraries/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="Libraries/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
+		<link href="libraries/angularjs-slider/dist/rzslider.min.css" rel="stylesheet" />
 		<link href="BootstrapMagic.css" rel="stylesheet" />
 		<link href="BootstrapMagicOverrides.css" rel="stylesheet" />
 		<link href="TheBlackMarket.css" rel="stylesheet" />
@@ -25,7 +26,8 @@
 		<script src="Libraries/angular-local-storage/dist/angular-local-storage.min.js"></script>
 		<script src="Libraries/angular-sanitize/angular-sanitize.min.js"></script>
 		<script src="Libraries/videogular/videogular.js"></script>
-		
+		<script src="Libraries/angularjs-slider/dist/rzslider.min.js"></script>
+
 		<script src="LibrariesModified/d3.min.js"></script>
 		<script src="LibrariesModified/nv-d3.min.js"></script>
 		<script src="Libraries/angular-nvd3-directives-pcu2/dist/angularjs-nvd3-directives.js"></script>
@@ -115,17 +117,34 @@
 			</menu>
 
 			<div class="settings" ng-controller="SettingsController">
-				<div ng-click="toggleSounds()">
-					<img src="Sound.png"/>
-					<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playSounds}"/>
-				</div>
-				<div ng-click="toggleChampionSounds()">
-					<img src="Sound.png" />
-					<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playChampionSounds}"/>
-				</div>
-				<div ng-click="toggleMusic()">
-					<img src="Music.png" />
-					<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playMusic}"/>
+				<div class="settings-audio">
+					<div class="settings-audio-slider settings-sound">
+						<div class="settings-audio-mute-toggle" ng-click="toggleSounds()" tooltip-placement="right" tooltip="Toggle Sounds">
+							<img src="Sound.png" />
+							<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playSounds}" />
+						</div>
+						<div class="settings-audio-rzslider">
+							<rzslider rz-slider-model="currentSoundsVolume" rz-slider-floor="0" rz-slider-ceil="100" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true"></rzslider>
+						</div>
+					</div>
+					<div class="settings-audio-slider settings-sound">
+						<div class="settings-audio-mute-toggle" ng-click="toggleChampionSounds()" tooltip-placement="right" tooltip="Toggle Champion Sounds">
+							<img src="Sound.png" />
+							<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playChampionSounds}" />
+						</div>
+						<div class="settings-audio-rzslider">
+							<rzslider rz-slider-model="currentChampionSoundsVolume" rz-slider-floor="0" rz-slider-ceil="100" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true"></rzslider>
+						</div>
+					</div>
+					<div class="settings-audio-slider settings-sound">
+						<div class="settings-audio-mute-toggle" ng-click="toggleMusic()" tooltip-placement="right" tooltip="Toggle Music">
+							<img src="Music.png" />
+							<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playMusic}" />
+						</div>
+						<div class="settings-audio-rzslider">
+							<rzslider rz-slider-model="currentMusicVolume" rz-slider-floor="0" rz-slider-ceil="100" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true"></rzslider>
+						</div>
+					</div>
 				</div>
 
 				<a href="/#/about" ng-click="playSelectionSound()" ng-controller="HomeLinkController">

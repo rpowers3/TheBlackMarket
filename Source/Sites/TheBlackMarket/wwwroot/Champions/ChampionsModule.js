@@ -460,7 +460,10 @@
 						}, 550);
 					}
 
-					this.activeChampionSound = audioService.playSound(riotResourceService.baseLocalizedSoundUrl + 'champions/' + champion.id + '.mp3');
+					this.activeChampionSound = audioService.playSound({
+						url: riotResourceService.baseLocalizedSoundUrl + 'champions/' + champion.id + '.mp3',
+						volume: audioService.currentChampionSoundsVolume
+					});
 				}
 
 				var skinCount = champion.skins.length;
@@ -613,7 +616,7 @@
 
 		$scope.playSectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/champSelect/lockinchampion.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/champSelect/lockinchampion.mp3');
 			}
 		};
 
@@ -662,7 +665,7 @@
 	ChampionsModule.controller('ChampionHeaderController', ['$scope', 'audioService', function($scope, audioService) {
 		$scope.playSectionSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 	}]);
@@ -828,7 +831,7 @@
 
 		$scope.playItemSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 
@@ -1199,7 +1202,7 @@
 
 		$scope.playSkillSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 
@@ -1382,7 +1385,7 @@
 
 		$scope.playSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 
@@ -1639,7 +1642,7 @@
 
 		$scope.playSectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/champSelect/lockinchampion.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/champSelect/lockinchampion.mp3');
 			}
 		};
 
@@ -1688,7 +1691,7 @@
 
 		$scope.playSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 
@@ -1788,7 +1791,7 @@
 
 		$scope.playSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 

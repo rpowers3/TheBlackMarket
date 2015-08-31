@@ -7,6 +7,7 @@
 		'ui.checkbox',
 		'nvd3ChartDirectives',
 		'LocalStorageModule',
+		'rzModule',
 		'TheBlackMarketSite',
 		'Brawlers',
 		'Champions',
@@ -675,9 +676,16 @@
 
 	// The service for playing audio
 	TheBlackMarketAppModule.service('audioService', ['$rootScope', 'localStorageService', function($rootScope, localStorageService) {
+		var defaultSoundsVolume = 0.5;
+		var defaultChampionSoundsVolume = 0.5;
+		var defaultMusicVolume = 0.5;
+
 		var initialTrack = '/Music/GangplankLoginMusic.mp3';
 		var fadeDuration = 2000;
-		var currentVolume = 0.5;
+
+		this.currentSoundsVolume = 1;
+		this.currentChampionSoundsVolume = 1;
+		this.currentMusicVolume = 0.5;
 
 		this.musicTracks = [];
 		this.sounds = [];
@@ -685,58 +693,6 @@
 		this.overridenTrack = null;
 		this.currentTrackIsOverride = false;
 		this.keepOverrideCheck = null;
-
-		var tracks = [
-			'/Music/AatroxLoginMusic.mp3',
-			'/Music/Apollo_Login_Music_v1.mp3',
-			'/Music/AzirLoginMusic.mp3',
-			'/Music/BardLoginMusic.mp3',
-			'/Music/BlitzCrankBitRush.mp3',
-			'/Music/BraumLoginMusic.mp3',
-			'/Music/ChogathBattleCast.mp3',
-			'/Music/DariusLoginMusic.mp3',
-			'/Music/Dark_Sovereign_Music_v2.mp3',
-			'/Music/DianasLoginMusic.mp3',
-			'/Music/DJSonaConcussive.mp3',
-			'/Music/DJSonaEthereal.mp3',
-			'/Music/DJSonaKinetic.mp3',
-			'/Music/DravenLoginMusic.mp3',
-			'/Music/EkkoLoginMusic.mp3',
-			'/Music/EkkoSeconds.mp3',
-			'/Music/EzrealPulsefire.mp3',
-			'/Music/Freljord.mp3',
-			'/Music/GalioUnderworld.mp3',
-			'/Music/GangplankLoginMusic.mp3',
-			'/Music/Gnar.mp3',
-			'/Music/JinxLoginMusic.mp3',
-			'/Music/KalistaLoginMusic.mp3',
-			'/Music/KhaZixLoginMusic.mp3',
-			'/Music/LucianLoginMusic.mp3',
-			'/Music/LuluLoginMusic.mp3',
-			'/Music/LunarReveal.mp3',
-			'/Music/MissFortuneLoginMusic.mp3',
-			'/Music/Nami.mp3',
-			'/Music/NamiLoginMusic.mp3',
-			'/Music/NasusInfernal.mp3',
-			'/Music/NocturneLoginMusic.mp3',
-			'/Music/PoolParty.mp3',
-			'/Music/QuinnLoginMusic.mp3',
-			'/Music/RekSaiLoginMusic.mp3',
-			'/Music/RengarLoginMusic.mp3',
-			'/Music/RumbleSuperGalaxyRumble.mp3',
-			'/Music/TahmKenchLoginMusic.mp3',
-			'/Music/TeemoOmegaSquad.mp3',
-			'/Music/ThreshLoginMusic.mp3',
-			'/Music/UrfMode.mp3',
-			'/Music/VarusLoginMusic.mp3',
-			'/Music/VeigarLoginMusic.mp3',
-			'/Music/VelKozLoginMusic.mp3',
-			'/Music/ViLoginMusic.mp3',
-			'/Music/YasuoLoginMusic.mp3',
-			'/Music/ZacLoginMusic.mp3',
-			'/Music/ZedLoginMusic.mp3',
-			'/Music/ZyraLoginMusic.mp3',
-		];
 
 		var self = this;
 
@@ -746,11 +702,21 @@
 			localStorageService.set('Audio.PlaySounds', self.playSounds);
 		};
 
+		this.setSoundsVolume = function(value) {
+			self.currentSoundsVolume = value;
+			localStorageService.set('Audio.SoundsVolume', self.currentSoundsVolume);
+		}
+
 		// Sets wether champion sound effects are enabled.
 		this.setChampionSoundsEnabled = function(value) {
 			self.playChampionSounds = !!value;
 			localStorageService.set('Audio.PlayChampionSounds', self.playChampionSounds);
 		};
+
+		this.setChampionSoundsVolume = function(value) {
+			self.currentChampionSoundsVolume = value;
+			localStorageService.set('Audio.ChampionSoundsVolume', self.currentChampionSoundsVolume);
+		}
 
 		// Sets wether music is enabled.
 		this.setMusicEnabled = function(value) {
@@ -771,11 +737,18 @@
 			if (!value) {
 				self.fadeOutAllTracks();
 			} else {
-				self.playTrack(initialTrack);
-				//self.playRandomSong();
-				//self.musicInterval = setInterval(self.playRandomSong, 10000);
+				self.playTrack(self.overrideTrackUrl || initialTrack);
 			}
 		};
+
+		this.setMusicVolume = function(value) {
+			self.currentMusicVolume = value;
+			localStorageService.set('Audio.MusicVolume', self.currentMusicVolume);
+
+			if (this.currentTrack) {
+				this.currentTrack.volume(self.currentMusicVolume);
+			}
+		}
 
 		// Toggles sounds on and off.
 		this.toggleSounds = function() {
@@ -792,15 +765,10 @@
 			self.setMusicEnabled(!self.playMusic);
 		};
 
-		this.playRandomSong = function() {
-			var newTrack = tracks[Math.floor(Math.random() * tracks.length)];
-			self.playTrack(newTrack);
-		};
-
 		this.playTrack = function(url) {
 			this.fadeOutAllTracks();
 
-			console.info("Playing: " + url);
+			console.info("Playing: " + url + ", volume: " + self.currentMusicVolume);
 
 			var musicTrack = new Howl({
 				urls: [url],
@@ -812,7 +780,7 @@
 				}
 			});
 
-			musicTrack.fade(0, currentVolume, fadeDuration);
+			musicTrack.fade(0, self.currentMusicVolume, fadeDuration);
 
 			self.currentTrack = musicTrack;
 			self.currentTrackIsOverride = false;
@@ -840,6 +808,7 @@
 				}
 			}
 
+			self.overrideTrackUrl = url;
 			self.playTrack(url);
 		};
 
@@ -851,12 +820,13 @@
 			console.info("Restoring overriding track: " + self.overridenTrack._src);
 
 			self.fadeOutAllTracks();
-			self.overridenTrack.fade(0, currentVolume, fadeDuration);
+			self.overridenTrack.fade(0, self.currentMusicVolume, fadeDuration);
 			self.overridenTrack.play();
 
 			self.currentTrack = self.overridenTrack;
 			self.overridenTrack = null;
 			self.keepOverrideCheck = null;
+			self.overrideTrackUrl = null;
 		};
 
 		this.removeTrack = function(musicTrack) {
@@ -901,11 +871,14 @@
 		this.playSound = function(url) {
 			var options = (typeof url == "object") ? url : { url: url };
 
+			var volume = (options.volume === undefined) ? self.currentSoundsVolume : options.volume;
+			var attentuation = (options.attentuation === undefined) ? 1 : options.attentuation;
+
 			var sound = new Howl({
 				urls: [options.url],
 				autoplay: true,
 				loop: false,
-				volume: options.volume || currentVolume,
+				volume: volume * attentuation,
 				onend: function() {
 					self.removeSound(sound);
 				}
@@ -943,6 +916,15 @@
 			self.stopAllTracks();
 			self.stopAllSounds();
 		};
+
+		var soundsVolume = localStorageService.get('Audio.SoundsVolume');
+		this.setSoundsVolume((soundsVolume === undefined) ? defaultSoundsVolume : soundsVolume);
+
+		var championSoundsVolume = localStorageService.get('Audio.ChampionSoundsVolume');
+		this.setChampionSoundsVolume((soundsVolume === undefined) ? defaultChampionSoundsVolume : championSoundsVolume);
+
+		var musicVolume = localStorageService.get('Audio.MusicVolume');
+		this.setMusicVolume((soundsVolume === undefined) ? defaultMusicVolume : musicVolume);
 
 		// Initializes the state of the audio settings from local storage
 		// or defaults them to on.
@@ -1357,7 +1339,7 @@
 
 		$scope.playSectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_8.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_8.mp3');
 			}
 		};
 	}]);
@@ -1367,8 +1349,17 @@
 		// Synchronize audio settings between this controller
 		// and the audioService.
 		$scope.playSounds = audioService.playSounds;
+		$scope.currentSoundsVolume = audioService.currentSoundsVolume * 100;
+
+		setTimeout(function() {
+			$scope.currentSoundsVolume = 100;
+		}, 200);
+
 		$scope.playChampionSounds = audioService.playChampionSounds;
+		$scope.currentChampionSoundsVolume = audioService.currentChampionSoundsVolume * 100;
+
 		$scope.playMusic = audioService.playMusic;
+		$scope.currentMusicVolume = audioService.currentMusicVolume * 100;
 
 		$scope.toggleSounds = function() {
 			audioService.toggleSounds();
@@ -1393,7 +1384,7 @@
 
 		$scope.playSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 
@@ -1401,19 +1392,31 @@
 			audioService.setSoundsEnabled(value);
 		});
 
+		$scope.$watch('currentSoundsVolume', function(value) {
+			audioService.setSoundsVolume(value / 100.0);
+		});
+
 		$scope.$watch('playChampionSounds', function(value) {
 			audioService.setChampionSoundsEnabled(value);
 		});
 
+		$scope.$watch('currentChampionSoundsVolume', function(value) {
+			audioService.setChampionSoundsVolume(value / 100.0);
+		});
+
 		$scope.$watch('playMusic', function(value) {
 			audioService.setMusicEnabled(value);
+		});
+
+		$scope.$watch('currentMusicVolume', function(value) {
+			audioService.setMusicVolume(value / 100.0);
 		});
 	}]);
 
 	TheBlackMarketAppModule.controller('HomeLinkController', ['$scope', 'audioService', function($scope, audioService) {
 		$scope.playGoHomeSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/koto4.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/koto4.mp3');
 			}
 		};
 	}]);
@@ -1428,7 +1431,7 @@
 
 		$scope.playSelectionSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound({ url: '/Sounds/newSounds/air_button_press_1.mp3', volume: 0.5 });
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
 			}
 		};
 
