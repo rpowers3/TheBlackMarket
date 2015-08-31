@@ -668,7 +668,7 @@
 		});
 
 		var unregisterSiteTrackChanged = $rootScope.$on('audioService.SiteTrackChanged', function(sender, args) {
-			$scope.isNotSiteTrack = (args.siteTrack != championService.activeChampionTrack);
+			$scope.isNotSiteTrack = (args.siteTrack != championsService.activeChampionTrack);
 		});
 
 		// Clean up so events don't leak.
