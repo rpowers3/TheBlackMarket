@@ -506,7 +506,7 @@
 				var skinIndex = Math.floor(Math.random() * skinCount);
 				var skinInfo = champion.skins[skinIndex];
 
-				console.info("SKIN >>> " + skinIndex);
+				//console.info("SKIN >>> " + skinIndex);
 
 				if (audioService.playMusic) {
 					var customTrack = self.getChampionMusic(champion.key, skinIndex);
@@ -1847,7 +1847,8 @@
 		$scope.filterType = "black";
 
 		$scope.runeFilter = function(runeInfo) {
-			return (runeInfo.rune.rune.tier == $scope.filterTier) &&
+			return runeInfo && runeInfo.rune && runeInfo.rune.rune &&
+				(runeInfo.rune.rune.tier == $scope.filterTier) &&
 				(runeInfo.rune.rune.type == $scope.filterType) &&
 				(($scope.nameFilter == "") || 0 <= runeInfo.rune.name.toLowerCase().indexOf($scope.nameFilter.toLowerCase()));
 		};

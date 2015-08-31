@@ -821,10 +821,11 @@
 			console.info("Restoring overriding track: " + self.overridenTrack._src);
 
 			self.fadeOutAllTracks();
+
+			self.currentTrack = self.overridenTrack;
 			self.overridenTrack.fade(0, self.currentMusicVolume, fadeDuration);
 			self.overridenTrack.play();
 
-			self.currentTrack = self.overridenTrack;
 			self.overridenTrack = null;
 			self.keepOverrideCheck = null;
 			self.overrideTrackUrl = null;
