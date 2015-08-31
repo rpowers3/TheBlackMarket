@@ -1416,3 +1416,17 @@ div.champion-list {
 		fill: black !important;
 	}
 }
+
+.objective-info-container {
+	.champion-splash {
+		top: 0.5em;
+	}
+
+	.champion-info {
+		top: 2.5em;
+
+		.champion-info-objective-chart {
+			 margin-top: 15em;
+		}
+	}
+}
