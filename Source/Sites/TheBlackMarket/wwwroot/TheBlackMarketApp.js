@@ -698,6 +698,27 @@
 
 		var self = this;
 
+		var audioLogger = {
+			Trace: -1,
+			Debug: 0,
+
+			log: function(level, message) {
+				if (level >= this.logLevel) {
+					console.info(message);
+				}
+			},
+
+			logDebug: function(message) {
+				this.log(this.Debug, message);
+			},
+
+			logTrace: function(message) {
+				this.log(this.Trace, message);
+			}
+		};
+
+		audioLogger.logLevel = audioLogger.Debug;
+
 		this.setSiteTrack = function(value) {
 			if (self.siteTrack == value) {
 				return;
@@ -706,6 +727,8 @@
 			self.siteTrack = value;
 			localStorageService.set('Audio.SiteTrack', self.siteTrack);
 
+			audioLogger.logDebug("Set site track to: " + value);
+
 			if (self.currentTrackIsOverride) {
 				var currentUrl = self.currentTrack.urls()[0];
 
@@ -713,6 +736,8 @@
 				// take over, promote it to the real site track and
 				// forget the override.
 				if (value == currentUrl) {
+					audioLogger.logTrace("Current override is new site song. Promoting.");
+
 					self.overridenTrack = null;
 					self.overridenTrack = null;
 					self.keepOverrideCheck = null;
@@ -720,6 +745,8 @@
 					self.currentTrackIsOverride = false;
 					return;
 				} else {
+					audioLogger.logTrace("Current override is not the site song. Altering overriden track to new site song.");
+
 					// The current track isn't the new track. Switch
 					// the overriden track to the new site track.
 					self.overridenTrack.stop();
@@ -736,6 +763,7 @@
 				var currentUrl = self.currentTrack.urls()[0];
 
 				if (currentUrl != self.siteTrack) {
+					audioLogger.logTrace("Current site song is different. Switching to new site song.");
 					self.playTrack(self.siteTrack);
 				}
 			}
@@ -782,7 +810,9 @@
 			}
 
 			if (!value) {
-				self.fadeOutAllTracks();
+				self.pauseCurrentTrack();
+			} else if (self.currentTrack) {
+				self.unpauseCurrentTrack();
 			} else {
 				self.playTrack(self.overrideTrackUrl || this.siteTrack);
 			}
@@ -823,7 +853,7 @@
 
 			this.fadeOutAllTracks();
 
-			console.info("Playing: " + url + ", volume: " + self.currentMusicVolume);
+			audioLogger.logDebug("Playing: " + url + ", volume: " + self.currentMusicVolume);
 
 			var musicTrack = new Howl({
 				urls: [url],
@@ -863,13 +893,14 @@
 					self.currentTrackIsOverride = true;
 					self.keepOverrideCheck = keepOverrideCheck;
 
-					console.info("Overriding track: " + self.overridenTrack._src);
+					audioLogger.logDebug("Overriding track: " + self.overridenTrack._src);
 
 					setTimeout(function() {
 						if (self.overridenTrack) {
 							self.overridenTrack.pause();
 						}
-						console.info("Overriding track paused.");
+
+						audioLogger.logDebug("Overriding track paused.");
 					}, fadeDuration + 0.5);
 				}
 			}
@@ -877,6 +908,32 @@
 			self.overrideTrackUrl = url;
 			self.playTrack(url);
 		};
+
+		this.pauseCurrentTrack = function() {
+			var currentTrack = self.currentTrack;
+
+			if (!currentTrack) {
+				return;
+			}
+
+			audioLogger.logDebug("Pausing current track: " + currentTrack._src);
+			currentTrack.fade(currentTrack.volume(), 0, fadeDuration, function() {
+				audioLogger.logDebug("Paused current track: " + currentTrack._src);
+				currentTrack.pause();
+			});
+		}
+
+		this.unpauseCurrentTrack = function() {
+			var currentTrack = self.currentTrack;
+
+			if (!currentTrack) {
+				return;
+			}
+
+			audioLogger.logDebug("Unpausing current track: " + currentTrack._src);
+			currentTrack.fade(0, self.currentMusicVolume, fadeDuration);
+			currentTrack.play();
+		}
 
 		this.restoreTrack = function() {
 			if (!self.overridenTrack) {
@@ -902,6 +959,7 @@
 			var index = self.musicTracks.indexOf(musicTrack);
 
 			if (index > -1) {
+				console.info("Removing track: " + musicTrack._src);
 				self.musicTracks.splice(index, 1);
 			}
 
@@ -922,18 +980,12 @@
 		this.fadeOutAllTracks = function() {
 			for (var i in self.musicTracks.slice(0)) {
 				var oldMusicTrack = self.musicTracks[i];
-				oldMusicTrack.fade(oldMusicTrack.volume(), 0, fadeDuration);
-
-				if (oldMusicTrack != self.overridenTrack) {
-					(function(musicTrack) {
-						setTimeout(function() {
-							console.info("Removing track: " + musicTrack._src);
-							// Force stop if it hasn't already.
-							musicTrack.stop();
-							self.removeTrack(musicTrack);
-						}, fadeDuration + 0.5);
-					})(oldMusicTrack);
-				}
+				oldMusicTrack.fade(oldMusicTrack.volume(), 0, fadeDuration, function() {
+					console.info("Removing track: " + oldMusicTrack._src);
+					// Force stop if it hasn't already.
+					oldMusicTrack.stop();
+					self.removeTrack(oldMusicTrack);
+				});
 			}
 		};
 

@@ -64,11 +64,17 @@
 		$scope.brawlerCompositionsLink = '#/brawlers/compositions';
 	}]);
 
-	BrawlersModule.controller('BrawlersCompositionsController', ['$scope', '$rootScope', 'riotResourceService', 'dataService', 'itemsService', function($scope, $rootScope, riotResourceService, dataService, itemsService) {
+	BrawlersModule.controller('BrawlersCompositionsController', ['$scope', '$rootScope', 'riotResourceService', 'dataService', 'itemsService', 'audioService', function($scope, $rootScope, riotResourceService, dataService, itemsService, audioService) {
 		// Make sure the brawlers are loaded so we can use their images.
 		riotResourceService.getBrawlersAsync().then(function(items) {
 			$scope.refresh();
 		});
+
+		$scope.playToggleFilterSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
+			}
+		};
 
 		$scope.getItemUrl = itemsService.getItemUrl;
 		$scope.getItemName = function(itemId) {

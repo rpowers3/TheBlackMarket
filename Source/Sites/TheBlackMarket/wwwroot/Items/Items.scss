@@ -1,5 +1,13 @@
+@mixin no-user-select {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
 div.item-list {
+	@include no-user-select;
 	min-height: 100%;
 	font-family: 'Jim Nightshade', cursive;
 

@@ -709,6 +709,12 @@
 			}
 		};
 
+		$scope.playToggleFilterSound = function() {
+			if (audioService.playSounds) {
+				audioService.playSound('/Sounds/newSounds/air_button_press_1.mp3');
+			}
+		};
+
 		// Flag to show/hide filters.
 		$scope.displayFilters = dataService.showFilters;
 
