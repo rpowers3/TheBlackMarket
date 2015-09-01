@@ -63,18 +63,18 @@ namespace TheBlackMarket {
 				var accessLine = "<Unknown>";
 
 				try {
-					var remoteAddress = "<Unknown>";
+					var remoteAddress = "";
 					var connectionFeature = request.GetFeature<IHttpConnectionFeature>();
 
 					if (connectionFeature != null) {
 						remoteAddress = connectionFeature.RemoteIpAddress.ToString();
 					}
 
-					if (string.IsNullOrEmpty(remoteAddress)) {
+					if (string.IsNullOrWhiteSpace(remoteAddress)) {
 						remoteAddress = request.Request.Headers["HTTP_X_FORWARDED_FOR"];
 					}
 
-					if (string.IsNullOrEmpty(remoteAddress)) {
+					if (string.IsNullOrWhiteSpace(remoteAddress)) {
 						remoteAddress = request.Request.Headers["REMOTE_ADDR"];
 					}
 
