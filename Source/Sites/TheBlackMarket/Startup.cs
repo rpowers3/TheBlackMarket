@@ -70,6 +70,14 @@ namespace TheBlackMarket {
 						remoteAddress = connectionFeature.RemoteIpAddress.ToString();
 					}
 
+					if (string.IsNullOrEmpty(remoteAddress)) {
+						remoteAddress = request.Request.Headers["HTTP_X_FORWARDED_FOR"];
+					}
+
+					if (string.IsNullOrEmpty(remoteAddress)) {
+						remoteAddress = request.Request.Headers["REMOTE_ADDR"];
+					}
+
 					accessLine = string.Format(
 						"{0} {1} {2} {3}{4}{5}",
 						remoteAddress,
