@@ -863,10 +863,7 @@
 				urls: [url],
 				autoplay: true,
 				loop: true,
-				volume: 0,
-				onend: function() {
-					self.removeTrack(musicTrack);
-				}
+				volume: 0
 			});
 
 			musicTrack.fade(0, self.currentMusicVolume, fadeDuration);
