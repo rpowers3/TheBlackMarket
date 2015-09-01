@@ -6,7 +6,7 @@ Live site: [The Black Market](http://bilgewater.org)
 
 This is a contest entry for the Riot API Challenge 2.0. This entry makes use of the match history data provided by all the matches from all of the regions to generate some interesting aggregate data for inspection and comparison.
 
-Data is kind of awesome to look at and it becomes infinitely easier to find patterns and trends if you can at least see the data. What we did was grab all of the match data from the list of matches that Riot provided, threw them all up into a database, generated tons of data files with results from all combinations of queries, and then added a site to all the browsing of it all. You can view the data in different was using site filters to compare regions and teams. (By the way, blue team advantage is alive and well, at least from this data.)
+Data is kind of awesome to look at and it becomes infinitely easier to find patterns and trends if you can at least see the data. What we did was grab all of the match data from the list of matches that Riot provided, threw them all up into a database, generated tons of data files with results from all combinations of queries, and then added a site to enable the browsing of it all. You can view the data in different was using site filters to compare regions and teams. (By the way, blue team advantage is alive and well, at least from this data.)
 
 ## Design ##
 
