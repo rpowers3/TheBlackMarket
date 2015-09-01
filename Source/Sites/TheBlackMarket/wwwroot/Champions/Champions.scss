@@ -130,7 +130,7 @@ div.champion-list {
 		}
 
 		.champion-splash-skin-reroll,
-		.champion-splash-set-site-track  {
+		.champion-splash-set-site-track {
 			display: inline-block;
 			margin: 0.5em;
 			cursor: pointer;
@@ -337,7 +337,8 @@ div.champion-list {
 		.champion-info-runes-list,
 		.champion-info-rune-info,
 		.champion-info-runes-filters,
-		.champion-info-gold {
+		.champion-info-gold,
+		.rivalries-info-container {
 			background: rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 0px 10px black inset;
 			border: 1px solid rgba(0, 0, 0, 0.6);
@@ -1490,4 +1491,28 @@ div.champion-list {
 	.heat-maps-unavailable {
 		height: 21.1em;
 	}
+}
+
+.rivalries-info-container {
+	width: 18em;
+
+	.champion-stats-header {
+		> img {
+			width: 2.5em;
+			margin-right: 0.5em;
+		}
+	}
+}
+
+.rivalries-chart-container {
+	position: relative;
+	top: -10em;
+}
+
+.rivalries-not-supported {
+	margin-left: 2em;
+	margin-top: 1em;
+	font-weight: bold;
+	font-size: 2em;
+	margin-bottom: 16em;
 }

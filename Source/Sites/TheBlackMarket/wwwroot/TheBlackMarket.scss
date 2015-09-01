@@ -194,11 +194,11 @@ body {
 							transform: rotateX(-10deg);
 						}
 					}
-					
+
 					.section-bottomedge {
 						animation: FlagSwing2 2.3s infinite cubic-bezier(0.445, 0.050, 0.550, 0.950);
 					}
-					
+
 					@keyframes FlagSwing2 {
 						0% {
 							transform: rotateX(-10deg);
@@ -570,5 +570,59 @@ body {
 
 	passive, unique, active, aura {
 		color: rgb(200, 174, 36);
+	}
+}
+
+.rivalries-chart-container {
+	path.arc {
+		//cursor: move;
+		fill: rgba(255, 255, 255, 0.5);
+	}
+
+	.node {
+		font-size: 10px;
+		cursor: pointer;
+	}
+
+	.node:hover {
+		fill: #1f77b4;
+	}
+
+	.link {
+		fill: none;
+		display: none;
+		pointer-events: none;
+		//stroke-width: 2;
+	}
+
+	.link.source, .link.target {
+		stroke-opacity: 1;
+		display: inline;
+	}
+
+	.node.target {
+		fill: #d62728 !important;
+	}
+
+	.link.source {
+		stroke: #2ca02c;
+	}
+
+	.node.source {
+		fill: #2ca02c;
+	}
+
+	.link.target {
+		stroke: #d62728;
+	}
+
+	image {
+		transition: 150ms all;
+	}
+
+	.active {
+		transform: scale(2);
+		transform-origin: center center;
+		z-index: 100;
 	}
 }

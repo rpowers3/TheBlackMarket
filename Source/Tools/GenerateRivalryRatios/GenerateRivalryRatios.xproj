@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<SolutionRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), .SolutionRoot))</SolutionRoot>
+		<SolutionRoot Condition=" '$(SolutionRoot)' == '' ">$(SolutionDir)</SolutionRoot>
+	</PropertyGroup>
+
+	<Import Project="$(SolutionDir)\Build\Build.Tool.PreProject.Props" />
+
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>be42663e-dedb-4ea0-8cb7-f9f91d7010eb</ProjectGuid>
+		<RootNamespace>GenerateRivalryRatios</RootNamespace>
+	</PropertyGroup>
+
+	<Import Project="$(SolutionDir)\Build\Build.Tool.PostProject.Props" />
+</Project>

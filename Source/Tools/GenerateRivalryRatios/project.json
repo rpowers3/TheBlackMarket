@@ -1,0 +1,21 @@
+﻿{
+	"version": "1.0.0-*",
+	"description": "GenerateRivalryRatios Console Application",
+	"authors": [ "Kearin" ],
+	"tags": [ "" ],
+	"projectUrl": "",
+	"licenseUrl": "",
+
+	"dependencies": {
+		"CommandLineParser": "2.0.251-beta",
+		"Newtonsoft.Json": "7.0.1",
+	},
+
+	"commands": {
+		"GenerateRivalryRatios": "GenerateRivalryRatios"
+	},
+
+	"frameworks": {
+		"dnx451": { }
+	}
+}

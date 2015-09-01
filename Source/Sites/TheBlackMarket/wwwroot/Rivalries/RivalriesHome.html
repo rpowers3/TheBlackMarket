@@ -1,0 +1,25 @@
+﻿<div class="champion-info-container objective-info-container">
+	<div class="champion-background-fill"></div>
+
+	<div class="champion-splash" style="background-image: url(/Rivalries/RivalriesBG.png)">
+	</div>
+
+	<div class="champion-info">
+		<div class="champion-stats-container rivalries-info-container">
+			<div class="champion-stats-header">
+				<img src="/Rivalries/Rivalries.png" />
+				<span>Rivalries</span>
+			</div>
+		</div>
+
+		<div ng-if="isIEorEdge" class="rivalries-not-supported">
+			This page is not available on Internet Explorer or Edge. Please try again with Chrome or Firefox.
+		</div>
+
+		<div class="rivalries-chart-container">
+			<tbm-edge-bundling data="killRatios" width="1200" height="1200" ng-if="!isIEorEdge">
+				<svg></svg>
+			</tbm-edge-bundling>
+		</div>
+	</div>
+</div>

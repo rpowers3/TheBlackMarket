@@ -13,7 +13,8 @@
 		'Champions',
 		'Combat',
 		'Items',
-		'Objectives']);
+		'Objectives',
+		'Rivalries']);
 
 	TheBlackMarketAppModule.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
 		// Configure local storage so site settings can be saved.
@@ -28,6 +29,9 @@
 			})
 			.when('/about', {
 				templateUrl: '/About.html',
+			})
+			.otherwise({
+				redirectTo: '/'
 			});
 	}]);
 
@@ -1574,4 +1578,207 @@
 			dataService.setShowAllStats(value);
 		})
 	}]);
+
+	TheBlackMarketAppModule.directive('tbmEdgeBundling', [
+		function() {
+			return {
+				restrict: 'EA',
+				scope: {
+					data: '=',
+					width: '@',
+					height: '@',
+					id: '@'
+				},
+				controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+				}],
+				link: function(scope, element, attrs) {
+					scope.$watch('data', function(data) {
+						if (!data) {
+							return;
+						}
+
+						var packages = {
+							// Lazily construct the package hierarchy from class names.
+							root: function(classes) {
+								var map = {};
+
+								function find(name, data) {
+									var node = map[name], i;
+									if (!node) {
+										node = map[name] = data || { name: name, children: [] };
+										if (name.length) {
+											node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+											node.parent.children.push(node);
+											node.key = name.substring(i + 1);
+										}
+									}
+									return node;
+								}
+
+								classes.forEach(function(d) {
+									find(d.name, d);
+								});
+
+								return map[""];
+							},
+
+							// Return a list of imports for the given array of nodes.
+							imports: function(nodes) {
+								var map = {};
+								var imports = [];
+								var indexLookup = {};
+
+								// Compute a map from name to node.
+								nodes.forEach(function(d, i) {
+									map[d.name] = d;
+									indexLookup[d.name] = i;
+								});
+
+								// For each import, construct a link from the source to target node.
+								nodes.forEach(function(d) {
+									if (d.imports) d.imports.forEach(function(i) {
+										imports.push({
+											source: map[d.name],
+											target: map[i],
+											size: d.killRatios[indexLookup[i] - 1]
+										});
+									});
+								});
+
+								return imports;
+							}
+						};
+
+						var w = scope.width,
+							h = scope.height,
+							rx = w / 2,
+							ry = h / 2,
+							m0,
+							rotate = 0;
+
+						var splines = [];
+
+						var cluster = d3.layout.cluster()
+							.size([360, ry - 120])
+							.sort(function(a, b) { return d3.ascending(a.key, b.key); });
+
+						var bundle = d3.layout.bundle();
+
+						var line = d3.svg.line.radial()
+							.interpolate("bundle")
+							.tension(.85)
+							.radius(function(d) { return d.y; })
+							.angle(function(d) { return d.x / 180 * Math.PI; });
+
+						element = angular.element(element);
+
+						var dataAttributeChartID = 'chartid' + Math.floor(Math.random() * 1000000001);
+						element.attr('data-chartid', dataAttributeChartID);
+
+						var svg = d3.select('[data-chartid=' + dataAttributeChartID + '] svg');
+
+						svg.selectAll("*").remove();
+
+						var svgg = svg.attr("width", w).attr("height", w).append("svg:g");
+						svgg
+							.attr("transform", "translate(" + rx + "," + ry + ")")
+							.append("svg:path")
+							.attr("class", "arc")
+							.attr("d", d3.svg.arc().outerRadius(ry - 120).innerRadius(0).startAngle(0).endAngle(2 * Math.PI));
+
+						var imageWidth = 24;
+						var imageHeight = 24;
+						var halfImageWidth = imageWidth / 2;
+						var halfImageHeight = imageHeight / 2;
+
+						var processor = function(classes) {
+							var nodes = cluster.nodes(packages.root(classes)),
+								links = packages.imports(nodes),
+								splines = bundle(links);
+
+							var path = svgg.selectAll("path.link")
+								.data(links)
+								.enter().append("svg:path")
+								.attr("class", function(d) { return "link source-" + d.source.key.replace("'", "") + " target-" + d.target.key.replace("'", ""); })
+								.attr("stroke-width", function(d, i) {
+									return d.size * 2;
+								})
+								.attr("d", function(d, i) { return line(splines[i]); });
+
+							svgg.selectAll("g.node")
+								.data(nodes.filter(function(n) { return !n.children; }))
+								.enter().append("svg:g")
+								.attr("class", function(d) { return "node node-" + d.name; })
+								.attr("transform", function(d, i) {
+									return "translate(-" + halfImageWidth + ",-" + halfImageHeight + ")rotate(" + (d.x - 90) + ")translate(" + (d.y + halfImageWidth) + ")rotate(" + (90 - d.x) + ")";
+								})
+
+								.append('svg:image')
+								.attr("class", function(d) { return "node-img-" + d.name; })
+								.attr('xlink:href', function(d) { return d.image; })
+								.attr('width', imageWidth)
+								.attr('height', imageHeight)
+								//.append("svg:text")
+								//.attr("dx", function(d) { return d.x < 180 ? 8 : -8; })
+								//.attr("dy", ".31em")
+								//.attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+								//.attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
+								//.text(function(d) { return d.rawName; })
+
+								.on("mouseover", mouseover)
+								.on("mouseout", mouseout);
+						};
+
+						processor(data);
+
+						d3.selection.prototype.moveToFront2 = function() {
+							return this.each(function() {
+								var parent = this.parentNode;
+								parent.parentNode.appendChild(parent);
+							});
+						};
+
+						var lastMouseOver = null;
+						function mouseover(d) {
+							if (lastMouseOver) {
+								if (d == lastMouseOver) {
+									return;
+								}
+
+								onmouseout(lastMouseOver);
+							}
+
+							svg.selectAll("g.node-" + d.name).attr("transform", "translate(-" + halfImageWidth + ",-" + halfImageHeight + ")rotate(" + (d.x - 90) + ")translate(" + (d.y + imageWidth) + ")rotate(" + (90 - d.x) + ")");
+
+							svg.selectAll("image.node-img-" + d.name).classed("active", true).moveToFront2();
+							svg.selectAll("path.link.target-" + d.key.replace("'", "")).classed("target", true).each(updateNodes("source", true));
+							svg.selectAll("path.link.source-" + d.key.replace("'", "")).classed("source", true).each(updateNodes("target", true));
+
+							lastMouseOver = d;
+						}
+
+						function mouseout(d) {
+							svg.selectAll("g.node-" + d.name).attr("transform", "translate(-" + halfImageWidth + ",-" + halfImageHeight + ")rotate(" + (d.x - 90) + ")translate(" + (d.y + halfImageWidth) + ")rotate(" + (90 - d.x) + ")");
+
+							svg.selectAll("image.node-img-" + d.name).classed("active", false);
+							svg.selectAll("path.link.source-" + d.key.replace("'", "")).classed("source", false).each(updateNodes("target", false));
+							svg.selectAll("path.link.target-" + d.key.replace("'", "")).classed("target", false).each(updateNodes("source", false));
+
+							lastMouseOver = undefined;
+						}
+
+						function updateNodes(name, value) {
+							return function(d) {
+								if (value) {
+									this.parentNode.appendChild(this);
+								}
+
+								svg.select("#node-" + d[name].key.replace("'", "")).classed(name, value);
+							};
+						}
+					}, attrs.objectequality === undefined ? false : attrs.objectequality === 'true');
+				}
+			};
+		}
+	]);
 })();

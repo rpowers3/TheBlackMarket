@@ -254,6 +254,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TheBlackMarket", "Sites\The
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TestSite", "Sites\TestSite\TestSite.xproj", "{E250FC92-E1F0-40F6-888A-D2E796899FFB}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GenerateRivalryRatios", "Tools\GenerateRivalryRatios\GenerateRivalryRatios.xproj", "{BE42663E-DEDB-4EA0-8CB7-F9F91D7010EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -292,6 +294,10 @@ Global
 		{E250FC92-E1F0-40F6-888A-D2E796899FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E250FC92-E1F0-40F6-888A-D2E796899FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E250FC92-E1F0-40F6-888A-D2E796899FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE42663E-DEDB-4EA0-8CB7-F9F91D7010EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE42663E-DEDB-4EA0-8CB7-F9F91D7010EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE42663E-DEDB-4EA0-8CB7-F9F91D7010EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE42663E-DEDB-4EA0-8CB7-F9F91D7010EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -315,5 +321,6 @@ Global
 		{8C08F6E7-9AB4-47CE-8480-2246F1C0A80B} = {4A3CB522-98FF-4E16-A172-9BB2FC489439}
 		{AB602226-34CD-4EAB-9D85-09F94DB6BB6E} = {091E23A2-A055-46BC-BDBF-C7FFCAA63F74}
 		{E250FC92-E1F0-40F6-888A-D2E796899FFB} = {091E23A2-A055-46BC-BDBF-C7FFCAA63F74}
+		{BE42663E-DEDB-4EA0-8CB7-F9F91D7010EB} = {4A3CB522-98FF-4E16-A172-9BB2FC489439}
 	EndGlobalSection
 EndGlobal

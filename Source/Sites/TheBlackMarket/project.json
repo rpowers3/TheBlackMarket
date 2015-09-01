@@ -3,12 +3,14 @@
 	"version": "1.0.0-*",
 
 	"dependencies": {
+		"Kestrel": "1.0.0-beta6",
 		"Microsoft.AspNet.Server.IIS": "1.0.0-beta6",
 		"Microsoft.AspNet.Server.WebListener": "1.0.0-beta6",
 		"Microsoft.AspNet.StaticFiles": "1.0.0-beta6",
-		"Microsoft.Framework.Configuration.Json": "1.0.0-beta6",
 		"Microsoft.Framework.Configuration": "1.0.0-beta6",
-		"Kestrel": "1.0.0-beta6"
+		"Microsoft.Framework.Configuration.Json": "1.0.0-beta6",
+		"Microsoft.Framework.Logging.NLog": "1.0.0-beta6",
+		"NLog": "4.1.0-rc1"
 	},
 
 	"commands": {
@@ -27,9 +29,11 @@
 		"**.user",
 		"**.vspscc"
 	],
+	
 	"exclude": [
 		"wwwroot",
 		"node_modules",
-		"bower_components"
+		"bower_components",
+		".sass-cache"
 	]
 }
