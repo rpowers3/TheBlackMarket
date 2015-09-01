@@ -49,6 +49,7 @@ Thanks to the following 3rd party projects that were used for the tools and the 
 * [Aforge](https://code.google.com/p/aforge/)
 * [Angular](https://angularjs.org/)
 * [Angular-nvd3-directives](https://github.com/angularjs-nvd3-directives/angularjs-nvd3-directives)
+* [AngularUI Bootstrap](https://angular-ui.github.io/bootstrap/)
 * [Bower](http://bower.io/)
 * [D3](http://d3js.org/)
 * [DNVM](https://github.com/aspnet/dnvm)
