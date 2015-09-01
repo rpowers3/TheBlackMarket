@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.FileProviders;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http.Features;
 using Microsoft.AspNet.StaticFiles;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.Configuration.Json;
@@ -62,9 +63,16 @@ namespace TheBlackMarket {
 				var accessLine = "<Unknown>";
 
 				try {
+					var remoteAddress = "<Unknown>";
+					var connectionFeature = request.GetFeature<IHttpConnectionFeature>();
+
+					if (connectionFeature != null) {
+						remoteAddress = connectionFeature.RemoteIpAddress.ToString();
+					}
+
 					accessLine = string.Format(
 						"{0} {1} {2} {3}{4}{5}",
-						request.Connection.RemoteIpAddress,
+						remoteAddress,
 						request.Request.Method,
 						request.Request.Protocol,
 						request.Request.Path,
