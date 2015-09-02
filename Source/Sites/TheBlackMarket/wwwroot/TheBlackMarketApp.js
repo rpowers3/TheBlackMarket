@@ -890,19 +890,18 @@
 					// going to be placed aside for now.
 					self.removeTrack(self.currentTrack);
 
-					self.overridenTrack.fade(self.overridenTrack.volume(), 0, fadeDuration);
-					self.currentTrackIsOverride = true;
-					self.keepOverrideCheck = keepOverrideCheck;
-
-					audioLogger.logDebug("Overriding track: " + self.overridenTrack._src);
-
-					setTimeout(function() {
+					self.overridenTrack.fade(self.overridenTrack.volume(), 0, fadeDuration, function() {
 						if (self.overridenTrack) {
 							self.overridenTrack.pause();
 						}
 
 						audioLogger.logDebug("Overriding track paused.");
-					}, fadeDuration + 0.5);
+					});
+
+					self.currentTrackIsOverride = true;
+					self.keepOverrideCheck = keepOverrideCheck;
+
+					audioLogger.logDebug("Overriding track: " + self.overridenTrack._src);
 				}
 			}
 
