@@ -980,6 +980,10 @@
 		this.fadeOutAllTracks = function() {
 			for (var i in self.musicTracks.slice(0)) {
 				var oldMusicTrack = self.musicTracks[i];
+
+				// Don't let old songs load if they haven't already.
+				oldMusicTrack._autoplay = false;
+
 				oldMusicTrack.fade(oldMusicTrack.volume(), 0, fadeDuration, function() {
 					console.info("Removing track: " + oldMusicTrack._src);
 					// Force stop if it hasn't already.
