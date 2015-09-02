@@ -51,7 +51,8 @@
 						 ng-model="$parent.activeMasteryInfo"
 						 ng-repeat="masteryInfo in masteryTrees.offense.slots track by $index"
 						 ng-click="playSelectionSound()"
-						 tooltip="{{masteryInfo.mastery.name}}"
+						 tooltip-template="'/Champions/ChampionMasteryOffenseTooltip.html'"
+						 tooltip-placement="bottom"
 						 btn-radio="masteryInfo"
 						 ng-class="{'visible': masteryInfo}">
 						<img ng-src="{{getMasteryImageUrl(masteryInfo.mastery)}}" />
@@ -61,7 +62,8 @@
 				<div class="champion-info-masteries-defense">
 					<div class="champion-info-mastery-tile"
 						 ng-model="$parent.activeMasteryInfo"
-						 tooltip="{{masteryInfo.mastery.name}}"
+						 tooltip-template="'/Champions/ChampionMasteryDefenseTooltip.html'"
+						 tooltip-placement="bottom"
 						 btn-radio="masteryInfo"
 						 ng-class="{'visible': masteryInfo}"
 						 ng-repeat="masteryInfo in masteryTrees.defense.slots track by $index"
@@ -73,7 +75,8 @@
 				<div class="champion-info-masteries-utility">
 					<div class="champion-info-mastery-tile"
 						 ng-model="$parent.activeMasteryInfo"
-						 tooltip="{{masteryInfo.mastery.name}}"
+						 tooltip-template="'/Champions/ChampionMasteryUtilityTooltip.html'"
+						 tooltip-placement="bottom"
 						 btn-radio="masteryInfo"
 						 ng-class="{'visible': masteryInfo}"
 						 ng-repeat="masteryInfo in masteryTrees.utility.slots track by $index"

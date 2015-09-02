@@ -1,0 +1,13 @@
+﻿<div class="mastery-defense">
+	<div class="mastery-name" ng-bind="masteryInfo.mastery.name"></div>
+
+	<div class="mastery-description" ng-bind="masteryInfo.mastery.description" ng-if="masteryInfo.mastery.description.length == 1"></div>
+
+	<div class="mastery-description" ng-repeat="description in masteryInfo.mastery.description" ng-if="masteryInfo.mastery.description.length > 1">
+		<div class="mastery-rank">
+			<span>Rank </span>
+			<span ng-bind="$index + 1"></span>
+		</div>
+		<div ng-bind-html="description"></div>
+	</div>
+</div>

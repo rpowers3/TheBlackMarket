@@ -212,6 +212,66 @@ div.champion-list {
 			}
 		}
 
+		.tooltip {
+			background: rgba(3, 19, 31, 0.95);
+			padding: 0;
+			font-size: 0.9em;
+			padding: 0;
+			z-index: 999999;
+			border-radius: 0.5em;
+			border: 1px solid white;
+		}
+
+		.tooltip-inner {
+			background: none;
+			max-width: none;
+			position: relative;
+			text-align: left;
+
+			.skill-name {
+				position: absolute;
+				left: 0.5em;
+				top: 0.5em;
+				font-size: 1.4em;
+			}
+
+			.skill-key {
+				position: absolute;
+				right: 0.5em;
+				top: 0.5em;
+				font-size: 1.4em;
+				color: rgb(229, 171, 18);
+			}
+
+			.skill-key:before {
+				content: '[';
+			}
+
+			.skill-key:after {
+				content: ']';
+			}
+
+			.skill-resource {
+				position: absolute;
+				left: 0.75em;
+				top: 3em;
+			}
+
+			.skill-cooldown {
+				position: absolute;
+				right: 0.75em;
+				top: 3em;
+			}
+
+			.skill-description {
+				margin-top: 5em;
+				margin-left: 0.25em;
+				margin-right: 0.25em;
+				margin-bottom: 1em;
+				color: rgb(155, 152, 232);
+			}
+		}
+
 		.champion-stats-container {
 			padding: 1em;
 			margin: 0em 2em;
@@ -384,6 +444,10 @@ div.champion-list {
 				}
 			}
 
+			.tooltip {
+				width: 30em;
+			}
+
 			.champion-stats-skill {
 				margin: 0.5em;
 				display: inline-block;
@@ -414,65 +478,6 @@ div.champion-list {
 							}
 						}
 					}
-				}
-			}
-
-			.tooltip {
-				background: rgba(3, 19, 31, 0.95);
-				padding: 0;
-				font-size: 0.9em;
-				padding: 0;
-				width: 30em;
-				z-index: 999999;
-				border-radius: 0.5em;
-			}
-
-			.tooltip-inner {
-				background: none;
-				max-width: none;
-				position: relative;
-				text-align: left;
-
-				.skill-name {
-					position: absolute;
-					left: 0.5em;
-					top: 0.5em;
-					font-size: 1.4em;
-				}
-
-				.skill-key {
-					position: absolute;
-					right: 0.5em;
-					top: 0.5em;
-					font-size: 1.4em;
-					color: rgb(229, 171, 18);
-				}
-
-				.skill-key:before {
-					content: '['
-				}
-				.skill-key:after{
-					content: ']'
-				}
-
-				.skill-resource {
-					position: absolute;
-					left: 0.75em;
-					top: 3em;
-				}
-
-				.skill-cooldown {
-					position: absolute;
-					right: 0.75em;
-					top: 3em;
-				}
-
-				.skill-description {
-					margin-top: 5em;
-					margin-left: 0.25em;
-					margin-right: 0.25em;
-					margin-bottom: 1em;
-					color: rgb(155, 152, 232);
 				}
 			}
 		}
@@ -518,6 +523,14 @@ div.champion-list {
 				width: 25em;
 				height: 20em;
 				padding-left: 1.5em;
+
+				.tooltip {
+					width: auto;
+
+					.tooltip-inner {
+						text-align: center;
+					}
+				}
 
 				> img {
 					position: absolute;
@@ -1067,6 +1080,46 @@ div.champion-list {
 			width: 60em;
 			height: 35.7em;
 
+			.tooltip {
+				border-radius: 0em;
+				width: 20em;
+
+				.mastery-name {
+					font-size: 1.1em;
+					font-weight: bold;
+					margin: 0.5em 0em;
+				}
+
+				.mastery-offense {
+					.mastery-name {
+						color: rgb(180, 34, 7);
+					}
+				}
+
+				.mastery-defense {
+					.mastery-name {
+						color: rgb(74, 171, 250);
+					}
+				}
+
+				.mastery-utility {
+					.mastery-name {
+						color: rgb(47, 143, 47);
+					}
+				}
+
+
+				.mastery-description {
+					color: white;
+					margin-bottom: 0.5em;
+
+					.mastery-rank {
+						font-size: 0.9em;
+						color: rgb(187, 104, 49);
+					}
+				}
+			}
+
 			.champion-info-masteries-container {
 				position: relative;
 				background: url(http://ddragon.leagueoflegends.com/cdn/img/mastery/masteryback.jpg) no-repeat;
@@ -1233,14 +1286,6 @@ div.champion-list {
 				display: block;
 				font-size: 0.9em;
 			}
-		}
-
-		.tooltip {
-			border: 1px solid white;
-			background: black;
-			padding: 0.2em;
-			font-size: 1.2em;
-			font-weight: bold;
 		}
 
 		.tbmc-filter-bar {

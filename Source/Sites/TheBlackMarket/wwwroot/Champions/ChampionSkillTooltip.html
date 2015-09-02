@@ -1,0 +1,14 @@
+﻿<div>
+	<div class="skill-name" ng-bind="skillInfo.skill.name"></div>
+
+	<div class="skill-key" ng-bind="skillInfo.skill.key"></div>
+
+	<div class="skill-resource">
+		<span ng-if="skillInfo.skill.resource != 'No Cost'">Cost</span>
+		<span ng-bind="skillInfo.skill.resource"></span>
+	</div>
+
+	<div class="skill-cooldown" ng-bind="skillInfo.skill.cooldown + ' sec Cooldown'"></div>
+
+	<div class="skill-description" ng-bind-html="skillInfo.skill.description"></div>
+</div>
