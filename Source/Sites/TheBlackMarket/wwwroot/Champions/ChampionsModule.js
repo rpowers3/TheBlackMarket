@@ -1283,14 +1283,64 @@
 		registerForGlobalEvents($scope, $rootScope, championsService, dataService);
 	}]);
 
-	ChampionsModule.controller('ChampionSkillsController', ['$scope', '$rootScope', '$routeParams', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, riotResourceService, dataService, championsService, audioService) {
+	ChampionsModule.controller('ChampionSkillsController', ['$scope', '$rootScope', '$routeParams', '$sce', 'riotResourceService', 'dataService', 'championsService', 'audioService', function($scope, $rootScope, $routeParams, $sce, riotResourceService, dataService, championsService, audioService) {
 		// Request the full champion information before continuing.
 		riotResourceService.getFullChampionInfoAsync($routeParams.championId).then(function(fullChampionInfo) {
 			if (!championsService.enterChampionSection(fullChampionInfo)) {
 				return;
 			}
 
+			// Match {{ a# }} style variables.
+			var variablePattern = /\{\{\s*([A-Za-z]+)(\d*)\s*\}\}/g;
+			var spells = fullChampionInfo.spells;
+			var skills = [];
+			var skillKeys = ['Q', 'W', 'E', 'R'];
+
+			for (var i = 0; i < spells.length; ++i) {
+				var spell = spells[i];
+				var variableLookup = {};
+
+				if (spell.vars) {
+					for (var j = 0; j < spell.vars.length; ++j) {
+						var variable = spell.vars[j];
+						variableLookup[variable.key] = variable;
+					}
+				}
+
+				var variableProcessor = function(match, type, index) {
+					if (type == 'e') {
+						return spell.effectBurn[index];
+					}
+
+					var variableName = type + index;
+					return (variableLookup[variableName] || {}).coeff || "";
+				}
+
+				var costProcessor = function(match, type, index) {
+					if (type == 'cost') {
+						return spell.costBurn;
+					}
+
+					return variableProcessor(match, type, index);
+				}
+
+				var processedTooltip = spell.tooltip.replace(variablePattern, variableProcessor).replace("class=\"color", "style=\"color: #");
+				var processedResource = spell.resource.replace(variablePattern, costProcessor);
+
+				skills.push({
+					name: spell.name,
+					cooldown: spell.cooldownBurn,
+					resource: processedResource,
+					description: $sce.trustAsHtml(processedTooltip),
+					imageUrl: riotResourceService.getSkillImageUrl(spell),
+					htmlTooltip: spell.name,
+					skill: spell,
+					key: skillKeys[i]
+				});
+			}
+
 			$scope.champion = fullChampionInfo;
+			$scope.skills = skills;
 			$scope.championBackgroundUrl = championsService.activeChampionSplashImageUrl;
 			$scope.refresh();
 		});
@@ -1339,7 +1389,7 @@
 					var skillSlot = skillData.skillSlot;
 
 					skillInfos.push({
-						skill: $scope.champion.spells[skillSlot - 1],
+						skill: $scope.skills[skillSlot - 1],
 						chart: dataService.buildWinLossChartData(skillData)
 					});
 				}

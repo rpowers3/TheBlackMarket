@@ -10,12 +10,13 @@
 
 			<div class="btn-group">
 				<label ng-repeat="skillInfo in skillInfos"
-					   class="btn champion-stats-skill"
+					   class="btn champion-stats-skill champion-skill"
 					   ng-model="activeSkillInfo.model"
 					   btn-radio="skillInfo"
 					   ng-click="playSkillSelectionSound()"
-					   tooltip="{{skillInfo.skill.name}}">
-					<img ng-src="{{getSkillImageUrl(skillInfo.skill)}}" />
+					   tooltip-template="'/Champions/ChampionSkillTooltip.html'"
+					   tooltip-placement="bottom">
+					<img ng-src="{{skillInfo.skill.imageUrl}}" />
 				</label>
 			</div>
 		</div>
