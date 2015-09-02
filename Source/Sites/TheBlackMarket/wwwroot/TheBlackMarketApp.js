@@ -863,6 +863,7 @@
 				urls: [url],
 				autoplay: true,
 				loop: true,
+				buffer: true,
 				volume: 0
 			});
 
@@ -1003,6 +1004,7 @@
 				urls: [options.url],
 				autoplay: true,
 				loop: false,
+				buffer: true,
 				volume: volume * attentuation,
 				onend: function() {
 					self.removeSound(sound);
