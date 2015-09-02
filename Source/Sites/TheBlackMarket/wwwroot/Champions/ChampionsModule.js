@@ -1912,9 +1912,9 @@
 									var masteryInfo = data.masteries[masteryEntry.masteryId];
 									currentTree.slots.push(masteryInfo);
 
-									if (masteryInfo.mastery == activeMasteryInfo.mastery) {
+									if ((masteryInfo) && (masteryInfo.mastery == activeMasteryInfo.mastery)) {
 										activeMasteryInfo = masteryInfo;
-									}									
+									}
 								} else {
 									currentTree.slots.push(null);
 								}
