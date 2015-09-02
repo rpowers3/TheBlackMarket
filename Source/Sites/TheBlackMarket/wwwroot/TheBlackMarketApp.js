@@ -1698,7 +1698,8 @@
 								.enter().append("svg:path")
 								.attr("class", function(d) { return "link source-" + d.source.key.replace("'", "") + " target-" + d.target.key.replace("'", ""); })
 								.attr("stroke-width", function(d, i) {
-									return d.size * 2;
+									var size = (d.size == -2) ? 5 : (d.size > 5 ? 5 : d.size);
+									return size * 2;
 								})
 								.attr("d", function(d, i) { return line(splines[i]); });
 

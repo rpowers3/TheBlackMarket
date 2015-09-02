@@ -49,7 +49,7 @@
 						var imports = [];
 
 						for (var j = 0; j < killRatios[i].length; ++j) {
-							if (killRatios[i][j] >= 1.0) {
+							if ((killRatios[i][j] > 1.0) || (killRatios[i][j] == -2)) {
 								imports.push(champions[j].name.replace(nameSanitizer, ""));
 							}
 						}

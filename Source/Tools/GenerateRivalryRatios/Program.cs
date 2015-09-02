@@ -96,32 +96,41 @@ namespace GenerateRivalryRatios {
 
 			// All champion ids.
 			var champions = victimData.Keys.Union(victimData.SelectMany(vd => vd.Value.Keys)).Distinct().OrderBy(e => e).ToList();
+			var championCount = champions.Count;
 
 			// Calculate the champion kills over their targets kills on them.
 			var killRatios =
 				from champion in champions
 				let championKills = victimData.ContainsKey(champion) ? victimData[champion] : null
-				select 
+				select
 					(championKills == null)
 						// If a champion can't be found, fill their array with -1 for current champ
 						// always loses.
 						? Enumerable.Repeat(-1.0f, champions.Count)
-						: championKills.Select(e => 
-							// If an individual champion cannot be found for the other end, fill with -2
-							// for current champion has always won.
-							(victimData.ContainsKey(e.Key) && victimData[e.Key].ContainsKey(champion))
-								? e.Value / (float) victimData[e.Key][champion]
-								: -2 ).ToList();
+						: (
+							from targetChampion in champions
+							let killCount = championKills.ContainsKey(targetChampion) ? championKills[targetChampion] : 0.0f
+							let deathCount = (victimData.ContainsKey(targetChampion) && victimData[targetChampion].ContainsKey(champion)) ? victimData[targetChampion][champion] : 0.0f
+							select (deathCount == 0) ? -2 : (killCount == 0) ? -1 : killCount / deathCount
+						).ToList();
+
+			var killRatiosList = killRatios.ToList();
+
+			var killRatioCounts = killRatiosList.Select(krl => krl.Count());
+			var mismatches = killRatioCounts.Where(c => c != championCount).Count();
+
+			if (mismatches > 0) {
+				throw new Exception(string.Format("{0} champions have mismatched kill ratios data array lengths."));
+			}
 
 			var processedKillRatios = new {
 				championIds = champions,
-				killRatios = killRatios.ToList()
+				killRatios = killRatiosList
 			};
 
 			var outputId = string.IsNullOrWhiteSpace(groupId) ? "global" : groupId;
 
 			var jsonConverters = new JsonConverter[] { new FloatConverter() };
-
 			var outputJson = JsonConvert.SerializeObject(processedKillRatios, jsonConverters);
 			var outputPath = Path.Combine(outputDirectory, outputId) + ".json";
 			File.WriteAllText(outputPath, outputJson);
