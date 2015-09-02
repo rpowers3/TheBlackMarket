@@ -6,7 +6,7 @@ Live site: [The Black Market](http://bilgewater.org)
 
 This is a contest entry for the Riot API Challenge 2.0. This entry makes use of the match history data provided by all the matches from all of the regions to generate some interesting aggregate data for inspection and comparison.
 
-Data is kind of awesome to look at and it becomes infinitely easier to find patterns and trends if you can at least see the data. What we did was grab all of the match data from the list of matches that Riot provided, threw them all up into a database, generated tons of data files with results from all combinations of queries, and then added a site to all the browsing of it all. You can view the data in different was using site filters to compare regions and teams. (By the way, blue team advatage is alive and well, at least from this data.)
+Data is kind of awesome to look at and it becomes infinitely easier to find patterns and trends if you can at least see the data. What we did was grab all of the match data from the list of matches that Riot provided, threw them all up into a database, generated tons of data files with results from all combinations of queries, and then added a site to enable the browsing of it all. You can view the data in different was using site filters to compare regions and teams. (By the way, blue team advantage is alive and well, at least from this data.)
 
 ## Design ##
 
@@ -40,17 +40,25 @@ to
 			<modules runAllManagedModulesForAllRequests="true">
 ```
 
+Because of the volume of data generated, this site got really big really fast. There's over 1 GB of json data spread across 2 million files. there's 32 GBs spread over 22,000 files of death and kill map videos (in mp4 and webm), and there's 2 GBs over 11,000 files of heat maps images. Disk is cheap though and it was nicer to have to ready to serve.
+
 ## Technologies Used ##
 
 Thanks to the following 3rd party projects that were used for the tools and the site.
 
 * [Aforge](https://code.google.com/p/aforge/)
 * [Angular](https://angularjs.org/)
+* [Angular-nvd3-directives](https://github.com/angularjs-nvd3-directives/angularjs-nvd3-directives)
+* [AngularUI Bootstrap](https://angular-ui.github.io/bootstrap/)
+* [Bower](http://bower.io/)
 * [D3](http://d3js.org/)
 * [DNVM](https://github.com/aspnet/dnvm)
 * [FFmpeg](https://www.ffmpeg.org/)
+* [Grunt](http://gruntjs.com/)
+* [Json.NET](http://www.newtonsoft.com/json)
 * [Howler](https://github.com/goldfire/howler.js/)
 * [MongoDB](https://www.mongodb.com/)
+* [NGINX](http://wiki.nginx.org/Main)
 * [NVD3](http://nvd3.org/)
 * [SASS](http://sass-lang.com/)
 * [Videogular](http://www.videogular.com/)
