@@ -418,6 +418,10 @@ div.champion-list {
 			width: 82em;
 			height: 13em;
 			overflow: hidden;
+
+			.tooltip {
+				width: 25em;
+			}
 		}
 
 		.champion-summoner-spells-lists {
