@@ -1,9 +1,9 @@
 ﻿<div class="mastery-utility">
 	<div class="mastery-name" ng-bind="masteryInfo.mastery.name"></div>
 
-	<div class="mastery-description" ng-bind="masteryInfo.mastery.description" ng-if="masteryInfo.mastery.description.length == 1"></div>
+	<div class="mastery-description" ng-bind-html="masteryInfo.mastery.htmlDescription[0]" ng-if="masteryInfo.mastery.description.length == 1"></div>
 
-	<div class="mastery-description" ng-repeat="description in masteryInfo.mastery.description" ng-if="masteryInfo.mastery.description.length > 1">
+	<div class="mastery-description" ng-repeat="description in masteryInfo.mastery.htmlDescription" ng-if="masteryInfo.mastery.description.length > 1">
 		<div class="mastery-rank">
 			<span>Rank </span>
 			<span ng-bind="$index + 1"></span>

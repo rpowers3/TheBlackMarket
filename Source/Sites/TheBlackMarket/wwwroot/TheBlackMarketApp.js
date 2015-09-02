@@ -43,7 +43,7 @@
 
 	// This service provide functionality to access the DataDragon data
 	// for display League of Legends information.
-	TheBlackMarketAppModule.service('riotResourceService', ['$http', '$q', function($http, $q) {
+	TheBlackMarketAppModule.service('riotResourceService', ['$http', '$q', '$sce', function($http, $q, $sce) {
 		var self = this;
 
 		// TODO: It'd be nice to support a toggle to change the locale.
@@ -491,6 +491,20 @@
 			return self.baseImageUrl + "spell/" + summonerSpell.image.full;
 		};
 
+		var processMasteryData = function(masteries) {
+			for (var masteryId in masteries) {
+				var mastery = masteries[masteryId];
+
+				mastery.htmlDescription = [];
+
+				for (var i = 0; i < mastery.description.length; ++i) {
+					mastery.htmlDescription.push($sce.trustAsHtml(mastery.description[i].replace("<br>", "<br/>")));
+				}
+			}
+
+			return masteries;
+		}
+
 		this.getMasteryTreesAsync = function() {
 			var deferred = $q.defer();
 
@@ -499,7 +513,7 @@
 			} else {
 				$http.get(self.baseDataUrl + 'mastery.json')
 					.success(function(response) {
-						self.masteries = response.data;
+						self.masteries = processMasteryData(response.data);
 						self.masteryTrees = response.tree;
 						deferred.resolve(self.masteryTrees);
 					})
@@ -520,7 +534,7 @@
 			} else {
 				$http.get(self.baseDataUrl + 'mastery.json')
 					.success(function(response) {
-						self.masteries = response.data;
+						self.masteries = processMasteryData(response.data);
 						self.masteryTrees = response.tree;
 						deferred.resolve(self.masteries);
 					})

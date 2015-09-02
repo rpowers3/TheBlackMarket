@@ -1324,7 +1324,7 @@
 					return variableProcessor(match, type, index);
 				}
 
-				var processedTooltip = spell.tooltip.replace(variablePattern, variableProcessor).replace("class=\"color", "style=\"color: #");
+				var processedTooltip = spell.tooltip.replace(variablePattern, variableProcessor).replace("class=\"color", "style=\"color: #").replace("<br>", "<br />");
 				var processedResource = spell.resource.replace(variablePattern, costProcessor);
 
 				skills.push({
