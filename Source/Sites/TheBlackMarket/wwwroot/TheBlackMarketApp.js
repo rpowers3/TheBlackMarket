@@ -893,6 +893,8 @@
 				volume: 0,
 			});
 
+			musicTrack.loops = -1;
+
 			musicTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
 
 			self.currentTrack = musicTrack;
@@ -1108,7 +1110,7 @@
 							this.play({
 								loops: this.loops
 							});
-						} else if (this.loop == -1) {
+						} else if (this.loops == -1) {
 							function loopSound(track) {
 								track.play({
 									onfinish: function() {
