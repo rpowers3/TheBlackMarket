@@ -720,11 +720,15 @@
 		this.currentTrackIsOverride = false;
 		this.keepOverrideCheck = null;
 
+		this.soundManagerInitialized = false;
+
 		var self = this;
 
 		var audioLogger = {
 			Trace: -1,
 			Debug: 0,
+			Warning: 1,
+			Info: 2,
 
 			log: function(level, message) {
 				if (level >= this.logLevel) {
@@ -741,7 +745,7 @@
 			}
 		};
 
-		audioLogger.logLevel = audioLogger.Debug;
+		audioLogger.logLevel = audioLogger.Info;
 
 		this.setSiteTrack = function(value) {
 			if (self.siteTrack == value) {
@@ -754,7 +758,7 @@
 			audioLogger.logDebug("Set site track to: " + value);
 
 			if (self.currentTrackIsOverride) {
-				var currentUrl = self.currentTrack.urls()[0];
+				var currentUrl = self.currentTrack.url;
 
 				// If the current track that's overriding is the track to
 				// take over, promote it to the real site track and
@@ -784,7 +788,7 @@
 
 			// Queue up the new track if its different. It'll fade out the old one.
 			if (self.currentTrack) {
-				var currentUrl = self.currentTrack.urls()[0];
+				var currentUrl = self.currentTrack.url;
 
 				if (currentUrl != self.siteTrack) {
 					audioLogger.logTrace("Current site song is different. Switching to new site song.");
@@ -828,16 +832,19 @@
 			self.playMusic = value;
 			localStorageService.set('Audio.PlayMusic', self.playMusic);
 
-			if (self.musicInterval) {
-				clearInterval(self.musicInterval);
-				self.musicInterval = 0;
+			if (self.soundManagerInitialized) {
+				if (!value) {
+					self.pauseCurrentTrack();
+				} else if (self.currentTrack) {
+					self.unpauseCurrentTrack();
+				} else {
+					self.initializeBackgroundTrack();
+				}
 			}
+		};
 
-			if (!value) {
-				self.pauseCurrentTrack();
-			} else if (self.currentTrack) {
-				self.unpauseCurrentTrack();
-			} else {
+		this.initializeBackgroundTrack = function() {
+			if (self.playMusic) {
 				self.playTrack(self.overrideTrackUrl || this.siteTrack);
 			}
 		};
@@ -847,7 +854,7 @@
 			localStorageService.set('Audio.MusicVolume', self.currentMusicVolume);
 
 			if (this.currentTrack) {
-				this.currentTrack.volume(self.currentMusicVolume);
+				this.currentTrack.setVolume(self.currentMusicVolume * 100);
 			}
 		}
 
@@ -868,7 +875,7 @@
 
 		this.playTrack = function(url) {
 			if (self.currentTrack) {
-				var currentUrl = self.currentTrack.urls()[0];
+				var currentUrl = self.currentTrack.url;
 
 				if (currentUrl == url) {
 					return;
@@ -879,32 +886,22 @@
 
 			audioLogger.logDebug("Playing: " + url + ", volume: " + self.currentMusicVolume);
 
-			var musicTrack = new Howl({
-				urls: [url],
-				autoplay: true,
-				loop: true,
-				buffer: true,
-				volume: 0
+			var musicTrack = soundManager.createSound({
+				url: url,
+				autoLoad: true,
+				multiShot: false,
+				volume: 0,
 			});
 
-			musicTrack.on('load', function() {
-				if (musicTrack._autoplay) {
-					musicTrack.isPlaying = true;
-					musicTrack.isFadingIn = true;
-					musicTrack.fade(0, self.currentMusicVolume, fadeDuration, function() {
-						musicTrack.isFadingIn = false;
-					});
-				}
-			})
+			musicTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
 
 			self.currentTrack = musicTrack;
-
 			self.musicTracks.push(musicTrack);
 		};
 
 		this.playTrackOverride = function(url, keepOverrideCheck) {
 			if (self.currentTrack) {
-				var currentUrl = self.currentTrack.urls()[0];
+				var currentUrl = self.currentTrack.url;
 
 				if (currentUrl == url) {
 					return;
@@ -918,16 +915,7 @@
 					// Take the overriden track out of the normal queue. It's
 					// going to be placed aside for now.
 					self.removeTrack(self.currentTrack);
-
-					self.overridenTrack.fade(self.overridenTrack.volume(), 0, fadeDuration, function() {
-						if (self.overridenTrack && self.currentTrack != self.overridenTrack) {
-							self.overridenTrack.pause();
-							self.overridenTrack.isPlaying = false;
-						}
-
-						audioLogger.logDebug("PlayTrackOverride: Overriding track paused.");
-					});
-
+					self.overridenTrack.fadeVolumeTo(0, fadeDuration);
 					self.currentTrackIsOverride = true;
 					self.keepOverrideCheck = keepOverrideCheck;
 
@@ -942,29 +930,23 @@
 		this.pauseCurrentTrack = function() {
 			var currentTrack = self.currentTrack;
 
-			if (!currentTrack || !currentTrack.isPlaying) {
+			if (!currentTrack) {
 				return;
 			}
 
 			audioLogger.logDebug("PauseCurrentTrack: Pausing current track: " + currentTrack._src);
-			currentTrack.fade(currentTrack.volume(), 0, fadeDuration, function() {
-				audioLogger.logDebug("Paused current track: " + currentTrack._src);
-				currentTrack.pause();
-				currentTrack.isPlaying = false;
-			});
+			currentTrack.fadeVolumeTo(0, fadeDuration);
 		}
 
 		this.unpauseCurrentTrack = function() {
 			var currentTrack = self.currentTrack;
 
-			if (!currentTrack || currentTrack.isPlaying) {
+			if (!currentTrack) {
 				return;
 			}
 
 			audioLogger.logDebug("UnpauseCurrentTrack: Unpausing current track: " + currentTrack._src);
-			currentTrack.fade(0, self.currentMusicVolume, fadeDuration);
-			currentTrack.play();
-			currentTrack.isPlaying = true;
+			currentTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
 		}
 
 		this.restoreTrack = function() {
@@ -972,7 +954,7 @@
 				return;
 			}
 
-			console.info("RestoreTrack: Restoring overriding track: " + self.overridenTrack._src);
+			audioLogger.logDebug("RestoreTrack: Restoring overriding track: " + self.overridenTrack._src);
 
 			self.fadeOutAllTracks();
 
@@ -983,11 +965,9 @@
 			self.currentTrackIsOverride = false;
 
 			self.musicTracks.push(self.currentTrack);
-			self.currentTrack.fade(0, self.currentMusicVolume, fadeDuration);
 
-			if (!self.currentTrack.isPlaying) {
-				self.currentTrack.play();
-				self.currentTrack.isPlaying = true;
+			if (self.playMusic) {
+				self.currentTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
 			}
 		};
 
@@ -995,7 +975,7 @@
 			var index = self.musicTracks.indexOf(musicTrack);
 
 			if (index > -1) {
-				console.info("RemoveTrack: Removing track: " + musicTrack._src);
+				audioLogger.logDebug("RemoveTrack: Removing track: " + musicTrack._src);
 				self.musicTracks.splice(index, 1);
 			}
 
@@ -1016,16 +996,8 @@
 		this.fadeOutAllTracks = function() {
 			for (var i in self.musicTracks.slice(0)) {
 				var oldMusicTrack = self.musicTracks[i];
-
-				// Don't let old songs load if they haven't already.
-				oldMusicTrack._autoplay = false;
-
-				oldMusicTrack.fade(oldMusicTrack.volume(), 0, fadeDuration, function() {
-					console.info("FadeOutAllTracks: Removing track: " + oldMusicTrack._src);
-					// Force stop if it hasn't already.
-					oldMusicTrack.stop();
-					self.removeTrack(oldMusicTrack);
-				});
+				oldMusicTrack.fadeVolumeTo(0, fadeDuration);
+				self.removeTrack(oldMusicTrack);
 			}
 		};
 
@@ -1035,16 +1007,15 @@
 			var volume = (options.volume === undefined) ? self.currentSoundsVolume : options.volume;
 			var attentuation = (options.attentuation === undefined) ? 1 : options.attentuation;
 
-			var sound = new Howl({
-				urls: [options.url],
+			var sound = soundManager.createSound({
+				url: options.url,
+				autoLoad: true,
 				autoplay: true,
-				loop: false,
-				buffer: true,
-				volume: volume * attentuation,
-				onend: function() {
-					self.removeSound(sound);
-				}
+				multiShot: false,
+				volume: (volume * attentuation) * 100,
 			});
+
+			sound.play();
 
 			self.sounds.push(sound);
 			return sound;
@@ -1100,6 +1071,106 @@
 		$rootScope.$on('$routeChangeSuccess', function() {
 			if (!self.keepOverrideCheck || !self.keepOverrideCheck.apply(this, arguments)) {
 				self.restoreTrack();
+			}
+		});
+
+		soundManager.setup({
+			useHTML5Audio: true,
+			onready: function() {
+				self.soundManagerInitialized = true;
+
+				var tempSound = soundManager.createSound({
+					autoLoad: false,
+					url: ['bogus.mp3']
+				});
+
+				var prototype = tempSound.prototype || tempSound.__proto__;
+
+				// Register a fadeVolumeTo method into the sound.
+				prototype.fadeVolumeTo = function(to, duration, applyPausePlay) {
+					if (duration == undefined) {
+						audioLogger.logDebug("No duration specified. Defaulting to 0.");
+						duration = 0;
+					}
+
+					// Convert to sound manager scale.
+					to *= 100;
+
+					applyPausePlay = (applyPausePlay === undefined) ? true : applyPausePlay;
+
+					if (applyPausePlay && (this.volume == 0)) {
+						this.setVolume(0);
+
+						if (this.paused) {
+							this.resume();
+						} else if (this.loops > 0) {
+							this.play({
+								loops: this.loops
+							});
+						} else if (this.loop == -1) {
+							function loopSound(track) {
+								track.play({
+									onfinish: function() {
+										loopSound(track);
+									}
+								});
+							}
+
+							loopSound(this);
+						} else {
+							this.play();
+						}
+					}
+
+					if (duration == 0) {
+						this.setVolume(to);
+						return;
+					}
+
+					if (this.volume != to) {
+						this.targetVolume = to;
+						this.fadeVolumeStartTime = new Date();
+						this.fadeVolumeStartValue = this.volume;
+
+						var distance = to - this.volume;
+						var direction = Math.sign(distance);
+
+						audioLogger.logDebug("Fade target: " + to + ", distance: " + distance + ", direction: " + direction);
+
+						if (distance == 0 || direction == 0) {
+							return;
+						}
+
+						if (this.fadeVolumeInterval) {
+							clearInterval(this.fadeVolumeInterval);
+							this.fadeVolumeInterval = 0;
+						}
+
+						var self = this;
+						this.fadeVolumeInterval = setInterval(function() {
+							var timeIntoFade = (new Date() - self.fadeVolumeStartTime);
+							var newVolume = self.fadeVolumeStartValue + distance * (timeIntoFade / duration);
+
+							newVolume = (direction < 0 && newVolume < to) || (direction > 0 && newVolume > to) ? to : newVolume;
+
+							self.setVolume(newVolume);
+							audioLogger.logDebug("Set volume to: " + newVolume + ", time into fade: " + timeIntoFade);
+
+							if (newVolume == to) {
+								clearInterval(self.fadeVolumeInterval);
+								self.fadeVolumeInterval = 0;
+
+								if (applyPausePlay && (self.volume == 0)) {
+									self.pause();
+								}
+							}
+						}, 100);
+					}
+				};
+
+				self.initializeBackgroundTrack();
+			},
+			ontimeout: function() {
 			}
 		});
 	}]);
@@ -1165,9 +1236,6 @@
 				}
 
 				for (var i = 0; i < killers.length; ++i) {
-					if (killers[i] == 0) {
-						console.info("MINIONS! " + deaths[i]);
-					}
 					data.nemesis.push({
 						championId: killers[i],
 						champion: riotResourceService.getChampionById(killers[i]),

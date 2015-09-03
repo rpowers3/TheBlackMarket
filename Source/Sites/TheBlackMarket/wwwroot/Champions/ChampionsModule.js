@@ -532,12 +532,7 @@
 				if (audioService.playSounds && audioService.playChampionSounds) {
 					if (this.activeChampionSound) {
 						var sound = this.activeChampionSound;
-						sound.fade(sound.volume(), 0, 500);
-
-						// Gaurantee a stop.
-						setTimeout(function() {
-							sound.stop();
-						}, 550);
+						sound.fadeVolumeTo(0, 500);
 					}
 
 					this.activeChampionSound = audioService.playSound({
