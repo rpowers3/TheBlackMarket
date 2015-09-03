@@ -1013,6 +1013,7 @@
 				autoplay: true,
 				multiShot: false,
 				volume: (volume * attentuation) * 100,
+				onfinish: options.onfinish
 			});
 
 			sound.play();

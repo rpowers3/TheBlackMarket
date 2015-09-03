@@ -530,14 +530,20 @@
 			if (isPrimaryPage || hadActiveChampion) {
 				// If sounds are enabled, set the champion sound so it plays.
 				if (audioService.playSounds && audioService.playChampionSounds) {
-					if (this.activeChampionSound) {
-						var sound = this.activeChampionSound;
+					if (self.activeChampionSound) {
+						var sound = self.activeChampionSound;
+
 						sound.fadeVolumeTo(0, 500);
 					}
 
-					this.activeChampionSound = audioService.playSound({
+					var clearActiveChampionSound = function() {
+						this.activeChampionSound = undefined;
+					};
+
+					self.activeChampionSound = audioService.playSound({
 						url: riotResourceService.baseLocalizedSoundUrl + 'champions/' + champion.id + '.mp3',
-						volume: audioService.currentChampionSoundsVolume
+						volume: audioService.currentChampionSoundsVolume,
+						onfinish: clearActiveChampionSound.bind(self)
 					});
 				}
 
@@ -552,7 +558,6 @@
 				self.activeChampion = 0;
 				self.activeChampionSkinIndex = -1;
 				self.activeChampionSplashImageUrl = null;
-				self.activeChampionSound = null;
 				self.activeChampionTrack = null;
 				self.isNotSiteTrack = false;
 			}
