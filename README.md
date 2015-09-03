@@ -40,7 +40,7 @@ to
 			<modules runAllManagedModulesForAllRequests="true">
 ```
 
-Because of the volume of data generated, this site got really big really fast. There's over 1 GB of json data spread across 2 million files. there's 32 GBs spread over 22,000 files of death and kill map videos (in mp4 and webm), and there's 2 GBs over 11,000 files of heat maps images. Disk is cheap though and it was nicer to have to ready to serve.
+Because of the volume of data generated, this site got really big really fast. There's over 1 GB of json data spread across 2 million files. there's 32 GBs spread over 22,000 files of death and kill map videos (in mp4 and webm), and there's 2 GBs over 11,000 files of heat maps images. Disk is cheap though and it was nicer to have this data ready to serve.
 
 ## Technologies Used ##
 
