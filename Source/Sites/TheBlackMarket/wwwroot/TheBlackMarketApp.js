@@ -49,42 +49,59 @@
 
 	// This service provide functionality to access the DataDragon data
 	// for display League of Legends information.
-	TheBlackMarketAppModule.service('riotResourceService', ['$http', '$q', '$sce', function($http, $q, $sce) {
+	TheBlackMarketAppModule.service('riotResourceService', ['$http', '$q', '$sce', '$location', 'localStorageService', function($http, $q, $sce, $location, localStorageService) {
+		var defaultLanguage = 'en_US';
 		var self = this;
 
-		// TODO: It'd be nice to support a toggle to change the locale.
-		//       Probably won't have time to implement this feature.
-		this.language = 'en_US';
+		var validLanguages = ['cs_CZ', 'de_DE', 'el_GR', 'en_AU', 'en_GB', 'en_US', 'es_AR', 'es_ES', 'es_MX', 'fr_FR', 'hu_HU', 'it_IT', 'ko_KR', 'pl_PL', 'pt_BR', 'ro_RO', 'ru_RU', 'tr_TR'];
 
-		// Construct the base urls to the static data. I'm using the data
-		// dragon because the data we're looking at is static and isn't going
-		// to change so there's no reason to make API calls to fetch this data.
-		// Instead just grab the precanned JSON cause it already has everything
-		// I need.
-		this.baseUrl = 'http://ddragon.leagueoflegends.com/cdn/';
-		this.baseVersionedUrl = this.baseUrl + '5.15.1/';
-		this.baseDataUrl = this.baseVersionedUrl + 'data/' + this.language + '/';
-		this.baseImageUrl = this.baseVersionedUrl + 'img/';
-		this.baseSharedImageUrl = this.baseUrl + 'img/';
+		this.language = undefined;
 
-		this.baseSoundUrl = '/Sounds/';
-		this.baseLocalizedSoundUrl = this.baseSoundUrl + this.language + '/';
+		this.setLanguage = function(value, soundLanguage) {
+			var index = validLanguages.indexOf(value);
 
-		// Data storage for various league information. Everything is being
-		// cached to save on bandwidth. If your browser chugs a little you might
-		// need to refresh the page. ;)
-		this.champions = null;
-		this.championInfo = {};
-		this.allItems = null;
-		this.items = null;
-		this.summonerSpells = null;
-		this.masteries = null;
-		this.masteryTrees = null;
-		this.runes = null;
-		this.brawlers = null;
-		this.brawlerUpgrades = null;
-		this.blackMarketItems = null;
-		this.filteredItems = null;
+			if (index < 0) {
+				value = 'en_US';
+			}
+
+			soundLanguage = soundLanguage || value;
+
+			self.language = value;
+			self.soundLanguage = soundLanguage;
+
+			localStorageService.set('Site.Language', self.language);
+			localStorageService.set('Site.SoundLanguage', self.soundLanguage);
+
+			// Construct the base urls to the static data. I'm using the data
+			// dragon because the data we're looking at is static and isn't going
+			// to change so there's no reason to make API calls to fetch this data.
+			// Instead just grab the precanned JSON cause it already has everything
+			// I need.
+			self.baseUrl = 'http://ddragon.leagueoflegends.com/cdn/';
+			self.baseVersionedUrl = self.baseUrl + '5.15.1/';
+			self.baseDataUrl = self.baseVersionedUrl + 'data/' + self.language + '/';
+			self.baseImageUrl = self.baseVersionedUrl + 'img/';
+			self.baseSharedImageUrl = self.baseUrl + 'img/';
+
+			self.baseSoundUrl = '/Sounds/';
+			self.baseLocalizedSoundUrl = self.baseSoundUrl + self.soundLanguage + '/';
+
+			// Data storage for various league information. Everything is being
+			// cached to save on bandwidth. If your browser chugs a little you might
+			// need to refresh the page. ;)
+			self.champions = null;
+			self.championInfo = {};
+			self.allItems = null;
+			self.items = null;
+			self.summonerSpells = null;
+			self.masteries = null;
+			self.masteryTrees = null;
+			self.runes = null;
+			self.brawlers = null;
+			self.brawlerUpgrades = null;
+			self.blackMarketItems = null;
+			self.filteredItems = null;
+		};
 
 		// Gets the base list of champion data asynchronously.
 		this.getChampionsAsync = function() {
@@ -697,13 +714,22 @@
 		this.getChampionImageUrl = function(champion) {
 			return self.baseImageUrl + "champion/" + champion.image.full;
 		};
+
+		var search = $location.search() || {};
+
+		var language = search.language || localStorageService.get('Site.Language') || defaultLanguage;
+		var soundLanguage = search.language || localStorageService.get('Site.SoundLanguage') || language || defaultLanguage;
+
+		// TODO: It'd be nice to support a toggle to change the locale.
+		//       Probably won't have time to implement this feature.
+		this.setLanguage(language, soundLanguage);
 	}]);
 
 	// The service for playing audio
 	TheBlackMarketAppModule.service('audioService', ['$rootScope', 'localStorageService', function($rootScope, localStorageService) {
 		var defaultSoundsVolume = 0.5;
 		var defaultChampionSoundsVolume = 0.5;
-		var defaultMusicVolume = 0.5;
+		var defaultMusicVolume = 0.25;
 
 		var initialTrack = '/Music/GangplankLoginMusic.mp3';
 		var fadeDuration = 2000;
@@ -1057,13 +1083,13 @@
 		this.setSiteTrack((siteTrack == undefined) ? initialTrack : siteTrack);
 
 		var soundsVolume = localStorageService.get('Audio.SoundsVolume');
-		this.setSoundsVolume((soundsVolume === undefined) ? defaultSoundsVolume : soundsVolume);
+		this.setSoundsVolume((soundsVolume == undefined) ? defaultSoundsVolume : soundsVolume);
 
 		var championSoundsVolume = localStorageService.get('Audio.ChampionSoundsVolume');
-		this.setChampionSoundsVolume((soundsVolume === undefined) ? defaultChampionSoundsVolume : championSoundsVolume);
+		this.setChampionSoundsVolume((soundsVolume == undefined) ? defaultChampionSoundsVolume : championSoundsVolume);
 
 		var musicVolume = localStorageService.get('Audio.MusicVolume');
-		this.setMusicVolume((soundsVolume === undefined) ? defaultMusicVolume : musicVolume);
+		this.setMusicVolume((soundsVolume == undefined) ? defaultMusicVolume : musicVolume);
 
 		// Initializes the state of the audio settings from local storage
 		// or defaults them to on.
