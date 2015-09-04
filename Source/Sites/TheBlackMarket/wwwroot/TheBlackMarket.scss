@@ -44,7 +44,7 @@ body {
 		right: 1.2em;
 		bottom: 0em;
 		background-color: black;
-		background: url(Background1.jpg);
+		background: url(/Resources/Background1.jpg);
 		background-repeat: no-repeat;
 		opacity: 0.5;
 		transition: 150ms opacity;
@@ -244,7 +244,7 @@ body {
 						top: 0em;
 						width: 100%;
 						height: 2em;
-						background-image: url(/Branch.png);
+						background-image: url(/Resources/Branch.png);
 						background-repeat: no-repeat;
 						background-position: top left;
 						background-size: 100% auto;
@@ -282,7 +282,7 @@ body {
 						top: 2.68em;
 						width: 6.78em;
 						height: 1em;
-						background-image: url(/TatheredEdge.png);
+						background-image: url(/Resources/TatheredEdge.png);
 						background-repeat: no-repeat;
 						background-position: top left;
 						background-size: 100% auto;

@@ -141,7 +141,7 @@
 		$scope.selectedObjective = 'bn1';
 
 		var updateSelectedInfo = function() {
-			$scope.selectedObjectImageUrl = '/Blank.png';
+			$scope.selectedObjectImageUrl = '/Resources/Blank.png';
 
 			if (!$scope.buildingInfos) {
 				return;
@@ -156,11 +156,11 @@
 				if ($scope.selectedObjective == "baron") {
 					monsterType = "BARON_NASHOR";
 					$scope.selectedObjectName = "BaronNashor";
-					$scope.selectedObjectImageUrl = '/BaronNashor.png';
+					$scope.selectedObjectImageUrl = '/Resources/BaronNashor.png';
 				} else {
 					monsterType = "DRAGON";
 					$scope.selectedObjectName = "Dragon";
-					$scope.selectedObjectImageUrl = '/Dragon.png';
+					$scope.selectedObjectImageUrl = '/Resources/Dragon.png';
 				}
 
 				if ($scope.eliteMonsterInfo) {
