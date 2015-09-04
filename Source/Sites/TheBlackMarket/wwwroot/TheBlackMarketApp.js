@@ -1681,7 +1681,10 @@
 	TheBlackMarketAppModule.controller('HomeLinkController', ['$scope', 'audioService', function($scope, audioService) {
 		$scope.playGoHomeSound = function() {
 			if (audioService.playSounds) {
-				audioService.playSound('/Sounds/newSounds/koto4.mp3');
+				audioService.playSound({
+					url: '/Sounds/newSounds/koto4.mp3',
+					attentuation: 0.25
+				});
 			}
 		};
 	}]);
