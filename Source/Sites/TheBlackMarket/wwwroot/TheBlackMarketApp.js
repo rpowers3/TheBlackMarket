@@ -728,8 +728,8 @@
 	// The service for playing audio
 	TheBlackMarketAppModule.service('audioService', ['$rootScope', 'localStorageService', function($rootScope, localStorageService) {
 		var defaultSoundsVolume = 0.5;
-		var defaultChampionSoundsVolume = 0.5;
-		var defaultMusicVolume = 0.25;
+		var defaultChampionSoundsVolume = 0.3;
+		var defaultMusicVolume = 0.1;
 
 		var initialTrack = '/Music/GangplankLoginMusic.mp3';
 		var fadeDuration = 2000;
