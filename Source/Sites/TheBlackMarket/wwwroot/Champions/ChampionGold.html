@@ -5,23 +5,23 @@
 		<div class="champion-stats-container champion-info-gold">
 			<div class="champion-stats-header">
 				<img src="/Gold.png" />
-				<span>Gold</span>
+				<span>{{'Gold' | translate}}</span>
 			</div>
 
 			<div class="champion-stats-group">
-				<span class="champion-stats-group-header">Earned</span>
+				<span class="champion-stats-group-header">{{'Earned' | translate}}</span>
 
 				<table class="champion-grid champion-grid-with-sparklines champion-grid-highlight-rows">
 					<thead>
 						<tr>
 							<th></th>
-							<th colspan="2">All Games</th>
-							<th colspan="2">Won Games</th>
+							<th colspan="2">{{'AllGames' | translate}}</th>
+							<th colspan="2">{{'WonGames' | translate}}</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-show="showAllStats">
-							<td class="champion-stat">Min</td>
+							<td class="champion-stat">{{'Min' | translate}}</td>
 							<td>{{championStats.goldEarnedMin | number:2}}</td>
 							<td class="champion-stat-sparkline">
 								<nvd3-sparkline-chart data="charts.goldEarnedMin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -36,7 +36,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="champion-stat">Average</td>
+							<td class="champion-stat">{{'Average' | translate}}</td>
 							<td>{{championStats.goldEarnedAvg | number:2}}</td>
 							<td class="champion-stat-sparkline">
 								<nvd3-sparkline-chart data="charts.goldEarnedAvg" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -51,7 +51,7 @@
 							</td>
 						</tr>
 						<tr ng-show="showAllStats">
-							<td class="champion-stat">Max</td>
+							<td class="champion-stat">{{'Max' | translate}}</td>
 							<td>{{championStats.goldEarnedMax | number:2}}</td>
 							<td class="champion-stat-sparkline">
 								<nvd3-sparkline-chart data="charts.goldEarnedMax" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -66,7 +66,7 @@
 							</td>
 						</tr>
 						<tr ng-show="showAllStats">
-							<td class="champion-stat">Total</td>
+							<td class="champion-stat">{{'Total' | translate}}</td>
 							<td>{{championStats.goldEarnedSum | number:2}}</td>
 							<td class="champion-stat-sparkline">
 								<nvd3-sparkline-chart data="charts.goldEarnedSum" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -87,19 +87,19 @@
 			<br /><br />
 
 			<div class="champion-stats-group">
-				<span class="champion-stats-group-header">Spent</span>
+				<span class="champion-stats-group-header">{{'Spent' | translate}}</span>
 
 				<table class="champion-grid champion-grid-with-sparklines champion-grid-highlight-rows">
 					<thead>
 						<tr>
 							<th></th>
-							<th colspan="2">All Games</th>
-							<th colspan="2">Won Games</th>
+							<th colspan="2">{{'AllGames' | translate}}</th>
+							<th colspan="2">{{'WonGames' | translate}}</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-show="showAllStats">
-							<td class="champion-stat">Min</td>
+							<td class="champion-stat">{{'Min' | translate}}</td>
 							<td>{{championStats.goldSpentMin | number:2}}</td>
 							<td class="champion-stat-sparkline">
 								<nvd3-sparkline-chart data="charts.goldSpentMin" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -114,7 +114,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="champion-stat">Average</td>
+							<td class="champion-stat">{{'Average' | translate}}</td>
 							<td>{{championStats.goldSpentAvg | number:2}}</td>
 							<td class="champion-stat-sparkline">
 								<nvd3-sparkline-chart data="charts.goldSpentAvg" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -129,7 +129,7 @@
 							</td>
 						</tr>
 						<tr ng-show="showAllStats">
-							<td class="champion-stat">Max</td>
+							<td class="champion-stat">{{'Max' | translate}}</td>
 							<td>{{championStats.goldSpentMax | number:2}}</td>
 							<td class="champion-stat-sparkline">
 								<nvd3-sparkline-chart data="charts.goldSpentMax" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -144,7 +144,7 @@
 							</td>
 						</tr>
 						<tr ng-show="showAllStats">
-							<td class="champion-stat">Total</td>
+							<td class="champion-stat">{{'Total' | translate}}</td>
 							<td>{{championStats.goldSpentSum | number:2}}</td>
 							<td class="champion-stat-sparkline">
 								<nvd3-sparkline-chart data="charts.goldSpentSum" width="80" height="15" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">

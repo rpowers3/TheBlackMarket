@@ -5,11 +5,11 @@
 		<div class="champion-stats-container champion-info-items champion-info-items-summary">
 			<div class="champion-stats-header">
 				<img src="/Store.png" />
-				<span>Items</span>
+				<span>{{'Items' | translate}}</span>
 			</div>
 
 			<div class="champion-stats-group">
-				<span class="champion-stats-group-header">Top Winning Items (weighted by pick rate)</span>
+				<span class="champion-stats-group-header">{{'TopWinningItems' | translate}}</span>
 				<div class="champion-items-top">
 					<a class="champion-item-tile"
 					   tooltip="{{item.item.name}}"
@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="champion-stats-group">
-				<span class="champion-stats-group-header">Top Bought Items</span>
+				<span class="champion-stats-group-header">{{'MostBoughtItems' | translate}}</span>
 				<div class="champion-items-top">
 					<a class="champion-item-tile"
 					   tooltip="{{item.item.name}}"
@@ -61,18 +61,18 @@
 
 		<div class="champion-stats-container champion-info-items champion-info-items-allitems">
 			<div class="champion-stats-group">
-				<span class="champion-stats-group-header">All Items</span>
+				<span class="champion-stats-group-header">{{'AllItems' | translate}}</span>
 
 				<div class="tbmc-filter-bar">
 					<div class="tbmc-sorting">
 						<div class="tbmc-sorting">
 							<div class="btn-group">
-								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'timesUsed'">Times Purchased</label>
-								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'timesWon'">Times Won</label>
-								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'winRate'">Win Rate</label>
-								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'weightedWinRate'">Weighted Win Rate</label>
-								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'pickRate'">Pick Rate</label>
-								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'winPickRate'">Winning Pick Rate</label>
+								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'timesUsed'">{{'TimesPurchased' | translate}}</label>
+								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'timesWon'">{{'TimesWon' | translate}}</label>
+								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'winRate'">{{'WinRate' | translate}}</label>
+								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'weightedWinRate'">{{'WeightedWinRate' | translate}}</label>
+								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'pickRate'">{{'PickRate' | translate}}</label>
+								<label class="btn btn-primary tbmc-filter" ng-model="itemsSortProperty" btn-radio="'winPickRate'">{{'WinningPickRate' | translate}}</label>
 							</div>
 
 							<div class="btn-group">

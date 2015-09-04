@@ -25,6 +25,8 @@
 		<script src="Libraries/angular-route/angular-route.min.js"></script>
 		<script src="Libraries/angular-local-storage/dist/angular-local-storage.min.js"></script>
 		<script src="Libraries/angular-sanitize/angular-sanitize.min.js"></script>
+		<script src="Libraries/angular-translate/angular-translate.min.js"></script>
+		<script src="Libraries/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 		<script src="Libraries/videogular/videogular.js"></script>
 		<script src="Libraries/angularjs-slider/dist/rzslider.min.js"></script>
 		
@@ -49,15 +51,15 @@
 		<header>
 			<a href="/#/" ng-click="playGoHomeSound()" ng-controller="HomeLinkController">
 				<div class="title">
-					<h1>The Black Market</h1>
-					<h2>Runeterra's source for insider information.</h2>
+					<h1>{{'Title' | translate}}</h1>
+					<h2>{{'SubTitle' | translate}}</h2>
 				</div>
 			</a>
 
 			<div class="filters" ng-controller="FilterController">
 				<div class="filter-group">
 					<div class="filter-header">
-						Region
+						{{'Region' | translate}}
 					</div>
 					<div class="region-filter btn-group">
 						<label class="btn btn-success regionFilter" ng-model="selectedRegion" ng-click="playSelectionSound()" btn-radio="'ALL'">ALL</label>
@@ -76,25 +78,14 @@
 
 				<div class="filter-group">
 					<div class="filter-header">
-						Team
+						{{'Team' | translate}}
 					</div>
 					<div class="team-filter btn-group">
-						<label class="btn btn-success bothTeams" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Both'">Both</label>
-						<label class="btn btn-success blueTeam" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Blue'">Blue</label>
-						<label class="btn btn-success redTeam" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Red'">Red</label>
+						<label class="btn btn-success bothTeams" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Both'">{{'Both' | translate}}</label>
+						<label class="btn btn-success blueTeam" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Blue'">{{'Blue' | translate}}</label>
+						<label class="btn btn-success redTeam" ng-model="selectedTeam" ng-click="playSelectionSound()" btn-radio="'Red'">{{'Red' | translate}}</label>
 					</div>
 				</div>
-
-				<!--<div class="filter-group">
-					<div class="filter-header">
-						All Stats
-					</div>
-					<div class="all-stats-filter">
-						<button type="button" class="btn btn-primary all-stats-filter" ng-model="showAllStats" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
-							All Stats
-						</button>
-					</div>
-				</div>-->
 			</div>
 		</header>
 
@@ -112,7 +103,7 @@
 							<div class="section-branch"></div>
 							<div class="section-flag" ng-style="{'background-image': 'url(' + section.flag +')'}"></div>
 							<div class="section-title">
-								<span>{{section.name}}</span>
+								<span>{{section.name | translate}}</span>
 							</div>
 							<div class="section-bottomedge"></div>
 						</div>
@@ -123,27 +114,27 @@
 			<div class="settings" ng-controller="SettingsController">
 				<div class="settings-audio">
 					<div class="settings-audio-slider settings-sound">
-						<div class="settings-audio-mute-toggle" ng-click="toggleSounds()" tooltip-placement="right" tooltip="Toggle Sounds">
-							<img src="Sound.png" />
-							<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playSounds}" />
+						<div class="settings-audio-mute-toggle" ng-click="toggleSounds()" tooltip-placement="right" tooltip="{{'ToggleSounds' | translate}}">
+							<img src="/Resources/Sound.png" />
+							<img src="/Resources/Disabled.png" class="disabled-overlay" ng-class="{'visible': !playSounds}" />
 						</div>
 						<div class="settings-audio-rzslider">
 							<rzslider rz-slider-model="currentSoundsVolume" rz-slider-floor="0" rz-slider-ceil="100" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true"></rzslider>
 						</div>
 					</div>
 					<div class="settings-audio-slider settings-sound">
-						<div class="settings-audio-mute-toggle" ng-click="toggleChampionSounds()" tooltip-placement="right" tooltip="Toggle Champion Sounds">
-							<img src="Sound.png" />
-							<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playChampionSounds}" />
+						<div class="settings-audio-mute-toggle" ng-click="toggleChampionSounds()" tooltip-placement="right" tooltip="{{'ToggleChampionVocies' | translate}}">
+							<img src="/Resources/Sound.png" />
+							<img src="/Resources/Disabled.png" class="disabled-overlay" ng-class="{'visible': !playChampionSounds}" />
 						</div>
 						<div class="settings-audio-rzslider">
 							<rzslider rz-slider-model="currentChampionSoundsVolume" rz-slider-floor="0" rz-slider-ceil="100" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true"></rzslider>
 						</div>
 					</div>
 					<div class="settings-audio-slider settings-sound">
-						<div class="settings-audio-mute-toggle" ng-click="toggleMusic()" tooltip-placement="right" tooltip="Toggle Music">
-							<img src="Music.png" />
-							<img src="Disabled.png" class="disabled-overlay" ng-class="{'visible': !playMusic}" />
+						<div class="settings-audio-mute-toggle" ng-click="toggleMusic()" tooltip-placement="right" tooltip="{{'ToggleMusic' | translate}}">
+							<img src="/Resources/Music.png" />
+							<img src="/Resources/Disabled.png" class="disabled-overlay" ng-class="{'visible': !playMusic}" />
 						</div>
 						<div class="settings-audio-rzslider">
 							<rzslider rz-slider-model="currentMusicVolume" rz-slider-floor="0" rz-slider-ceil="100" rz-slider-hide-limit-labels="true" rz-slider-always-show-bar="true"></rzslider>
@@ -152,7 +143,7 @@
 				</div>
 
 				<a href="/#/about" ng-click="playSelectionSound()" ng-controller="HomeLinkController">
-					<img src="/About.png"/>
+					<img src="/Resources/About.png"/>
 				</a>
 			</div>
 		</aside>
@@ -162,7 +153,7 @@
 		</div>
 
 		<div class="footer">
-			The Black Market isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+			{{'Disclaimer' | translate}}
 		</div>
 
 		<script>

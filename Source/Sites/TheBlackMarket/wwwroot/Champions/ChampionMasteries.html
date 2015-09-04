@@ -6,7 +6,7 @@
 			<div class="champion-stats-container champion-info-masteries">
 				<div class="champion-stats-header">
 					<img src="/Masteries.png" />
-					<span>Masteries</span>
+					<span>{{'Masteries' | translate}}</span>
 				</div>
 			</div>
 
@@ -19,7 +19,7 @@
 
 					<div ng-repeat="rank in activeMasteryInfo.ranks">
 						<div class="champion-info-mastery-rank">
-							Rank {{$index + 1}}
+							{{'Rank' | translate}} {{$index + 1}}
 						</div>
 
 						<progress>
@@ -31,11 +31,11 @@
 
 						<table class="champion-grid champion-grid-with-sparklines">
 							<tr>
-								<td class="champion-stat">Wins / Plays (Win Rate)</td>
+								<td class="champion-stat">{{'WinsPlaysWinRate' | translate}}</td>
 								<td>{{rank.timesWon | number}} / {{rank.timesUsed | number}} ({{rank.winRate | percentage:2}})</td>
 							</tr>
 							<tr>
-								<td class="champion-stat">Winning Pick Rate / Pick Rate</td>
+								<td class="champion-stat">{{'WinningPickRatePickRate' | translate}}</td>
 								<td>{{rank.pickWinRate | percentage:2}} / {{rank.pickRate | percentage:2}}</td>
 							</tr>
 						</table>

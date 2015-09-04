@@ -5,14 +5,14 @@
 				<span></span>
 			</button>
 
-			<input type="text" placeholder="Item search..." ng-model="nameFilter" typeahead="item for item in itemNames | filter:$viewValue | limitTo:8" class="form-control">
+			<input type="text" placeholder="{{'ItemSearch' | translate}}" ng-model="nameFilter" typeahead="item for item in itemNames | filter:$viewValue | limitTo:8" class="form-control">
 
 			<br />
 
 			<div class="tbm-sorting">
 				<div class="btn-group">
-					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'name'">Name</label>
-					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'gold.total'">Price</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'name'">{{'Name' | translate}}</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'gold.total'">{{'Price' | translate}}</label>
 				</div>
 
 				<div class="btn-group">
@@ -23,31 +23,31 @@
 		</div>
 
 		<div class="tbm-type-filter">
-			<div><checkbox ng-model="filter.health"></checkbox>Health</div>
-			<div><checkbox ng-model="filter.healthRegen"></checkbox>Health Regen</div>
-			<div><checkbox ng-model="filter.armor"></checkbox>Armor</div>
-			<div><checkbox ng-model="filter.magicResist"></checkbox>Magic Resist</div>
-			<div><checkbox ng-model="filter.tenacity"></checkbox>Tenacity</div>
+			<div><checkbox ng-model="filter.health"></checkbox>{{'Health' | translate}}</div>
+			<div><checkbox ng-model="filter.healthRegen"></checkbox>{{'HealthRegen' | translate}}</div>
+			<div><checkbox ng-model="filter.armor"></checkbox>{{'Armor' | translate}}</div>
+			<div><checkbox ng-model="filter.magicResist"></checkbox>{{'MagicResist' | translate}}</div>
+			<div><checkbox ng-model="filter.tenacity"></checkbox>{{'Tenacity' | translate}}</div>
 		</div>
 
 		<div class="tbm-type-filter">
-			<div><checkbox ng-model="filter.damage"></checkbox>Damage</div>
-			<div><checkbox ng-model="filter.criticalStrike"></checkbox>Critical Strike</div>
-			<div><checkbox ng-model="filter.attackSpeed"></checkbox>Attack Speed</div>
-			<div><checkbox ng-model="filter.lifeSteal"></checkbox>Life Steal</div>
+			<div><checkbox ng-model="filter.damage"></checkbox>{{'Damage' | translate}}</div>
+			<div><checkbox ng-model="filter.criticalStrike"></checkbox>{{'CriticalStrike' | translate}}</div>
+			<div><checkbox ng-model="filter.attackSpeed"></checkbox>{{'AttackSpeed' | translate}}</div>
+			<div><checkbox ng-model="filter.lifeSteal"></checkbox>{{'LifeSteal' | translate}}</div>
 		</div>
 
 		<div class="tbm-type-filter">
-			<div><checkbox ng-model="filter.abilityPower"></checkbox>Ability Power</div>
-			<div><checkbox ng-model="filter.cooldownReduction"></checkbox>Cooldown Reduction</div>
-			<div><checkbox ng-model="filter.spellVamp"></checkbox>Spell Vamp</div>
-			<div><checkbox ng-model="filter.mana"></checkbox>Mana</div>
-			<div><checkbox ng-model="filter.manaRegen"></checkbox>Mana Regen</div>
+			<div><checkbox ng-model="filter.abilityPower"></checkbox>{{'AbilityPower' | translate}}</div>
+			<div><checkbox ng-model="filter.cooldownReduction"></checkbox>{{'CooldownReduction' | translate}}</div>
+			<div><checkbox ng-model="filter.spellVamp"></checkbox>{{'SpellVamp' | translate}}</div>
+			<div><checkbox ng-model="filter.mana"></checkbox>{{'Mana' | translate}}</div>
+			<div><checkbox ng-model="filter.manaRegen"></checkbox>{{'ManaRegen' | translate}}</div>
 		</div>
 
 		<div class="tbm-type-filter">
-			<div><checkbox ng-model="filter.boots"></checkbox>Boots</div>
-			<div><checkbox ng-model="filter.otherMovementItems"></checkbox>Other Movement Items</div>
+			<div><checkbox ng-model="filter.boots"></checkbox>{{'Boots' | translate}}</div>
+			<div><checkbox ng-model="filter.otherMovementItems"></checkbox>{{'OtherMovementItems' | translate}}</div>
 		</div>
 	</div>
 

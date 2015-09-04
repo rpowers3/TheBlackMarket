@@ -8,6 +8,7 @@
 		'nvd3ChartDirectives',
 		'LocalStorageModule',
 		'rzModule',
+		'pascalprecht.translate',
 		'TheBlackMarketSite',
 		'Brawlers',
 		'Champions',
@@ -16,7 +17,7 @@
 		'Objectives',
 		'Rivalries']);
 
-	TheBlackMarketAppModule.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
+	TheBlackMarketAppModule.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider', function($routeProvider, $translateProvider, localStorageServiceProvider) {
 		// Configure local storage so site settings can be saved.
 		localStorageServiceProvider
 			.setPrefix('TheBlackMarket')
@@ -33,6 +34,13 @@
 			.otherwise({
 				redirectTo: '/'
 			});
+
+		$translateProvider.useStaticFilesLoader({
+			prefix: 'Localization/Resources.',
+			suffix: '.json'
+		});
+
+		$translateProvider.preferredLanguage('en_US');
 	}]);
 
 	TheBlackMarketAppModule.run(['$rootScope', '$window', '$location', function($rootScope, $window, $location) {

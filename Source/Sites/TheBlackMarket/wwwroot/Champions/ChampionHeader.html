@@ -20,10 +20,10 @@
 		<h1>{{champion.name}}</h1>
 		<h2>{{champion.title}}</h2>
 		<div class="champion-site-options">
-			<div class="champion-splash-skin-reroll" ng-click="rerollSkin()" tooltip="Reroll Skin">
+			<div class="champion-splash-skin-reroll" ng-click="rerollSkin()" tooltip="{{'RerollSkin' | translate}}">
 				<img src="/Champions/Reroll.png" />
 			</div>
-			<div class="champion-splash-set-site-track" ng-click="setSiteTrack()" tooltip="Set Site Track" ng-if="isNotSiteTrack">
+			<div class="champion-splash-set-site-track" ng-click="setSiteTrack()" tooltip="{{'SetSiteSong' | translate}}" ng-if="isNotSiteTrack">
 				<img src="/Champions/MakeSiteSong.png" />
 			</div>
 		</div>

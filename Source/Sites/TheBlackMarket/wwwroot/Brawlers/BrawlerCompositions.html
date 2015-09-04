@@ -7,10 +7,10 @@
 		<div class="tbm-sorting">
 			<div class="tbm-sorting">
 				<div class="btn-group">
-					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'timesPlayed'">Times Played</label>
-					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'timesWon'">Wins</label>
-					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'winRate'">Win Rate</label>
-					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'weightedWinRate'">Weighted Win Rate</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'timesPlayed'">{{'TimesPlayed' | translate}}</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'timesWon'">{{'Wins' | translate}}</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'winRate'">{{'WinRate' | translate}}</label>
+					<label class="btn btn-primary tbm-filter" ng-model="sortProperty" btn-radio="'weightedWinRate'">{{'WeightedWinRate' | translate}}</label>
 				</div>
 
 				<div class="btn-group">
@@ -33,9 +33,9 @@
 				</div>
 
 				<div class="brawler-group-info">
-					<span class="brawler-group-info-label">Times Played:</span>
+					<span class="brawler-group-info-label">{{'TimesPlayed' | translate}}:</span>
 					<span>{{brawlerGroup.timesPlayed}}</span>
-					<span class="brawler-group-info-label">Wins:</span>
+					<span class="brawler-group-info-label">{{'Wins' | translate}}:</span>
 					<span>{{brawlerGroup.timesWon}}</span>
 
 					<progress>

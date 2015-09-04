@@ -419,8 +419,10 @@ div.champion-list {
 			height: 13em;
 			overflow: hidden;
 
-			.tooltip {
-				width: 25em;
+			.champion-stats-group-header {
+				.tooltip {
+					width: 25em;
+				}
 			}
 		}
 

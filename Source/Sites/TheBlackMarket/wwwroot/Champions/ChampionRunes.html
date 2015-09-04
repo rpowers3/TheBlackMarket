@@ -6,24 +6,24 @@
 			<div class="champion-stats-container champion-info-runes">
 				<div class="champion-stats-header">
 					<img src="/Runes.png" />
-					<span>Runes</span>
+					<span>{{'Runes' | translate}}</span>
 				</div>
 			</div>
 
 			<div class="champion-stats-container champion-info-runes-filters">
-				<input type="text" class="champion-info-rune-filter-name" placeholder="Rune search..." ng-model="nameFilter">
+				<input type="text" class="champion-info-rune-filter-name" placeholder="{{'RuneSearch' | translate}}" ng-model="nameFilter">
 
 				<div class="btn-group">
-					<label tooltip="Tier 1" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="1">1</label>
-					<label tooltip="Tier 2" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="2">2</label>
-					<label tooltip="Tier 3" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="3">3</label>
+					<label tooltip="{{'Tier1' | translate}}" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="1">1</label>
+					<label tooltip="{{'Tier2' | translate}}" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="2">2</label>
+					<label tooltip="{{'Tier3' | translate}}" class="btn btn-primary tbm-filter tbm-tier" ng-model="filterTier" btn-radio="3">3</label>
 				</div>
 
 				<div class="btn-group">
-					<label tooltip="Mark" class="btn btn-primary tbm-filter tbm-mark" ng-model="filterType" btn-radio="'red'"></label>
-					<label tooltip="Seal" class="btn btn-primary tbm-filter tbm-seal" ng-model="filterType" btn-radio="'yellow'"></label>
-					<label tooltip="Glyphs" class="btn btn-primary tbm-filter tbm-glyph" ng-model="filterType" btn-radio="'blue'"></label>
-					<label tooltip="Quintessence" class="btn btn-primary tbm-filter tbm-quint" ng-model="filterType" btn-radio="'black'"></label>
+					<label tooltip="{{'Marks' | translate}}" class="btn btn-primary tbm-filter tbm-mark" ng-model="filterType" btn-radio="'red'"></label>
+					<label tooltip="{{'Seals' | translate}}" class="btn btn-primary tbm-filter tbm-seal" ng-model="filterType" btn-radio="'yellow'"></label>
+					<label tooltip="{{'Glyphs' | translate}}" class="btn btn-primary tbm-filter tbm-glyph" ng-model="filterType" btn-radio="'blue'"></label>
+					<label tooltip="{{'Quintessence' | translate}}" class="btn btn-primary tbm-filter tbm-quint" ng-model="filterType" btn-radio="'black'"></label>
 				</div>
 			</div>
 
@@ -46,11 +46,11 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>Used</th>
-						<th>Wins</th>
-						<th>Win Rate</th>
-						<th>Pick Rate</th>
-						<th>Win Pick Rate</th>
+						<th>{{'Used' | translate}}</th>
+						<th>{{'Wins' | translate}}</th>
+						<th>{{'WinRate' | translate}}</th>
+						<th>{{'PickRate' | translate}}</th>
+						<th>{{'WinningPickRate' | translate}}</th>
 					</tr>
 				</thead>
 				<tbody>

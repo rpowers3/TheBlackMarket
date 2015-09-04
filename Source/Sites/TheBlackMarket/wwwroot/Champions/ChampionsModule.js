@@ -1407,112 +1407,112 @@
 		bn1: {
 			lane: 'MID_LANE',
 			type: 'NEXUS_TURRET',
-			name: 'Nexus Turret'
+			name: 'NexusTurret'
 		},
 		bn2: {
 			lane: 'MID_LANE',
 			type: 'NEXUS_TURRET',
-			name: 'Nexus Turret'
+			name: 'NexusTurret'
 		},
 		rn1: {
 			lane: 'MID_LANE',
 			type: 'NEXUS_TURRET',
-			name: 'Nexus Turret'
+			name: 'NexusTurret'
 		},
 		rn2: {
 			lane: 'MID_LANE',
 			type: 'NEXUS_TURRET',
-			name: 'Nexus Turret'
+			name: 'NexusTurret'
 		},
 		btb: {
 			lane: 'TOP_LANE',
 			type: 'BASE_TURRET',
-			name: 'Top Base Turret'
+			name: 'TopInhibitorTurret'
 		},
 		rtb: {
 			lane: 'TOP_LANE',
 			type: 'BASE_TURRET',
-			name: 'Top Base Turret'
+			name: 'TopInhibitorTurret'
 		},
 		bti: {
 			lane: 'TOP_LANE',
 			type: 'INNER_TURRET',
-			name: 'Top Inner Turret'
+			name: 'TopInnerTurret'
 		},
 		rti: {
 			lane: 'TOP_LANE',
 			type: 'INNER_TURRET',
-			name: 'Top Inner Turret'
+			name: 'TopInnerTurret'
 		},
 		bto: {
 			lane: 'TOP_LANE',
 			type: 'OUTER_TURRET',
-			name: 'Top Outer Turret'
+			name: 'TopOuterTurret'
 		},
 		rto: {
 			lane: 'TOP_LANE',
 			type: 'OUTER_TURRET',
-			name: 'Top Outer Turret'
+			name: 'TopOuterTurret'
 		},
 		bmb: {
 			lane: 'MID_LANE',
 			type: 'BASE_TURRET',
-			name: 'Mid Base Turret'
+			name: 'MidInhibitorTurret'
 		},
 		rmb: {
 			lane: 'MID_LANE',
 			type: 'BASE_TURRET',
-			name: 'Middle Base Turret'
+			name: 'MidInhibitorTurret'
 		},
 		bmi: {
 			lane: 'MID_LANE',
 			type: 'INNER_TURRET',
-			name: 'Middle Inner Turret'
+			name: 'MidInnerTurret'
 		},
 		rmi: {
 			lane: 'MID_LANE',
 			type: 'INNER_TURRET',
-			name: 'Middle Inner Turret'
+			name: 'MidInnerTurret'
 		},
 		bmo: {
 			lane: 'MID_LANE',
 			type: 'OUTER_TURRET',
-			name: 'Middle Outer Turret'
+			name: 'MidOuterTurret'
 		},
 		rmo: {
 			lane: 'MID_LANE',
 			type: 'OUTER_TURRET',
-			name: 'Middle Outer Turret'
+			name: 'MidOuterTurret'
 		},
 		bbb: {
 			lane: 'BOT_LANE',
 			type: 'BASE_TURRET',
-			name: 'Bottom Base Turret'
+			name: 'BottomInhibitorTurret'
 		},
 		rbb: {
 			lane: 'BOT_LANE',
 			type: 'BASE_TURRET',
-			name: 'Bottom Base Turret'
+			name: 'BottomInhibitorTurret'
 		},
 		bbi: {
 			lane: 'BOT_LANE',
 			type: 'INNER_TURRET',
-			name: 'Bottom Inner Turret'
+			name: 'BottomInnerTurret'
 		},
 		rbi: {
 			lane: 'BOT_LANE',
 			type: 'INNER_TURRET',
-			name: 'Bottom Inner Turret'
+			name: 'BottomInnerTurret'
 		},
 		bbo: {
 			lane: 'BOT_LANE',
 			type: 'OUTER_TURRET',
-			name: 'Bottom Outer Turret'
+			name: 'BottomOuterTurret'
 		},
 		rbo: {
 			lane: 'BOT_LANE',
 			type: 'OUTER_TURRET',
-			name: 'Bottom Outer Turret'
+			name: 'BottomOuterTurret'
 		},
 	};
 
@@ -1551,7 +1551,7 @@
 
 				if ($scope.selectedObjective == "baron") {
 					monsterType = "BARON_NASHOR";
-					$scope.selectedObjectName = "Baron Nashor";
+					$scope.selectedObjectName = "BaronNashor";
 					$scope.selectedObjectImageUrl = '/BaronNashor.png';
 				} else {
 					monsterType = "DRAGON";

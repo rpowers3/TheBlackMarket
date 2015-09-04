@@ -3,7 +3,7 @@
 
 	<div class="champion-info">
 		<div class="champion-stats-container champion-info-overview">
-			<span class="champion-stats-group-header">Performance</span>
+			<span class="champion-stats-group-header">{{'Performance' | translate}}</span>
 			<div class="champion-stats-progress-bar">
 				<progress>
 					<bar ng-repeat="bar in winLoss track by $index" value="bar.value" type="{{bar.type}}">
@@ -18,7 +18,7 @@
 
 			<table class="champion-grid champion-grid-with-sparklines">
 				<tr>
-					<td class="champion-stat">Times Played</td>
+					<td class="champion-stat">{{'TimesPlayed' | translate}}</td>
 					<td>{{championStats.timesPlayed | number:0}}</td>
 					<td class="champion-stat-sparkline">
 						<nvd3-sparkline-chart data="charts.timesPlayed" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -27,7 +27,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="champion-stat">Wins</td>
+					<td class="champion-stat">{{'Wins' | translate}}</td>
 					<td>{{championStats.wins | number:0}}</td>
 					<td class="champion-stat-sparkline">
 						<nvd3-sparkline-chart data="charts.wins" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -39,16 +39,16 @@
 
 			<br />
 
-			<span class="champion-stats-group-header">Average Champion Level</span>
+			<span class="champion-stats-group-header">{{'AverageChampionLevel' | translate}}</span>
 			<div>
-				<span class="champion-stat-bar-caption">All Games</span>
+				<span class="champion-stat-bar-caption">{{'AllGames' | translate}}</span>
 				<progressbar value="championStats.champLevelAvg" max="18">
 					<span>{{championStats.champLevelAvg}}</span>
 				</progressbar>
 			</div>
 
 			<div>
-				<span class="champion-stat-bar-caption">Won Games</span>
+				<span class="champion-stat-bar-caption">{{'WonGames' | translate}}</span>
 				<progressbar value="championStats.champLevelAvgWin" max="18">
 					<span>{{championStats.champLevelAvgWin}}</span>
 				</progressbar>
@@ -58,7 +58,7 @@
 		<div class="champion-stats-container champion-summoner-spells">
 			<div class="champion-stats-group-header">
 				<img src="/SummonerSpells.png" />
-				<span tooltip="Sorted by weighted win rate. The weighted win rate is the raw win rate times the pick rate.">Summoner Spells</span>
+				<span tooltip="{{'SummonerSpellsTooltip' | translate}}">{{'SummonerSpells' | translate}}</span>
 			</div>
 			<div class="champion-summoner-spells-lists">
 				<div class="champion-summoner-spell-tile"

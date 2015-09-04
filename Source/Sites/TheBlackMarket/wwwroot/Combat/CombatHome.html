@@ -8,29 +8,29 @@
 		<div class="champion-stats-container champion-info-combat">
 			<div class="champion-stats-header">
 				<img src="/Combat.png" />
-				<span>Combat</span>
+				<span>{{'Combat' | translate}}</span>
 			</div>
 		</div>
 
 		<div class="champion-stats-container champion-info-combat-heat-maps">
 			<div class="champion-stats-group-header">
-				Heat Maps
+				{{'HeatMaps' | translate}}
 			</div>
 
 			<div class="heat-maps-unavailable" ng-if="dataUnavailable">
-				Heat map data for all regions is not available due to data size limitations during generation. Please narrow the filter down to view the heat maps.
+				{{'HeatMapUnavailable' | translate}}
 			</div>
 
 			<div class=" champion-info-combat-heat-map" ng-if="!dataUnavailable">
 				<div class="champion-stats-group-header">
 					<img src="/Kills.png" />
-					<span>Kills</span>
+					<span>{{'Kills' | translate}}</span>
 				</div>
 				<div class="champion-info-combat-heat-map-content">
 					<img ng-src="{{killshHeatMap}}" />
 
 					<div ng-if="isIE">
-						<a href="{{ieKillVideoUrl}}" target="_blank">Kill Map Video</a>
+						<a href="{{ieKillVideoUrl}}" target="_blank">{{'KillMapVideo' | translate}}</a>
 					</div>
 					<div ng-controller="DummyController" ng-if="!isIE">
 						<videogular vg-theme="videoTheme" vg-preload="none">
@@ -44,13 +44,13 @@
 			<div class="champion-info-combat-heat-map" ng-if="!dataUnavailable">
 				<div class="champion-stats-group-header">
 					<img src="/Deaths.png" />
-					<span>Deaths</span>
+					<span>{{'Deaths' | translate}}</span>
 				</div>
 				<div class="champion-info-combat-heat-map-content">
 					<img ng-src="{{deathHeatMap}}" />
 
 					<div ng-if="isIE">
-						<a href="{{ieDeathVideoUrl}}" target="_blank">Death Map Video</a>
+						<a href="{{ieDeathVideoUrl}}" target="_blank">{{'DeathMapVideos' | translate}}</a>
 					</div>
 					<div ng-controller="DummyController" ng-if="!isIE">
 						<videogular vg-theme="videoTheme" vg-preload="none">
@@ -67,21 +67,21 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th colspan="8">All Games</th>
+						<th colspan="8">{{'AllGames' | translate}}</th>
 						<th></th>
-						<th colspan="8">Won Games</th>
+						<th colspan="8">{{'WonGames' | translate}}</th>
 					</tr>
 				</thead>
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section">
-							General
+							{{'General' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">KDA</td>
+						<td class="champion-stat">{{'KDA' | translate}}</td>
 						<td colspan="8">
 							<progress>
 								<bar ng-repeat="bar in kdaBar track by $index" value="bar.normalizedValue" type="{{bar.type}}" tooltip="{{bar.title}}">
@@ -98,7 +98,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Multikills</td>
+						<td class="champion-stat">{{'Multikills' | translate}}</td>
 						<td colspan="8">
 							<progress>
 								<bar ng-repeat="bar in killBar track by $index" value="bar.normalizedValue" type="{{bar.type}}" tooltip="{{bar.title}}">
@@ -118,19 +118,19 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th colspan="2">Min</th>
-						<th colspan="2">Avg</th>
-						<th colspan="2">Max</th>
-						<th colspan="2">Total</th>
-						<th colspan="2">Min</th>
-						<th colspan="2">Avg</th>
-						<th colspan="2">Max</th>
-						<th colspan="2">Total</th>
+						<th colspan="2">{{'Min' | translate}}</th>
+						<th colspan="2">{{'Average' | translate}}</th>
+						<th colspan="2">{{'Max' | translate}}</th>
+						<th colspan="2">{{'Total' | translate}}</th>
+						<th colspan="2">{{'Min' | translate}}</th>
+						<th colspan="2">{{'Average' | translate}}</th>
+						<th colspan="2">{{'Max' | translate}}</th>
+						<th colspan="2">{{'Total' | translate}}</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">Kills</td>
+						<td class="champion-stat">{{'Kills' | translate}}</td>
 						<td>{{championStats.killsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.killsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -181,7 +181,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Assists</td>
+						<td class="champion-stat">{{'Assists' | translate}}</td>
 						<td>{{championStats.assistsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.assistsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -232,7 +232,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Deaths</td>
+						<td class="champion-stat">{{'Deaths' | translate}}</td>
 						<td>{{championStats.DeathsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.deathsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -283,7 +283,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Killing Sprees</td>
+						<td class="champion-stat">{{'KillingSprees' | translate}}</td>
 						<td>{{championStats.killingSpreesMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.killingSpreesMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -334,7 +334,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Largest Killing Spree</td>
+						<td class="champion-stat">{{'LargestKillingSpree' | translate}}</td>
 						<td>{{championStats.largestKillingSpreeMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.largestKillingSpreeMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -388,34 +388,34 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th colspan="2">Min</th>
-						<th colspan="2">Avg</th>
-						<th colspan="2">Max</th>
-						<th colspan="2">Total</th>
-						<th colspan="2">Min</th>
-						<th colspan="2">Avg</th>
-						<th colspan="2">Max</th>
-						<th colspan="2">Total</th>
+						<th colspan="2">{{'Min' | translate}}</th>
+						<th colspan="2">{{'Average' | translate}}</th>
+						<th colspan="2">{{'Max' | translate}}</th>
+						<th colspan="2">{{'Total' | translate}}</th>
+						<th colspan="2">{{'Min' | translate}}</th>
+						<th colspan="2">{{'Average' | translate}}</th>
+						<th colspan="2">{{'Max' | translate}}</th>
+						<th colspan="2">{{'Total' | translate}}</th>
 					</tr>
 				</thead>
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
 							<img src="/Kills.png" />
-							Damage Dealt
+							{{'DamageDealt' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
-							Total Dealt
+							{{'TotalDealt' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">Total</td>
+						<td class="champion-stat">{{'Total' | translate}}</td>
 						<td>{{championStats.totalDamageDealtMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.totalDamageDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -466,7 +466,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Magic</td>
+						<td class="champion-stat">{{'Magic' | translate}}</td>
 						<td>{{championStats.totalDamageDealtMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.magicDamageDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -517,7 +517,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Physical</td>
+						<td class="champion-stat">{{'Physical' | translate}}</td>
 						<td>{{championStats.totalDamageDealtMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.physicalDamageDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -568,7 +568,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">True</td>
+						<td class="champion-stat">{{'True' | translate}}</td>
 						<td>{{championStats.totalDamageDealtMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.trueDamageDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -622,13 +622,13 @@
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
-							Total Dealt to Champions
+							{{'TotalDealtToChampions' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">Total</td>
+						<td class="champion-stat">{{'Total' | translate}}</td>
 						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.totalDamageDealtToChampionsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -679,7 +679,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Magic</td>
+						<td class="champion-stat">{{'Magic' | translate}}</td>
 						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.magicDamageDealtToChampionsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -730,7 +730,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Physical</td>
+						<td class="champion-stat">{{'Physical' | translate}}</td>
 						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.physicalDamageDealtToChampionsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -781,7 +781,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">True</td>
+						<td class="champion-stat">{{'True' | translate}}</td>
 						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.trueDamageDealtToChampionsMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -835,13 +835,13 @@
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
-							Other Stats
+							{{'OtherStats' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">Largest Critical Strike</td>
+						<td class="champion-stat">{{'LargestCriticalStrike' | translate}}</td>
 						<td>{{championStats.largestCriticalStrikeMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.largestCriticalStrikeMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -892,7 +892,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Crowd Control Time</td>
+						<td class="champion-stat">{{'CrowdControlTime' | translate}}</td>
 						<td>{{championStats.totalTimeCrowdControlDealtMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.totalTimeCrowdControlDealtMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -946,27 +946,27 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th colspan="2">Min</th>
-						<th colspan="2">Avg</th>
-						<th colspan="2">Max</th>
-						<th colspan="2">Total</th>
-						<th colspan="2">Min</th>
-						<th colspan="2">Avg</th>
-						<th colspan="2">Max</th>
-						<th colspan="2">Total</th>
+						<th colspan="2">{{'Min' | translate}}</th>
+						<th colspan="2">{{'Average' | translate}}</th>
+						<th colspan="2">{{'Max' | translate}}</th>
+						<th colspan="2">{{'Total' | translate}}</th>
+						<th colspan="2">{{'Min' | translate}}</th>
+						<th colspan="2">{{'Average' | translate}}</th>
+						<th colspan="2">{{'Max' | translate}}</th>
+						<th colspan="2">{{'Total' | translate}}</th>
 					</tr>
 				</thead>
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
 							<img src="/Deaths.png" />
-							Damage Taken
+							{{'DamageTaken' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">Total</td>
+						<td class="champion-stat">{{'Total' | translate}}</td>
 						<td>{{championStats.totalDamageTakenMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.totalDamageTakenMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -1017,7 +1017,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Magic</td>
+						<td class="champion-stat">{{'Magic' | translate}}</td>
 						<td>{{championStats.totalDamageTakenMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.magicDamageTakenMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -1068,7 +1068,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Physical</td>
+						<td class="champion-stat">{{'Physical' | translate}}</td>
 						<td>{{championStats.totalDamageTakenMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.physicalDamageTakenMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -1122,27 +1122,27 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th colspan="2">Min</th>
-						<th colspan="2">Avg</th>
-						<th colspan="2">Max</th>
-						<th colspan="2">Total</th>
-						<th colspan="2">Min</th>
-						<th colspan="2">Avg</th>
-						<th colspan="2">Max</th>
-						<th colspan="2">Total</th>
+						<th colspan="2">{{'Min' | translate}}</th>
+						<th colspan="2">{{'Average' | translate}}</th>
+						<th colspan="2">{{'Max' | translate}}</th>
+						<th colspan="2">{{'Total' | translate}}</th>
+						<th colspan="2">{{'Min' | translate}}</th>
+						<th colspan="2">{{'Average' | translate}}</th>
+						<th colspan="2">{{'Max' | translate}}</th>
+						<th colspan="2">{{'Total' | translate}}</th>
 					</tr>
 				</thead>
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
 							<img src="/Healing.png" />
-							Healing Done
+							{{'HealingDone' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">Total Healing</td>
+						<td class="champion-stat">{{'TotalHealing' | translate}}</td>
 						<td>{{championStats.totalHealMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.totalHealMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -1193,7 +1193,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Total Units Healed</td>
+						<td class="champion-stat">{{'TotalUnitsHealed' | translate}}</td>
 						<td>{{championStats.totalDamageTakenMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.totalUnitsHealedMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -1248,20 +1248,20 @@
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-inner-section">
 							<img src="/Minions.png" />
-							Minion Stats
+							{{'MinionStats' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
-							Lane Minions
+							{{'LaneMinions' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">Kills</td>
+						<td class="champion-stat">{{'Kills' | translate}}</td>
 						<td>{{championStats.minionsKilledMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.minionsKilledMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -1315,13 +1315,13 @@
 				<thead>
 					<tr>
 						<th colspan="17" class="champion-stats-combat-table-section champion-stats-combat-table-sub-section">
-							Jungle Minions
+							{{'JungleMinions' | translate}}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="champion-stat">Kills</td>
+						<td class="champion-stat">{{'Kills' | translate}}</td>
 						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.neutralMinionsKilledMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -1372,7 +1372,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Own Jungle</td>
+						<td class="champion-stat">{{'TeamJungle' | translate}}</td>
 						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.neutralMinionsKilledTeamJunglesMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">
@@ -1423,7 +1423,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="champion-stat">Enemy Jungle</td>
+						<td class="champion-stat">{{'EnemyJungle' | translate}}</td>
 						<td>{{championStats.totalDamageDealtToChampionsMin | number:2}}</td>
 						<td class="champion-stat-sparkline">
 							<nvd3-sparkline-chart data="charts.neutralMinionsKilledEnemyJungleMin" margin="{left:0,top:0,right:0,bottom:0}" color="getSparkLineColor()" xtickformat="empty()" ytickformat="empty()">

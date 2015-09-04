@@ -5,14 +5,14 @@
 		<div class="champion-stats-container champion-info-rivalries">
 			<div class="champion-stats-header">
 				<img src="/Rivalries.png" />
-				<span>Rivalries</span>
+				<span>{{'Rivalries' | translate}}</span>
 			</div>
 		</div>
 
 		<div class="champion-stats-container champion-info-rivalries-list">
 			<span class="champion-stats-group-header">
 				<img src="/Kills.png" />
-				<span>Victims</span>
+				<span>{{'Victims' | translate}}</span>
 			</span>
 			<div class="champion-info-rivalries-victims">
 				<a class="champion-portrait-large"
@@ -32,8 +32,8 @@
 		<div class="champion-stats-container champion-info-rivalries-list">
 			<span class="champion-stats-group-header">
 				<img src="/Deaths.png" />
-				<span ng-if="champion.key == 114">Worthy Opponents</span>
-				<span ng-if="champion.key != 114">Nemesis</span>
+				<span ng-if="champion.key == 114">{{'WorthyOpponents' | translate}}</span>
+				<span ng-if="champion.key != 114">{{'Nemesis' | translate}}</span>
 			</span>
 			<div class="champion-info-rivalries-nemesis">
 				<a class="champion-portrait-large"

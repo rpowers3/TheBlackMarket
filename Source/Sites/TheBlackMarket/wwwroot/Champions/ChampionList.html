@@ -5,7 +5,7 @@
 				<span></span>
 			</button>
 
-			<input type="text" placeholder="Name search..." ng-model="nameFilter" typeahead="champion for champion in championNames | filter:$viewValue | limitTo:8" class="form-control">
+			<input type="text" placeholder="{{'NameSearch' | translate}}" ng-model="nameFilter" typeahead="champion for champion in championNames | filter:$viewValue | limitTo:8" class="form-control">
 		</div>
 
 		<div class="tbm-sorting">
@@ -18,15 +18,15 @@
 		</div>
 
 		<div class="tbm-type-filter">
-			<div><checkbox ng-model="filter.assassin"></checkbox>Assassin</div>
-			<div><checkbox ng-model="filter.fighter"></checkbox>Fighter</div>
-			<div><checkbox ng-model="filter.mage"></checkbox>Mage</div>
+			<div><checkbox ng-model="filter.assassin"></checkbox>{{'Assassin' | translate}}</div>
+			<div><checkbox ng-model="filter.fighter"></checkbox>{{'Fighter' | translate}}</div>
+			<div><checkbox ng-model="filter.mage"></checkbox>{{'Mage' | translate}}</div>
 		</div>
 
 		<div class="tbm-type-filter">
-			<div><checkbox ng-model="filter.marksman"></checkbox>Marksman</div>
-			<div><checkbox ng-model="filter.support"></checkbox>Support</div>
-			<div><checkbox ng-model="filter.tank"></checkbox>Tank</div>
+			<div><checkbox ng-model="filter.marksman"></checkbox>{{'Marksman' | translate}}</div>
+			<div><checkbox ng-model="filter.support"></checkbox>{{'Support' | translate}}</div>
+			<div><checkbox ng-model="filter.tank"></checkbox>{{'Tank' | translate}}</div>
 		</div>
 	</div>
 
