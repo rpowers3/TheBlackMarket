@@ -929,7 +929,9 @@
 
 			musicTrack.loops = -1;
 
-			musicTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
+			if (self.playMusic) {
+				musicTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
+			}
 
 			self.currentTrack = musicTrack;
 			self.musicTracks.push(musicTrack);
@@ -946,16 +948,16 @@
 
 			if (!self.currentTrackIsOverride) {
 				self.overridenTrack = self.currentTrack;
+				self.currentTrackIsOverride = true;
 
 				if (self.overridenTrack) {
 					// Take the overriden track out of the normal queue. It's
 					// going to be placed aside for now.
 					self.removeTrack(self.currentTrack);
 					self.overridenTrack.fadeVolumeTo(0, fadeDuration);
-					self.currentTrackIsOverride = true;
 					self.keepOverrideCheck = keepOverrideCheck;
 
-					audioLogger.logDebug("PlayTrackOverride: Overriding track: " + self.overridenTrack._src);
+					audioLogger.logDebug("PlayTrackOverride: Overriding track: " + self.overridenTrack.url);
 				}
 			}
 
@@ -970,7 +972,7 @@
 				return;
 			}
 
-			audioLogger.logDebug("PauseCurrentTrack: Pausing current track: " + currentTrack._src);
+			audioLogger.logDebug("PauseCurrentTrack: Pausing current track: " + currentTrack.url);
 			currentTrack.fadeVolumeTo(0, fadeDuration);
 		}
 
@@ -981,16 +983,14 @@
 				return;
 			}
 
-			audioLogger.logDebug("UnpauseCurrentTrack: Unpausing current track: " + currentTrack._src);
+			audioLogger.logDebug("UnpauseCurrentTrack: Unpausing current track: " + currentTrack.url);
 			currentTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
 		}
 
 		this.restoreTrack = function() {
-			if (!self.overridenTrack) {
+			if (!self.currentTrackIsOverride) {
 				return;
 			}
-
-			audioLogger.logDebug("RestoreTrack: Restoring overriding track: " + self.overridenTrack._src);
 
 			self.fadeOutAllTracks();
 
@@ -1000,10 +1000,17 @@
 			self.overrideTrackUrl = null;
 			self.currentTrackIsOverride = false;
 
-			self.musicTracks.push(self.currentTrack);
+			if (!self.currentTrack) {
+				audioLogger.logDebug("RestoreTrack: No overriding track. Initializing background track.");
+				self.initializeBackgroundTrack();
+			} else {
+				audioLogger.logDebug("RestoreTrack: Restoring overriding track: " + self.currentTrack.url);
 
-			if (self.playMusic) {
-				self.currentTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
+				self.musicTracks.push(self.currentTrack);
+
+				if (self.playMusic) {
+					self.currentTrack.fadeVolumeTo(self.currentMusicVolume, fadeDuration);
+				}
 			}
 		};
 
@@ -1011,7 +1018,7 @@
 			var index = self.musicTracks.indexOf(musicTrack);
 
 			if (index > -1) {
-				audioLogger.logDebug("RemoveTrack: Removing track: " + musicTrack._src);
+				audioLogger.logDebug("RemoveTrack: Removing track: " + musicTrack.url);
 				self.musicTracks.splice(index, 1);
 			}
 

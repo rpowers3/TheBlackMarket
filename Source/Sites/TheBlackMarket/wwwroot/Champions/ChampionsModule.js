@@ -492,17 +492,15 @@
 
 			//console.info("SKIN >>> " + skinIndex);
 
-			if (audioService.playMusic) {
-				this.activeChampionTrack = self.getChampionMusic(champion.key, skinIndex);
+			this.activeChampionTrack = self.getChampionMusic(champion.key, skinIndex);
 
-				if (this.activeChampionTrack) {
-					audioService.playTrackOverride(this.activeChampionTrack, isSameChampionPage);
-				} else {
-					audioService.restoreTrack();
-				}
-
-				self.isNotSiteTrack = (self.activeChampionTrack !== undefined) && (audioService.siteTrack != self.activeChampionTrack);
+			if (this.activeChampionTrack) {
+				audioService.playTrackOverride(this.activeChampionTrack, isSameChampionPage);
+			} else {
+				audioService.restoreTrack();
 			}
+
+			self.isNotSiteTrack = (self.activeChampionTrack !== undefined) && (audioService.siteTrack != self.activeChampionTrack);
 
 			self.activeChampionSkinIndex = skinIndex;
 			self.activeChampionSplashImageUrl = riotResourceService.baseSharedImageUrl + 'champion/splash/' + champion.id + '_' + skinIndex + '.jpg';

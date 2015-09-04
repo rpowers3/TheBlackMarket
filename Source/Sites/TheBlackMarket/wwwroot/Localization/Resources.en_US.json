@@ -62,7 +62,7 @@
 	"PickRate": "Pick Rate",
 	"WinningPickRate": "Winning Pick Rate",
 
-	"Skills": "SKills",
+	"Skills": "Skills",
 
 	"HeatMaps": "Heat Maps",
 	"HeatMapUnavailable": "Heat map data for all regions is not available due to data size limitations during generation. Please narrow the filter down to view the heat maps.",
