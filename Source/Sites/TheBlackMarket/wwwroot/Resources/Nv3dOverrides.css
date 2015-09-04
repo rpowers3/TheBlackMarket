@@ -1,8 +1,2 @@
-﻿svg text {
-    fill: white !important;
-}
-
-.nvd3.nv-pie .nv-slice text {
-  stroke: white !important;
-  stroke-width: 0;
-}
+svg text{fill:white !important}.nvd3.nv-pie .nv-slice text{stroke:white !important;stroke-width:0}
+/*# sourceMappingURL=Nv3dOverrides.css.map */
