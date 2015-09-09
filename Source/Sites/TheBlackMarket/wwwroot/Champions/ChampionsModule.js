@@ -969,6 +969,7 @@
 
 					// Time to restructure the data.
 					var itemInfo = [];
+					var itemLookup = {};
 
 					for (var i = 0; i < data.items.length; ++i) {
 						var winRate = data.timesWon[i] / data.timesUsed[i];
@@ -987,30 +988,37 @@
 							charts: []
 						};
 
-						(function(itemRecord) {
-							dataService.getDataAsync({
-								dataSource: 'ItemWinRatesOverTime',
-								championId: $scope.champion.key,
-								itemId: itemRecord.itemId
-							}).then(function(itemData) {
-								itemData.winRates = [];
-								itemData.pickRates = [];
-								itemData.winPickRates = [];
-
-								for (var j = 0; j < itemData.times.length; ++j) {
-									itemData.winRates.push(itemData.timesWon[j] / itemData.timesUsed[j]);
-									itemData.pickRates.push(itemData.timesUsed[j] / maxPlayed);
-									itemData.winPickRates.push(itemData.timesWon[j] / maxWins);
-								}
-
-								for (var key in itemData) {
-									itemRecord.charts[key] = championsService.buildChampionStatChartData(itemData, key);
-								}
-							});
-						})(itemRecord);
-
 						itemInfo.push(itemRecord);
+						itemLookup[itemRecord.itemId] = itemRecord;
 					}
+
+					dataService.getDataAsync({
+						dataSource: 'ItemWinRatesOverTime',
+						championId: $scope.champion.key
+					}).then(function(itemWinRatesOverTime) {
+						for (var i = 0; i < itemWinRatesOverTime.items.length; ++i) {
+							var itemData = itemWinRatesOverTime.items[i];
+							var itemRecord = itemLookup[itemData.itemId];
+
+							itemData.winRates = [];
+							itemData.pickRates = [];
+							itemData.winPickRates = [];
+
+							for (var j = 0; j < itemData.times.length; ++j) {
+								itemData.winRates.push(itemData.timesWon[j] / itemData.timesUsed[j]);
+								itemData.pickRates.push(itemData.timesUsed[j] / maxPlayed);
+								itemData.winPickRates.push(itemData.timesWon[j] / maxWins);
+							}
+
+							for (var key in itemData) {
+								if (key == "itemId") {
+									continue;
+								}
+
+								itemRecord.charts[key] = championsService.buildChampionStatChartData(itemData, key);
+							}
+						}
+					});
 
 					$scope.maxWins = maxWins;
 					$scope.maxPlayed = maxPlayed;

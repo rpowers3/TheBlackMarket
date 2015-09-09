@@ -204,6 +204,7 @@ div.champion-list {
 			@include no-user-select;
 			padding-left: 0.6em;
 			margin-left: 3em;
+			text-shadow: -1px -1px black, 1px -1px black, -1px 1px black, 1px 1px black;
 
 			h1 {
 				font-size: 36pt;

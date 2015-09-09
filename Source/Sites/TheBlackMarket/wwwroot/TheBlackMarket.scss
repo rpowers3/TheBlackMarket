@@ -300,10 +300,12 @@ body {
 			bottom: 0px;
 			width: 100%;
 			text-align: center;
-			margin-bottom: 1em;
+			padding-bottom: 1em;
+			background: linear-gradient(to left, rgb(6, 50, 68),rgb(13, 38, 57) 5%, rgb(6, 25, 40) 100%);
 
 			> a > img {
 				margin-top: 1em;
+				width: 2em;
 			}
 
 			> .settings-audio {
@@ -332,16 +334,16 @@ body {
 
 					> .settings-audio-rzslider {
 						position: absolute;
-						left: 6em;
-						top: -0.8em;
+						left: 5.5em;
+						top: -1.2em;
 						width: 13em;
 						bottom: 1em;
 
 						.rz-pointer {
-							top: -14px;
+							top: -10px;
 							z-index: 2;
-							width: 16px;
-							height: 32px;
+							width: 10px;
+							height: 24px;
 							cursor: pointer;
 							border-radius: 0em;
 							border: 1px solid rgba(0, 0, 0, 0.5);
@@ -374,11 +376,11 @@ body {
 
 					> div.settings-audio-mute-toggle {
 						position: relative;
-						margin-left: 1em;
+						margin-left: 1.5em;
 						margin-bottom: 1em;
-						width: 3em;
-						height: 3em;
-						line-height: 3em;
+						width: 2em;
+						height: 2em;
+						line-height: 2em;
 						display: block;
 						overflow: hidden;
 						vertical-align: middle;
