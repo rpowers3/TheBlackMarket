@@ -14,7 +14,7 @@
 		theBlackMarketSiteProvider.addSection({
 			path: "/brawlers",
 			name: "Brawlers",
-			flag: '/Brawlers/BrawlersFlag.png',
+			flag: '/Brawlers/BrawlersFlag.jpg',
 			image: '/Brawlers/BrawlersMenu.png'
 		});
 

@@ -19,7 +19,7 @@
 		theBlackMarketSiteProvider.addSection({
 			path: "/items",
 			name: "Items",
-			flag: '/Items/ItemsFlag.png',
+			flag: '/Items/ItemsFlag.jpg',
 			image: '/Items/ItemsMenu.png'
 		});
 

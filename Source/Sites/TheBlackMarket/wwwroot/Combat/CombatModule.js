@@ -7,7 +7,7 @@
 		theBlackMarketSiteProvider.addSection({
 			path: "/combat",
 			name: "Combat",
-			flag: '/Combat/CombatFlag.png',
+			flag: '/Combat/CombatFlag.jpg',
 			image: '/Combat/CombatMenu.png'
 		});
 

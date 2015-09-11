@@ -402,7 +402,7 @@
 		theBlackMarketSiteProvider.addSection({
 			path: "/champions",
 			name: "Champions",
-			flag: '/Champions/ChampionsFlag.png',
+			flag: '/Champions/ChampionsFlag.jpg',
 			image: '/Champions/ChampionsMenu.png'
 		});
 

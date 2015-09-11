@@ -7,7 +7,7 @@
 		theBlackMarketSiteProvider.addSection({
 			path: "/objectives",
 			name: "Objectives",
-			flag: '/Objectives/ObjectivesFlag.png',
+			flag: '/Objectives/ObjectivesFlag.jpg',
 			image: '/Objectives/ObjectivesMenu.png'
 		});
 
