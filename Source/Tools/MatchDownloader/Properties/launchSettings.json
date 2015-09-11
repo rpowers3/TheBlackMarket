@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "MatchDownloader": {
-      "commandName": "MatchDownloader",
-      "commandLineArgs": "-k c407dc55-6c7e-47e3-9ee3-5820711767cb -r BR -i \"G:\\Projects\\Riot Api Contest\\Data\\Source Data\\BILGEWATER\\BR.json\" -o \"G:\\Projects\\Riot Api Contest\\Data\\Matches\\BR\""
-    }
-  }
-}
