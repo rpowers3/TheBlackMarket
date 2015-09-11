@@ -503,7 +503,7 @@
 			self.isNotSiteTrack = (self.activeChampionTrack !== undefined) && (audioService.siteTrack != self.activeChampionTrack);
 
 			self.activeChampionSkinIndex = skinIndex;
-			self.activeChampionSplashImageUrl = riotResourceService.baseSharedImageUrl + 'champion/splash/' + champion.id + '_' + skinIndex + '.jpg';
+			self.activeChampionSplashImageUrl = riotResourceService.baseSharedImageUrl + 'champion/splash/' + champion.id + '_' + skinInfo.num + '.jpg';
 
 			$rootScope.$broadcast('championsService.SkinChanged', {
 				skinIndex: self.activeChampionSkinIndex,
