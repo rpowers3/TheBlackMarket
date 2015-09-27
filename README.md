@@ -1,6 +1,6 @@
 # TheBlackMarket
 
-This project was created by Rodney (KearinDragon) Powers and Tom (Agihor) Allen.
+This project was created by KearinDragon and Agihor.
 
 Live site: [The Black Market](http://bilgewater.org)
 
